@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Staying in control of an AI that doesn't stop, Almira</title>
+<meta name="description" content="Designing notification, hand-off, and ambient-state behaviours for an AI product where the dominant user concern is autonomy." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+<style>
+  /* ============ TOKENS ============ */
+  :root {
+    --paper:   #FBF9F3;
+    --paper-2: #F0EBDD;
+    --ink:     #2C2A28;
+    --ink-soft:#79736A;
+    --pink:    #EA5F82;
+    --pink-deep:#C0395C;
+    --rule:    rgba(44,42,40,0.16);
+    --font: "Inter", system-ui, sans-serif;
+    --w: 200;
+    --ease: cubic-bezier(0.23, 1, 0.32, 1);
+    --shell: 1280px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--font); font-weight: var(--w);
+    font-size: 18px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a, p, h1, h2, h3, h4, div, span, li, ol { font-weight: var(--w); }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--pink); color: var(--paper); }
+  @media (hover: hover) and (pointer: fine) { body, a, button { cursor: none; } }
+  .shell { max-width: var(--shell); margin: 0 auto; padding: 0 56px; }
+  .label {
+    font-size: .7rem; text-transform: uppercase;
+    letter-spacing: .19em; color: var(--ink-soft);
+  }
+
+  /* ============ CURSOR ============ */
+  .cursor {
+    position: fixed; top: 0; left: 0; width: 22px; height: 22px;
+    border: 1px solid var(--pink); border-radius: 50%;
+    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+    transition: width .22s var(--ease), height .22s var(--ease), background-color .22s var(--ease);
+  }
+  .cursor.hot { width: 54px; height: 54px; background: rgba(234,95,130,.12); }
+  .cursor-dot {
+    position: fixed; top: 0; left: 0; width: 4px; height: 4px;
+    background: var(--pink-deep); border-radius: 50%;
+    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+  }
+  @media (hover: none),(pointer: coarse) { .cursor,.cursor-dot { display: none; } }
+
+  /* ============ READING PROGRESS ============ */
+  .progress {
+    position: fixed; top: 0; left: 0; height: 2px; width: 0%;
+    background: var(--pink); z-index: 500;
+    transition: width .1s linear;
+  }
+
+  /* ============ TOP BAR ============ */
+  .bar {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 26px 0 18px; border-bottom: 1px solid var(--rule);
+  }
+  .back { font-size: .76rem; text-transform: uppercase; letter-spacing: .15em; }
+  .back .ar { color: var(--pink-deep); margin-right: 7px; }
+  .back:hover { color: var(--pink-deep); }
+  .wordmark { font-size: 1.2rem; letter-spacing: -.02em; }
+  .wordmark .mark {
+    display: inline-block; width: 6px; height: 6px;
+    background: var(--pink); border-radius: 50%; margin-left: 3px;
+  }
+
+  /* ============ CASE HEADER ============ */
+  .cs-header { padding: 76px 0 48px; }
+  .cs-header .eyebrow { margin-bottom: 26px; }
+  .cs-title {
+    font-size: clamp(2.2rem, 4.7vw, 3.7rem);
+    line-height: 1.06; letter-spacing: -.035em; max-width: 18ch;
+  }
+  .cs-title em { font-style: normal; color: var(--pink-deep); }
+  .cs-header .dek {
+    margin-top: 26px; max-width: 56ch;
+    color: var(--ink-soft); font-size: 1.05rem;
+  }
+  .cs-header .nda {
+    display: block; margin-top: 14px; font-size: .82rem;
+    color: var(--ink-soft); max-width: 56ch;
+  }
+
+  /* ============ PLATE / FIGURE BASE ============ */
+  .plate {
+    background: var(--paper-2); border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .plate .g { width: 30px; height: 30px; border: 1px solid var(--ink-soft); }
+  .hero-plate { aspect-ratio: 16 / 7; margin-bottom: 8px; }
+  .cap { font-size: .72rem; color: var(--ink-soft); letter-spacing: .04em; }
+
+  /* ============ HERO: animated ambient-strip demo ============ */
+  .ambient-demo .frame {
+    aspect-ratio: 16 / 7;
+    background: var(--paper);
+    border: 1px solid var(--rule); border-radius: 8px;
+    overflow: hidden; position: relative;
+  }
+  .strip {
+    height: 38px; border-bottom: 1px solid var(--rule);
+    display: flex; align-items: center; padding: 0 18px;
+    gap: 14px; background: rgba(44,42,40,0.025);
+    position: relative;
+  }
+  .strip .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--ink-soft);
+    animation: dotpulse 7s ease-in-out infinite;
+  }
+  .strip .meta {
+    font-size: .58rem; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .strip .line { flex: 1; height: 1px; background: var(--rule); }
+  .strip .notif {
+    position: absolute; right: 16px; top: 50%;
+    transform: translate(20px, -50%);
+    display: flex; align-items: center; gap: 9px;
+    background: var(--paper); border: 1px solid var(--rule);
+    border-radius: 2px; padding: 6px 11px;
+    font-size: .6rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0;
+    animation: notifcycle 7s var(--ease) infinite;
+  }
+  .strip .notif .ndot { width: 5px; height: 5px; border-radius: 50%; background: var(--pink); }
+  @keyframes dotpulse {
+    0%, 26%   { background: var(--ink-soft); transform: scale(1); }
+    32%, 58%  { background: var(--pink); transform: scale(1.18); }
+    66%, 100% { background: var(--ink-soft); transform: scale(1); }
+  }
+  @keyframes notifcycle {
+    0%, 26%   { opacity: 0; transform: translate(20px, -50%); }
+    34%, 58%  { opacity: 1; transform: translate(0, -50%); }
+    70%, 100% { opacity: 0; transform: translate(-8px, -50%); }
+  }
+  .frame-body {
+    padding: 26px 22px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .frame-body .l {
+    height: 6px; background: var(--rule); border-radius: 2px;
+  }
+  .frame-body .l:nth-child(1) { width: 78%; }
+  .frame-body .l:nth-child(2) { width: 56%; }
+  .frame-body .l:nth-child(3) { width: 68%; }
+  .frame-body .l:nth-child(4) { width: 48%; }
+
+  /* ============ Solution 02: agents-as-colleagues feed mock ============ */
+  .feed-demo .feed-frame {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 16px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .feed-card {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .feed-card .avatar {
+    width: 28px; height: 28px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .76rem; color: var(--ink-soft);
+    flex-shrink: 0;
+  }
+  .feed-card .feed-body { flex: 1; min-width: 0; }
+  .feed-card .feed-line {
+    font-size: .92rem; color: var(--ink); line-height: 1.45;
+  }
+  .feed-card .feed-line strong { font-weight: 400; color: var(--pink-deep); }
+  .feed-card .pill {
+    display: inline-block; font-size: .58rem;
+    text-transform: uppercase; letter-spacing: .14em;
+    color: var(--ink-soft);
+    border: 1px solid var(--rule); border-radius: 2px;
+    padding: 2px 7px; margin-left: 6px;
+    vertical-align: middle;
+  }
+  .feed-card .feed-sub {
+    margin-top: 4px; font-size: .82rem; color: var(--ink-soft);
+  }
+
+  /* ============ Solution 01: ambient-strip state diagram ============ */
+  .state-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;
+    padding: 22px; background: var(--paper-2);
+    border: 1px solid var(--rule); border-radius: 8px;
+  }
+  .state-row .state { display: flex; flex-direction: column; gap: 12px; }
+  .state-row .well {
+    background: var(--paper); border: 1px solid var(--rule);
+    border-radius: 4px; height: 42px;
+    display: flex; align-items: center; padding: 0 12px; gap: 10px;
+  }
+  .state-row .well.suppressed { justify-content: center; padding: 0; }
+  .state-row .sdot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--ink-soft); flex-shrink: 0;
+  }
+  .state-row .sdot.pulse { background: var(--pink); }
+  .state-row .smeta {
+    font-size: .54rem; text-transform: uppercase; letter-spacing: .14em;
+    color: var(--ink-soft);
+  }
+  .state-row .sline { flex: 1; height: 1px; background: var(--rule); }
+  .state-row .schip {
+    background: var(--paper); border: 1px solid var(--rule);
+    border-radius: 2px; padding: 4px 7px;
+    font-size: .52rem; text-transform: uppercase; letter-spacing: .12em;
+    color: var(--ink); display: flex; align-items: center; gap: 5px;
+    white-space: nowrap;
+  }
+  .state-row .schip .sndot {
+    width: 4px; height: 4px; border-radius: 50%; background: var(--pink);
+  }
+  .state-row .label-mini {
+    font-size: .64rem; text-transform: uppercase; letter-spacing: .14em;
+    color: var(--ink-soft); text-align: center;
+  }
+  @media (max-width: 720px) {
+    .state-row { grid-template-columns: 1fr; }
+  }
+
+  /* ============ Pink-rule insight callout ============ */
+  .insight {
+    border-left: 2px solid var(--pink);
+    padding: 6px 0 6px 24px; margin: 30px 0;
+  }
+  .insight .k { margin-bottom: 10px; }
+  .insight p { margin: 0; font-size: 1.1rem; max-width: 56ch; line-height: 1.5; }
+  .insight p em { font-style: normal; color: var(--pink-deep); }
+
+  /* ============ Branching diagram: one event, many surfaces ============ */
+  .bd-frame {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 28px;
+  }
+  .bd-root {
+    display: flex; align-items: center; gap: 14px;
+    justify-content: center; padding-bottom: 4px;
+  }
+  .bd-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--pink);
+  }
+  .bd-root-label {
+    font-size: .68rem; text-transform: uppercase; letter-spacing: .19em;
+    color: var(--pink-deep);
+  }
+  .bd-stem {
+    width: 1px; height: 20px; background: var(--rule);
+    margin: 0 auto;
+  }
+  .bd-rule {
+    border: 0; height: 1px; background: var(--rule);
+    margin: 0 0 22px;
+  }
+  .bd-fan { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .bd-channel {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .bd-channel-label {
+    font-size: .6rem; text-transform: uppercase; letter-spacing: .15em;
+    color: var(--pink-deep); margin-bottom: 12px;
+  }
+  .bd-surfaces { list-style: none; padding: 0; margin: 0; }
+  .bd-surfaces li {
+    font-size: .82rem; color: var(--ink);
+    padding: 6px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .bd-surfaces li:first-child { border-top: none; padding-top: 0; }
+  @media (max-width: 720px) {
+    .bd-fan { grid-template-columns: 1fr 1fr; gap: 10px; }
+  }
+
+  /* ============ Cross-surface diagram (Solution 3) ============ */
+  .diagram { width: 100%; height: auto; aspect-ratio: 16 / 7;
+    background: var(--paper-2); border: 1px solid var(--rule); border-radius: 8px;
+    padding: 28px; display: block; }
+  .diagram .ink-line { stroke: var(--ink-soft); fill: none; stroke-width: 1.4; }
+  .diagram .pink-line { stroke: var(--pink); fill: none; stroke-width: 1.6; stroke-linecap: round; }
+  .diagram text { font-family: var(--font); font-weight: var(--w);
+    fill: var(--ink-soft); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+  .diagram text.body { font-size: 11px; letter-spacing: 0; text-transform: none; fill: var(--ink); }
+
+  /* ============ LAYOUT (TOC + article) ============ */
+  .layout {
+    display: grid; grid-template-columns: 200px 1fr; gap: 72px;
+    padding-top: 64px; padding-bottom: 96px;
+  }
+  .toc { position: sticky; top: 44px; align-self: start; }
+  .toc .label { margin-bottom: 18px; }
+  .toc ol { list-style: none; }
+  .toc li { margin-bottom: 2px; }
+  .toc a {
+    display: flex; align-items: center; gap: 12px;
+    padding: 7px 0; font-size: .9rem; color: var(--ink-soft);
+    transition: color .25s var(--ease);
+  }
+  .toc a .tick { width: 16px; height: 1px; background: var(--rule);
+    transition: width .25s var(--ease), background-color .25s var(--ease);
+    flex-shrink: 0; }
+  .toc a .n { font-size: .7rem; font-variant-numeric: tabular-nums;
+    color: var(--ink-soft); width: 1.2em; }
+  .toc a:hover { color: var(--ink); }
+  .toc a.active { color: var(--ink); }
+  .toc a.active .tick { width: 28px; background: var(--pink); }
+  .toc a.active .n { color: var(--pink-deep); }
+
+  /* ============ ARTICLE ============ */
+  .article { min-width: 0; }
+  .cs-sec { scroll-margin-top: 36px; padding-bottom: 84px; }
+  .sec-tag { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .sec-tag::before { content: ""; width: 22px; height: 1px; background: var(--pink); }
+  .cs-sec h2 {
+    font-size: clamp(1.55rem, 2.5vw, 2.1rem);
+    letter-spacing: -.028em; line-height: 1.12; margin-bottom: 22px;
+  }
+  .cs-sec h2 em { font-style: normal; color: var(--pink-deep); }
+  .cs-sec p { max-width: 64ch; margin-bottom: 18px; color: var(--ink); }
+  .cs-sec p.muted { color: var(--ink-soft); }
+  .cs-sec p em { font-style: normal; color: var(--pink-deep); }
+
+  .facts {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    margin: 30px 0 8px; padding: 26px 0;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  .facts .k { margin-bottom: 8px; }
+  .facts .v { font-size: .95rem; line-height: 1.5; }
+
+  .callout {
+    font-size: clamp(1.3rem, 2.3vw, 1.85rem);
+    line-height: 1.4; letter-spacing: -.018em;
+    max-width: 28ch; margin: 6px 0 18px;
+  }
+  .callout em { font-style: normal; color: var(--pink-deep); }
+  .callout.tight { max-width: 24ch; }
+
+  .tldr { border-top: 1px solid var(--rule); }
+  .tldr .part {
+    display: grid; grid-template-columns: 150px 1fr; gap: 28px;
+    padding: 24px 0; border-bottom: 1px solid var(--rule);
+  }
+  .tldr .part .k { padding-top: 3px; }
+  .tldr .part p { margin: 0; max-width: 56ch; }
+
+  /* principles */
+  .principles { border-top: 1px solid var(--rule); margin-top: 24px; }
+  .pr {
+    display: grid; grid-template-columns: 36px 1fr; gap: 24px;
+    padding: 22px 0; border-bottom: 1px solid var(--rule);
+  }
+  .pr .pn {
+    font-variant-numeric: tabular-nums; color: var(--pink-deep);
+    font-size: .82rem; padding-top: 3px;
+  }
+  .pr h3 {
+    font-size: 1.18rem; letter-spacing: -.015em; line-height: 1.25;
+    margin-bottom: 6px;
+  }
+  .pr p { margin: 0; max-width: 60ch; color: var(--ink-soft); font-size: .98rem; }
+
+  /* solution moments */
+  .moment { margin-bottom: 44px; }
+  .moment h3 {
+    font-size: 1.18rem; letter-spacing: -.012em; margin: 30px 0 10px;
+  }
+  .moment p { color: var(--ink); max-width: 64ch; }
+  .moment p.muted { color: var(--ink-soft); }
+
+  figure { margin: 24px 0 4px; }
+  figure .cap { display: block; margin-top: 10px; }
+
+  /* learnings two-col */
+  .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .cols2 h3 { margin-top: 0; font-size: 1.04rem; }
+  .cols2 p { margin-bottom: 0; max-width: 48ch; }
+
+  /* ============ FOOTER ============ */
+  footer { border-top: 1px solid var(--ink); }
+  .next {
+    display: block; padding: 60px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .next .label { margin-bottom: 14px; }
+  .next .nt {
+    font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -.03em;
+    display: inline;
+    background-image: linear-gradient(var(--pink), var(--pink));
+    background-size: 0% 1px; background-position: 0 1.12em;
+    background-repeat: no-repeat;
+    transition: background-size .34s var(--ease);
+  }
+  .next:hover .nt { background-size: 100% 1px; }
+  .next .nt .ar { color: var(--pink-deep); }
+  .colophon {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+    padding: 30px 0 40px;
+  }
+  .colophon .links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .colophon a { font-size: .8rem; }
+  .colophon a:hover { color: var(--pink-deep); }
+  .colophon .set { font-size: .72rem; color: var(--ink-soft); }
+
+  /* ============ REVEAL ============ */
+  .rv { opacity: 0; transform: translateY(14px);
+        transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  .rv.in { opacity: 1; transform: none; }
+
+  .proto-note {
+    position: fixed; bottom: 14px; right: 14px; z-index: 600;
+    background: var(--ink); color: var(--paper);
+    font-size: .68rem; letter-spacing: .05em;
+    padding: 7px 13px; border-radius: 999px; opacity: .82;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    .shell { padding: 0 30px; }
+    .layout { grid-template-columns: 1fr; gap: 0; padding-top: 36px; }
+    .toc { position: static; margin-bottom: 48px;
+      padding-bottom: 24px; border-bottom: 1px solid var(--rule); }
+    .toc ol { display: flex; flex-wrap: wrap; gap: 4px 22px; }
+    .toc a .tick { display: none; }
+    .facts { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .tldr .part { grid-template-columns: 1fr; gap: 8px; }
+    .cols2 { grid-template-columns: 1fr; gap: 22px; }
+  }
+  @media (max-width: 560px) {
+    .shell { padding: 0 20px; }
+    .cs-header { padding: 48px 0 32px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rv { opacity: 1 !important; transform: none !important; transition: none; }
+    .cursor, .toc a, .toc a .tick, .next .nt { transition: none !important; }
+    .strip .notif { animation: none !important; opacity: 1; transform: translate(0,-50%); }
+    .strip .dot { animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" id="dot" aria-hidden="true"></div>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header>
+  <div class="shell">
+    <div class="bar">
+      <a href="../index.html" class="back"><span class="ar">&larr;</span>Selected Work</a>
+      <a href="../index.html" class="wordmark">Almira<span class="mark"></span></a>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <div class="cs-header">
+    <div class="eyebrow label rv">Case study 01, Brim, 2025 onwards</div>
+    <h1 class="cs-title rv">Staying in control of an AI that doesn't <em>stop</em>.</h1>
+    <p class="dek rv">How I designed the notification, hand-off, and ambient-state experience for an AI product, across in-product surfaces and the desktop app.</p>
+    <span class="nda rv">Specific product surfaces are abstracted under NDA. What follows is the thinking and the patterns rather than the product itself.</span>
+  </div>
+
+  <!-- Hero, animated ambient-strip demo (placeholder for a real MP4 recording) -->
+  <figure class="rv ambient-demo">
+    <div class="frame">
+      <div class="strip">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="meta">Ambient activity</span>
+        <span class="line"></span>
+        <span class="notif"><span class="ndot"></span>A pattern surfaced, worth a look</span>
+      </div>
+      <div class="frame-body" aria-hidden="true">
+        <span class="l"></span><span class="l"></span><span class="l"></span><span class="l"></span>
+      </div>
+    </div>
+    <figcaption class="cap">An ambient layer at the top of the product, quiet by default, with the occasional arrival. (Animated mock; surfaces abstracted.)</figcaption>
+  </figure>
+</div>
+
+<div class="shell">
+  <div class="layout">
+
+    <!-- ===== STICKY TABLE OF CONTENTS ===== -->
+    <aside class="toc">
+      <div class="label">Contents</div>
+      <nav>
+        <ol>
+          <li><a href="#overview" data-toc><span class="n">01</span><span class="tick"></span>Overview</a></li>
+          <li><a href="#tldr" data-toc><span class="n">02</span><span class="tick"></span>TL;DR</a></li>
+          <li><a href="#problem" data-toc><span class="n">03</span><span class="tick"></span>Problem</a></li>
+          <li><a href="#research" data-toc><span class="n">04</span><span class="tick"></span>Research</a></li>
+          <li><a href="#principles" data-toc><span class="n">05</span><span class="tick"></span>Principles</a></li>
+          <li><a href="#solution" data-toc><span class="n">06</span><span class="tick"></span>Solution</a></li>
+          <li><a href="#learnings" data-toc><span class="n">07</span><span class="tick"></span>Learnings</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <!-- ===== ARTICLE ===== -->
+    <article class="article">
+
+      <section class="cs-sec" id="overview">
+        <div class="sec-tag label rv">01 &middot; Overview</div>
+        <h2 class="rv">Overview</h2>
+        <p class="rv">At Brim I lead the design of how the product communicates with people. In practice that means notifications, approvals, ambient state, and the desktop app. Brim itself is an AI system that helps mid-sized businesses own their specific intelligence, which is to say the way their company actually works and the patterns that make it good at what it does.</p>
+        <p class="rv">The most interesting part of this work, for me, has been the gap between what the AI does in the background and what the user actually feels is happening. This case study is about how I came to believe most of the design work was really about keeping the human in control of that gap.</p>
+        <div class="facts rv">
+          <div><div class="k label">Role</div><div class="v">AI Product Designer</div></div>
+          <div><div class="k label">Timeline</div><div class="v">2025 to present</div></div>
+          <div><div class="k label">Team</div><div class="v">Founder, engineering, product</div></div>
+          <div><div class="k label">Did</div><div class="v">IxD, system design, research, frontend</div></div>
+        </div>
+        <p class="rv" style="margin-top:26px;">Outcome</p>
+        <div class="callout rv">A coherent notification and ambient-state language now shipped across <em>50+</em> product surfaces and the desktop app.</div>
+      </section>
+
+      <section class="cs-sec" id="tldr">
+        <div class="sec-tag label rv">02 &middot; TL;DR</div>
+        <h2 class="rv">TL;DR</h2>
+        <p class="muted rv">For the recruiter who skims, the whole story in three lines.</p>
+        <div class="tldr rv">
+          <div class="part">
+            <div class="k label">The challenge</div>
+            <p>Across roughly 100 user interviews, the loudest concern people had about AI was about being replaced. They kept asking whether AI would take over their job, and whether it would do everything for them without asking first. Security and compliance handle the data side of that. What I was working on was the layer that sits on top of it, where the user actually feels whether they're in control.</p>
+          </div>
+          <div class="part">
+            <div class="k label">What I did</div>
+            <p>Defined a small set of interaction principles around quiet ambient presence, intentional interruption, inspectability of every action, and human-in-the-loop wherever the consequence is high. Then I worked with engineering to ship those principles across in-product surfaces and the desktop app, so the same logic carries through wherever the user encounters the product.</p>
+          </div>
+          <div class="part">
+            <div class="k label">The outcome</div>
+            <p>A consistent notification and ambient-state language now lives across 50+ surfaces. The product is judged by what it handles without bothering anyone, and no consequential action ever ships without a person saying yes to it first.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-sec" id="problem">
+        <div class="sec-tag label rv">03 &middot; Problem</div>
+        <h2 class="rv">The problem</h2>
+        <div class="callout tight rv">From roughly 100 user interviews, the fear surfaced again and again: <em>&ldquo;Will AI just take over my job? Will it do everything for me?&rdquo;</em></div>
+        <p class="muted rv">Most concerns about AI get framed as concerns about data, and that makes sense. Security and compliance handle that layer through work like SOC&nbsp;2, audit, and data residency. What I was working on sits on top of that, in the experience layer, where the user actually feels whether they're in control. The interface is where data security gets expressed back to the user, where the abstract guarantee becomes something they can see and trust.</p>
+        <p class="muted rv">People weren't only asking whether their information was safe. They were also asking whether they were still needed once the AI was running things in the background. That kind of fear is something only the interface can answer, which means a single notification component won't do. It has to be a whole <em>system of behaviours</em>, designed around keeping the human at the centre.</p>
+      </section>
+
+      <section class="cs-sec" id="research">
+        <div class="sec-tag label rv">04 &middot; Research</div>
+        <h2 class="rv">Research</h2>
+        <p class="rv">The signal came up over and over again. Across interviews with operators, managers, and executives, the dominant fear was about replacement. People wanted to know whether they were still needed once the AI was running things on their behalf. Underneath that bigger question, more specific worries started to cluster: <em>what data is it using, what is it doing right now, when will it ask me, what happens if it gets something wrong, and can I see what it did?</em></p>
+        <div class="insight rv">
+          <div class="k label">From the interviews</div>
+          <p>[ Real anonymised quote to drop in here, Almira. Something that captures the moment a user described losing trust in an AI tool, or the moment they realised they wanted to stay in the loop. ]</p>
+        </div>
+        <figure class="rv">
+          <div class="plate" style="aspect-ratio: 16/8;"><div class="g" aria-hidden="true"></div></div>
+          <figcaption class="cap">Friction-point map drawn from the interviews, anonymised. Most friction clustered around moments where the AI moved before the user felt ready.</figcaption>
+        </figure>
+        <p class="rv">I also ran a research programme with 40+ people inside the team, watching how they actually moved through the product. Trust came from visibility and control, not from polished output. Friction came from the AI acting just before the user felt ready, even when it acted correctly. That detail informed a lot of what I designed afterwards.</p>
+      </section>
+
+      <section class="cs-sec" id="principles">
+        <div class="sec-tag label rv">05 &middot; Principles</div>
+        <h2 class="rv">Principles</h2>
+        <p class="muted rv">Five principles that direct how every surface is designed. Together they describe how the system behaves and earns trust.</p>
+        <div class="principles rv">
+
+          <div class="pr">
+            <div class="pn">01</div>
+            <div>
+              <h3>The human has the final say.</h3>
+              <p>Every consequential action waits for a human yes. The AI can prepare, propose, and queue things up, but it does not commit on its own. This is the load-bearing rule I kept coming back to, and the other principles all descend from it.</p>
+            </div>
+          </div>
+
+          <div class="pr">
+            <div class="pn">02</div>
+            <div>
+              <h3>Agents post like colleagues, not systems that message.</h3>
+              <p>Every action that surfaces is attributed to a named agent, with an avatar and a name, like a teammate posting in Slack. The user reads the activity the way they'd read a team feed. Framing the agents as colleagues is one of the design moves I'm most proud of, because it answers the replacement fear in the most direct way I had available.</p>
+            </div>
+          </div>
+
+          <div class="pr">
+            <div class="pn">03</div>
+            <div>
+              <h3>Trust is verified, not told.</h3>
+              <p>Every action carries a source, a reason, a confidence number, and a timestamp. The user can open any moment and see what happened, and why. Trust comes from being able to look at the work itself, rather than from being told it's fine.</p>
+            </div>
+          </div>
+
+          <div class="pr">
+            <div class="pn">04</div>
+            <div>
+              <h3>Quiet by default; honest when the system needs you.</h3>
+              <p>The ambient layer holds steady when nothing requires attention. When an action genuinely needs the human and hasn't been picked up, the system says so directly, with something like <em>&ldquo;You haven't weighed in on this yet, so I'm bringing it back up.&rdquo;</em> I wanted that honesty to feel like a colleague being upfront with you.</p>
+            </div>
+          </div>
+
+          <div class="pr">
+            <div class="pn">05</div>
+            <div>
+              <h3>One event, one truth, every surface.</h3>
+              <p>A single event renders across many surfaces: in-product, the desktop, and email. The discipline is that they all carry the same title, the same severity, and the same source. What the user saw on the lock screen is what they see when they open the app a minute later.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="cs-sec" id="solution">
+        <div class="sec-tag label rv">06 &middot; Solution</div>
+        <h2 class="rv">The solution</h2>
+        <p class="rv">The five principles together produce a system of behaviours rather than a single notification component. Three of those behaviours are worth showing here.</p>
+
+        <div class="moment">
+          <h3 class="rv">01 &middot; The ambient layer</h3>
+          <p class="muted rv">A thin persistent presence at the top of the product, streaming what the system is doing in real time. It pulses gently when something arrives, holds quietly when nothing does, and collapses to a single mark when the user wants the volume turned down. The system keeps working in the background, and the user gets to control how much they hear about it. I imagined this as the kind of background hum a person would feel rather than read.</p>
+          <figure class="rv">
+            <div class="state-row">
+              <div class="state">
+                <div class="well">
+                  <span class="sdot"></span>
+                  <span class="smeta">Ambient activity</span>
+                  <span class="sline"></span>
+                </div>
+                <span class="label-mini">Quiet by default</span>
+              </div>
+              <div class="state">
+                <div class="well">
+                  <span class="sdot pulse"></span>
+                  <span class="smeta">Ambient activity</span>
+                  <span class="sline"></span>
+                  <span class="schip"><span class="sndot"></span>A pattern surfaced</span>
+                </div>
+                <span class="label-mini">A brief arrival</span>
+              </div>
+              <div class="state">
+                <div class="well suppressed">
+                  <span class="sdot"></span>
+                </div>
+                <span class="label-mini">Suppressed</span>
+              </div>
+            </div>
+            <figcaption class="cap">The three states the ambient strip moves between: quiet by default, a brief pulse on arrival, and collapsed to a single mark when the user wants the volume turned all the way down. The animated mock at the top of this page shows the transition between the first two.</figcaption>
+          </figure>
+        </div>
+
+        <div class="moment">
+          <h3 class="rv">02 &middot; Agents as colleagues</h3>
+          <p class="muted rv">Most AI products surface activity as system notifications, with copy along the lines of <em>&ldquo;Your invoice was processed.&rdquo;</em> That puts the AI in front of the user, and quietly reinforces the fear. I designed the activity stream as a feed of colleagues instead. Every action is attributed to a named agent with an avatar, like a teammate posting in Slack. The user becomes the manager of the team rather than a recipient of notifications, and that small shift changes how the whole product reads.</p>
+          <figure class="rv feed-demo">
+            <div class="feed-frame">
+              <div class="feed-card">
+                <div class="avatar">A</div>
+                <div class="feed-body">
+                  <div class="feed-line"><strong>Agent A</strong> &middot; drafted Tuesday's post <span class="pill">awaiting review</span></div>
+                  <div class="feed-sub">Tone match 96%, ready when you are.</div>
+                </div>
+              </div>
+              <div class="feed-card">
+                <div class="avatar">B</div>
+                <div class="feed-body">
+                  <div class="feed-line"><strong>Agent B</strong> &middot; caught a competitor mention <span class="pill">held for you</span></div>
+                  <div class="feed-sub">You haven't weighed in on this yet, so I'm bringing it back up.</div>
+                </div>
+              </div>
+              <div class="feed-card">
+                <div class="avatar">C</div>
+                <div class="feed-body">
+                  <div class="feed-line"><strong>Agent C</strong> &middot; resumed yesterday's run <span class="pill">complete</span></div>
+                  <div class="feed-sub">12 items processed cleanly.</div>
+                </div>
+              </div>
+            </div>
+            <figcaption class="cap">The activity stream as a team feed and a real-time log: every action is attributed to a named agent, and stays in the stream so the user can scroll back through what each one has been doing. (Anonymised mock.)</figcaption>
+          </figure>
+        </div>
+
+        <div class="moment">
+          <h3 class="rv">03 &middot; Cross-surface continuity</h3>
+          <p class="muted rv">When the user is outside the product, like in a different tool or away from their machine, the same logic carries through. The desktop notification holds the same voice as the in-product surface, hands off without losing context, and stays an ambient note instead of an alarm. Trust really does break the moment a notification on the lock screen disagrees with what's in the app.</p>
+          <p class="muted rv">In practice, a single attention event in this product can show up across roughly ten different surfaces. Each one has a different tier of attention, a different density, and a different shape. What ties them together is the discipline that the title, the severity, and the source stay coherent everywhere they appear.</p>
+          <figure class="rv">
+            <div class="bd-frame">
+              <div class="bd-root">
+                <span class="bd-dot" aria-hidden="true"></span>
+                <span class="bd-root-label">One event</span>
+              </div>
+              <div class="bd-stem" aria-hidden="true"></div>
+              <hr class="bd-rule" aria-hidden="true" />
+              <div class="bd-fan">
+                <div class="bd-channel">
+                  <div class="bd-channel-label">In-product</div>
+                  <ul class="bd-surfaces">
+                    <li>Thread card</li>
+                    <li>Side panel step</li>
+                    <li>Cover banner</li>
+                    <li>Activity feed</li>
+                    <li>Inbox bell</li>
+                  </ul>
+                </div>
+                <div class="bd-channel">
+                  <div class="bd-channel-label">Desktop</div>
+                  <ul class="bd-surfaces">
+                    <li>OS push</li>
+                    <li>In-app toast</li>
+                  </ul>
+                </div>
+                <div class="bd-channel">
+                  <div class="bd-channel-label">Email</div>
+                  <ul class="bd-surfaces">
+                    <li>Individual</li>
+                    <li>Daily digest</li>
+                  </ul>
+                </div>
+                <div class="bd-channel">
+                  <div class="bd-channel-label">List views</div>
+                  <ul class="bd-surfaces">
+                    <li>Status badge</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <figcaption class="cap">A single event branches out to roughly ten different product surfaces, each with its own attention tier and density. The discipline of the system is that the title, the severity, and the source stay coherent everywhere they show up.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <div class="insight rv" style="margin: 10px 0 64px;">
+        <div class="k label">Beyond Brim</div>
+        <p>None of these principles are really Brim-specific. They describe a shape that any AI product acting on a user's behalf is going to need, which is more or less every tool we'll be using over the next few years.</p>
+      </div>
+
+      <section class="cs-sec" id="learnings" style="padding-bottom:24px;">
+        <div class="sec-tag label rv">07 &middot; Learnings</div>
+        <h2 class="rv">Learnings</h2>
+        <div class="cols2 rv">
+          <div>
+            <h3>What worked</h3>
+            <p class="muted">Naming <em>the human has the final say</em> as the load-bearing principle simplified arguments inside the team in a way I didn't expect. When a feature proposal felt off, it was almost always a violation of that rule, and pointing back to it was easier than relitigating every notification one by one.</p>
+          </div>
+          <div>
+            <h3>What I'd do differently</h3>
+            <p class="muted">In hindsight I'd have spent more time thinking about how each user actually speaks, and worked that into the onboarding. If the notifications were seeded from the user's own tone and the way they communicate, the whole experience would feel much more personal and cohesive. The colleague framing only really lands when the colleague sounds something like the user themselves.</p>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </div>
+</div>
+
+<footer>
+  <div class="shell">
+    <a href="design-system.html" class="next">
+      <div class="label">Next project</div>
+      <span class="nt">A design system for speed <span class="ar">&rarr;</span></span>
+    </a>
+    <div class="colophon">
+      <div class="links">
+        <a href="mailto:almirahanafiah@gmail.com">almirahanafiah@gmail.com</a>
+        <a href="https://linkedin.com/in/almira-hanafiah" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="../cv.html">CV</a>
+      </div>
+      <div class="set">Product designer, based in London &middot; Set in Inter &middot; Built by hand, 2026</div>
+    </div>
+  </div>
+</footer>
+
+<div class="proto-note">Prototype, case study 01</div>
+
+<script>
+(function () {
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* ---- cursor ---- */
+  if (fine) {
+    var cur = document.getElementById("cursor"), dot = document.getElementById("dot");
+    var mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my;
+    addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx+"px"; dot.style.top = my+"px";
+      if (reduced) { cur.style.left = mx+"px"; cur.style.top = my+"px"; }
+    });
+    if (!reduced) (function loop(){
+      cx += (mx-cx)*.17; cy += (my-cy)*.17;
+      cur.style.left = cx+"px"; cur.style.top = cy+"px";
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll("a, button").forEach(function (el) {
+      el.addEventListener("mouseenter", function(){ cur.classList.add("hot"); });
+      el.addEventListener("mouseleave", function(){ cur.classList.remove("hot"); });
+    });
+    addEventListener("mouseleave", function(){ cur.style.opacity=0; dot.style.opacity=0; });
+    addEventListener("mouseenter", function(){ cur.style.opacity=1; dot.style.opacity=1; });
+  }
+
+  /* ---- reading progress ---- */
+  var bar = document.getElementById("progress");
+  function onScroll() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+  }
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---- scroll-spy ---- */
+  var links = {};
+  document.querySelectorAll("[data-toc]").forEach(function (a) {
+    links[a.getAttribute("href").slice(1)] = a;
+  });
+  var sections = document.querySelectorAll(".cs-sec");
+  function setActive(id) {
+    for (var k in links) links[k].classList.toggle("active", k === id);
+  }
+  if ("IntersectionObserver" in window) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) setActive(en.target.id); });
+    }, { rootMargin: "-38% 0px -57% 0px" });
+    sections.forEach(function (s) { spy.observe(s); });
+  }
+
+  /* ---- scroll reveal ---- */
+  var rv = document.querySelectorAll(".rv");
+  if (reduced || !("IntersectionObserver" in window)) {
+    rv.forEach(function (el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en, i) {
+        if (en.isIntersecting) {
+          var el = en.target;
+          setTimeout(function(){ el.classList.add("in"); }, i * 55);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: .16 });
+    rv.forEach(function (el){ io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

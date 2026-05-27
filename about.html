@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About, Almira</title>
+<meta name="description" content="Product designer with a psychology background, working on AI-native software at Brim." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+<style>
+  /* ============ TOKENS (shared) ============ */
+  :root {
+    --paper:   #FBF9F3;
+    --paper-2: #F0EBDD;
+    --ink:     #2C2A28;
+    --ink-soft:#79736A;
+    --pink:    #EA5F82;
+    --pink-deep:#C0395C;
+    --rule:    rgba(44,42,40,0.16);
+    --font: "Inter", system-ui, sans-serif;
+    --w: 200;
+    --ease: cubic-bezier(0.23, 1, 0.32, 1);
+    --shell: 1280px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--font); font-weight: var(--w);
+    font-size: 18px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a, p, h1, h2, h3, div, span, nav, li { font-weight: var(--w); }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--pink); color: var(--paper); }
+  @media (hover: hover) and (pointer: fine) { body, a, button { cursor: none; } }
+
+  .shell { max-width: var(--shell); margin: 0 auto; padding: 0 56px; }
+  .label {
+    font-size: .7rem; text-transform: uppercase;
+    letter-spacing: .19em; color: var(--ink-soft);
+  }
+
+  /* ============ CURSOR ============ */
+  .cursor {
+    position: fixed; top: 0; left: 0; width: 22px; height: 22px;
+    border: 1px solid var(--pink); border-radius: 50%;
+    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+    transition: width .22s var(--ease), height .22s var(--ease), background-color .22s var(--ease);
+  }
+  .cursor.hot { width: 54px; height: 54px; background: rgba(234,95,130,.12); }
+  .cursor.grab { width: 44px; height: 44px; background: rgba(234,95,130,.18); }
+  .cursor-dot {
+    position: fixed; top: 0; left: 0; width: 4px; height: 4px;
+    background: var(--pink-deep); border-radius: 50%;
+    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+  }
+  @media (hover: none),(pointer: coarse) { .cursor,.cursor-dot { display: none; } }
+
+  /* ============ CAPTION TOOLTIP ============ */
+  .tip {
+    position: fixed; top: 0; left: 0; z-index: 9998;
+    pointer-events: none;
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--ink); border-radius: 2px;
+    padding: 7px 11px;
+    font-size: .62rem; text-transform: uppercase; letter-spacing: .14em;
+    white-space: nowrap;
+    box-shadow: 0 10px 24px -12px rgba(44,42,40,.55);
+    opacity: 0; transform: scale(.94);
+    transform-origin: top left;
+    transition: opacity .14s var(--ease), transform .14s var(--ease);
+  }
+  .tip.show { opacity: 1; transform: scale(1); }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 28px 0 20px; border-bottom: 1px solid var(--rule);
+  }
+  .wordmark { font-size: 1.5rem; letter-spacing: -.02em; }
+  .wordmark .mark {
+    display: inline-block; width: 7px; height: 7px;
+    background: var(--pink); border-radius: 50%; margin-left: 3px;
+  }
+  .nav { display: flex; gap: 30px; }
+  .nav a {
+    font-size: .76rem; text-transform: uppercase; letter-spacing: .15em;
+    position: relative; padding-bottom: 3px;
+  }
+  .nav a::after {
+    content: ""; position: absolute; left: 0; bottom: 0;
+    width: 100%; height: 1px; background: var(--pink);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .26s var(--ease);
+  }
+  .nav a:hover::after { transform: scaleX(1); }
+  .nav a.here { color: var(--pink-deep); }
+  .nav a.here::after { transform: scaleX(1); }
+
+  /* ============ ABOUT (base = mobile / normal flow) ============ */
+  .about {
+    display: grid; grid-template-columns: 1fr; gap: 44px;
+    padding: 48px 0 64px;
+  }
+  .block {
+    display: grid; grid-template-columns: 92px 1fr; gap: 24px;
+    padding: 22px 0; align-items: start;
+    border-top: 1px solid var(--rule);
+  }
+  .block:first-child { border-top: none; padding-top: 0; }
+  .block .k { padding-top: 5px; }
+  .block h1 {
+    font-size: clamp(1.12rem, 1.5vw, 1.4rem);
+    letter-spacing: -.012em; line-height: 1.32;
+  }
+  .block h1 em { font-style: normal; color: var(--pink-deep); }
+  .block p { font-size: .98rem; color: var(--ink); }
+  .block p + p { margin-top: 12px; }
+  .block p .soft { color: var(--ink-soft); }
+
+  /* ---- gallery ---- */
+  .gallery-col { min-width: 0; }
+  .scroller {
+    overflow-x: auto; overflow-y: hidden;
+    padding-bottom: 14px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ink-soft) transparent;
+  }
+  .scroller::-webkit-scrollbar { height: 4px; }
+  .scroller::-webkit-scrollbar-track { background: var(--rule); border-radius: 2px; }
+  .scroller::-webkit-scrollbar-thumb { background: var(--ink-soft); border-radius: 2px; }
+  .track { display: flex; gap: 18px; width: max-content; }
+  .shot {
+    width: 264px; flex: 0 0 auto; aspect-ratio: 4 / 5;
+    border: 1px solid var(--rule); background: var(--paper-2);
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+  }
+  .shot img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block; -webkit-user-drag: none; user-select: none;
+  }
+  .shot .g { width: 26px; height: 26px; border: 1px solid var(--ink-soft); }
+  .shot .cap { font-size: .72rem; color: var(--ink-soft); letter-spacing: .04em; }
+
+  /* ============ FOOTER ============ */
+  footer { border-top: 1px solid var(--rule); padding: 22px 0; }
+  .colophon {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  }
+  .colophon .links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .colophon a { font-size: .8rem; }
+  .colophon a:hover { color: var(--pink-deep); }
+  .colophon .set { font-size: .72rem; color: var(--ink-soft); }
+
+  /* ============ REVEAL ============ */
+  .rv { opacity: 0; transform: translateY(14px);
+        transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  .rv.in { opacity: 1; transform: none; }
+
+  .proto-note {
+    position: fixed; bottom: 14px; right: 14px; z-index: 600;
+    background: var(--ink); color: var(--paper);
+    font-size: .68rem; letter-spacing: .05em;
+    padding: 7px 13px; border-radius: 999px; opacity: .82;
+  }
+
+  /* ============ DESKTOP: single screen; images = text-column height ============ */
+  @media (min-width: 921px) {
+    html, body { height: 100%; }
+    body {
+      height: 100dvh; overflow: hidden;
+      display: flex; flex-direction: column;
+    }
+    main { flex: 1; min-height: 0; display: flex; align-items: center; }
+    main .shell { width: 100%; }
+    .about {
+      grid-template-columns: 452px 1fr; gap: 72px;
+      align-items: stretch; padding: 0;
+    }
+    /* gallery column stretches to match the text column's height */
+    .gallery-col { display: flex; flex-direction: column; }
+    .scroller { flex: 1; min-height: 0; }
+    .track { height: 100%; }
+    .shot { height: 100%; width: auto; }
+  }
+
+  @media (max-width: 560px) {
+    .shell { padding: 0 20px; }
+    .nav { gap: 16px; }
+    .nav a { font-size: .66rem; letter-spacing: .1em; }
+    .block { grid-template-columns: 1fr; gap: 10px; }
+    .block .k { padding-top: 0; }
+    .shot { width: 220px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rv { opacity: 1 !important; transform: none !important; transition: none; }
+    .cursor { transition: none !important; }
+    .tip { transition: opacity .12s; transform: none; }
+    .tip.show { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" id="dot" aria-hidden="true"></div>
+<div class="tip" id="tip" aria-hidden="true"></div>
+
+<header>
+  <div class="shell">
+    <div class="masthead">
+      <a href="index.html" class="wordmark">Almira<span class="mark"></span></a>
+      <nav class="nav">
+        <a href="index.html">Work</a>
+        <a href="play.html">Play</a>
+        <a href="about.html" class="here">About</a>
+        <a href="cv.html">CV</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="shell">
+    <section class="about">
+
+      <!-- ===== TEXT COLUMN ===== -->
+      <div class="about-text">
+
+        <div class="block rv">
+          <div class="k label">Hello</div>
+          <div>
+            <h1>I'm Almira, a product designer working on <em>AI-native</em> software at Brim.</h1>
+          </div>
+        </div>
+
+        <div class="block rv">
+          <div class="k label">Background</div>
+          <div>
+            <p>I came to design from psychology. I trained as a psychologist and spent a placement year in the NHS, expecting to practise clinically.</p>
+            <p class="soft">Over time I grew more interested in how people think, trust, and decide around technology, and product design started to feel like the place where I could actually do something with those questions.</p>
+          </div>
+        </div>
+
+        <div class="block rv">
+          <div class="k label">How I work</div>
+          <div>
+            <p>I care about interaction design that respects attention, human&ndash;AI collaboration that keeps people in control, and systems other people can build on.</p>
+            <p class="soft">I work end to end, from research through to the built interface, and I've come to feel at home in the ambiguity that AI products live in.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== GALLERY COLUMN (horizontal scroll) ===== -->
+      <div class="gallery-col">
+        <!-- 5 photos. Each .shot carries a data-cap caption (shown as a tooltip on hover).
+             To use a real image, replace the inner placeholder with:
+             <img src="assets/about/photo-1.jpg" alt="...">, keep the data-cap. -->
+        <div class="scroller" id="scroller">
+          <div class="track">
+            <figure class="shot" data-cap="Charcoal study"><div class="g" aria-hidden="true"></div><span class="cap">[ photo 1 ]</span></figure>
+            <figure class="shot" data-cap="Oil portrait, in progress"><div class="g" aria-hidden="true"></div><span class="cap">[ photo 2 ]</span></figure>
+            <figure class="shot" data-cap="Sketchbook, 2024"><div class="g" aria-hidden="true"></div><span class="cap">[ photo 3 ]</span></figure>
+            <figure class="shot" data-cap="Plein air study"><div class="g" aria-hidden="true"></div><span class="cap">[ photo 4 ]</span></figure>
+            <figure class="shot" data-cap="Studio corner"><div class="g" aria-hidden="true"></div><span class="cap">[ photo 5 ]</span></figure>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="shell">
+    <div class="colophon">
+      <div class="links">
+        <a href="mailto:almirahanafiah@gmail.com">almirahanafiah@gmail.com</a>
+        <a href="https://linkedin.com/in/almira-hanafiah" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="cv.html">CV</a>
+      </div>
+      <div class="set">Product designer, based in London &middot; Set in Inter &middot; Built by hand, 2026</div>
+    </div>
+  </div>
+</footer>
+
+<div class="proto-note">Prototype, about page</div>
+
+<script>
+(function () {
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var cursor = document.getElementById("cursor");
+
+  /* ---- custom cursor ---- */
+  if (fine) {
+    var dot = document.getElementById("dot");
+    var mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my;
+    addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx+"px"; dot.style.top = my+"px";
+      if (reduced) { cursor.style.left = mx+"px"; cursor.style.top = my+"px"; }
+    });
+    if (!reduced) (function loop(){
+      cx += (mx-cx)*.17; cy += (my-cy)*.17;
+      cursor.style.left = cx+"px"; cursor.style.top = cy+"px";
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll("a, button").forEach(function (el) {
+      el.addEventListener("mouseenter", function(){ cursor.classList.add("hot"); });
+      el.addEventListener("mouseleave", function(){ cursor.classList.remove("hot"); });
+    });
+    addEventListener("mouseleave", function(){ cursor.style.opacity=0; dot.style.opacity=0; });
+    addEventListener("mouseenter", function(){ cursor.style.opacity=1; dot.style.opacity=1; });
+  }
+
+  /* ---- caption tooltip that follows the cursor ---- */
+  var tip = document.getElementById("tip");
+  if (fine) {
+    document.querySelectorAll(".shot").forEach(function (shot) {
+      shot.addEventListener("mouseenter", function () {
+        tip.textContent = shot.getAttribute("data-cap") || "";
+        tip.classList.add("show");
+      });
+      shot.addEventListener("mouseleave", function () {
+        tip.classList.remove("show");
+      });
+    });
+    addEventListener("mousemove", function (e) {
+      var x = e.clientX + 22, y = e.clientY + 20;
+      if (x + tip.offsetWidth + 14 > innerWidth) x = e.clientX - tip.offsetWidth - 22;
+      tip.style.left = x + "px";
+      tip.style.top = y + "px";
+    });
+  }
+
+  /* ---- smooth (eased) horizontal scroll for the gallery ---- */
+  var sc = document.getElementById("scroller");
+  var targetX = sc.scrollLeft, currentX = sc.scrollLeft;
+  var dragging = false, startX = 0, startLeft = 0, vx = 0, lastX = 0;
+
+  function maxX() { return sc.scrollWidth - sc.clientWidth; }
+  function clamp(v) { return Math.max(0, Math.min(maxX(), v)); }
+
+  if (!reduced) {
+    (function loop() {
+      if (!dragging) {
+        var d = targetX - currentX;
+        if (Math.abs(d) > 0.4) {
+          currentX += d * 0.12;            /* eased glide */
+          sc.scrollLeft = currentX;
+        } else {
+          currentX = targetX = sc.scrollLeft;  /* idle: stay in sync (incl. scrollbar use) */
+        }
+      }
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  sc.addEventListener("wheel", function (e) {
+    var d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    if (!d) return;
+    e.preventDefault();
+    if (reduced) { sc.scrollLeft = clamp(sc.scrollLeft + d); return; }
+    targetX = clamp(targetX + d);
+  }, { passive: false });
+
+  /* ---- drag to scroll, with a little release momentum ---- */
+  sc.addEventListener("pointerdown", function (e) {
+    dragging = true;
+    startX = lastX = e.clientX; startLeft = sc.scrollLeft; vx = 0;
+    sc.classList.add("dragging");
+    tip.classList.remove("show");
+    if (fine) cursor.classList.add("grab");
+  });
+  addEventListener("pointermove", function (e) {
+    if (!dragging) return;
+    var nx = clamp(startLeft - (e.clientX - startX));
+    sc.scrollLeft = nx;
+    currentX = targetX = nx;
+    vx = e.clientX - lastX; lastX = e.clientX;
+  });
+  addEventListener("pointerup", function () {
+    if (!dragging) return;
+    dragging = false;
+    sc.classList.remove("dragging");
+    if (fine) cursor.classList.remove("grab");
+    if (!reduced) targetX = clamp(sc.scrollLeft - vx * 16);   /* momentum glide */
+  });
+
+  /* ---- scroll reveal ---- */
+  var rv = document.querySelectorAll(".rv");
+  if (reduced || !("IntersectionObserver" in window)) {
+    rv.forEach(function (el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en, i) {
+        if (en.isIntersecting) {
+          var el = en.target;
+          setTimeout(function(){ el.classList.add("in"); }, i * 80);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: .14 });
+    rv.forEach(function (el){ io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

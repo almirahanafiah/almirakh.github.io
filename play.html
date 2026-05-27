@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Play, Almira</title>
+<meta name="description" content="A gallery of traditional art, sketches, and creative experiments." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:      #FBF9F3;
+    --paper-deep: #F1EEE4;
+    --ink:        #2C2A28;
+    --ink-soft:   #79736A;
+    --mauve:      #EA5F82;
+    --mauve-deep: #C0395C;
+    --blue:       #8A9DB5;
+    --stone:      #9B9384;
+    --line:       rgba(155,147,132,0.32);
+    --font:       "Inter", system-ui, sans-serif;
+    --w: 200;     /* Inter weight 200, uniform */
+    --shell: 1180px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--font); font-weight: var(--w);
+    font-size: 18px; line-height: 1.7;
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a, p, h1, h2, h3, div, span, nav { font-weight: var(--w); }
+  @media (hover: hover) and (pointer: fine) { body, a, button { cursor: none; } }
+  a { color: inherit; }
+  .shell { max-width: var(--shell); margin: 0 auto; padding: 0 40px; width: 100%; }
+
+  /* ---- cursor ---- */
+  .cursor {
+    position: fixed; top: 0; left: 0; width: 30px; height: 30px;
+    border: 1.5px solid var(--mauve); border-radius: 50%;
+    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+    transition: width .22s ease, height .22s ease, background-color .22s ease, border-color .22s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor.is-hover { width: 60px; height: 60px; background: rgba(194,140,153,.12); border-color: var(--mauve-deep); }
+  .cursor-dot {
+    position: fixed; top: 0; left: 0; width: 5px; height: 5px;
+    background: var(--mauve-deep); border-radius: 50%;
+    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
+  }
+  @media (hover: none),(pointer: coarse) { .cursor,.cursor-dot { display: none; } }
+
+  /* ---- nav ---- */
+  nav { padding: 28px 0; }
+  nav .shell { display: flex; justify-content: space-between; }
+  nav a {
+    text-decoration: none; font-size: .82rem;
+    text-transform: uppercase; letter-spacing: .14em; color: var(--ink);
+    transition: color .2s ease;
+  }
+  nav a:hover { color: var(--mauve-deep); }
+  nav a.here { color: var(--mauve-deep); }
+
+  /* ---- page header ---- */
+  .play-head { text-align: center; padding: 64px 0 56px; }
+  .play-head .mark {
+    display: flex; gap: 6px; justify-content: center; margin-bottom: 18px;
+  }
+  .play-head .mark span { width: 7px; height: 7px; border-radius: 50%; }
+  .play-head .mark span:nth-child(1) { background: var(--mauve); }
+  .play-head .mark span:nth-child(2) { background: var(--blue); }
+  .play-head .mark span:nth-child(3) { background: #D8B98C; }
+  .play-head .eyebrow {
+    font-size: .78rem; text-transform: uppercase;
+    letter-spacing: .22em; color: var(--ink-soft); margin-bottom: 14px;
+  }
+  .play-head p {
+    max-width: 30rem; margin: 0 auto;
+    font-size: 1.18rem; color: var(--ink); line-height: 1.5;
+  }
+
+  /* ---- gallery: CSS-column masonry ---- */
+  .gallery {
+    column-count: 3; column-gap: 18px;
+    padding-bottom: 96px;
+  }
+  @media (max-width: 900px) { .gallery { column-count: 2; } }
+  @media (max-width: 560px) { .gallery { column-count: 1; } }
+
+  .item {
+    break-inside: avoid; margin-bottom: 18px;
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--line);
+    display: block; position: relative;
+    transition: transform .28s ease, box-shadow .28s ease;
+  }
+  .item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -22px rgba(56,60,82,.45);
+  }
+  .item img { display: block; width: 100%; height: auto; }
+
+  /* placeholder shown until a real image file exists */
+  .item .ph {
+    width: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 6px; padding: 22px; text-align: center;
+  }
+  .item .ph .t { font-size: .9rem; color: var(--ink); }
+  .item .ph .s { font-size: .76rem; color: var(--ink-soft); }
+  .ph.tint-mauve { background: linear-gradient(155deg,#E7C9CF,#F1EEE4); }
+  .ph.tint-blue  { background: linear-gradient(155deg,#C9D3DE,#F1EEE4); }
+  .ph.tint-peach { background: linear-gradient(155deg,#EBD8C0,#F1EEE4); }
+  .ph.tint-green { background: linear-gradient(155deg,#C9DBD3,#F1EEE4); }
+  .ph.tint-lilac { background: linear-gradient(155deg,#D8C9DD,#F1EEE4); }
+
+  /* ---- footer ---- */
+  footer { border-top: 1px solid var(--line); padding: 48px 0 32px; }
+  .footer-row {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 18px;
+  }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  footer a {
+    text-decoration: none; color: var(--ink-soft);
+    font-size: .8rem; text-transform: uppercase; letter-spacing: .1em;
+    transition: color .2s ease;
+  }
+  footer a:hover { color: var(--mauve-deep); }
+  .footer-meta { font-size: .78rem; color: var(--stone); }
+
+  .proto-note {
+    position: fixed; bottom: 16px; right: 16px; z-index: 200;
+    background: var(--ink); color: var(--paper);
+    font-size: .72rem; letter-spacing: .04em;
+    padding: 8px 14px; border-radius: 999px; opacity: .85;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .item, .cursor { transition: none !important; }
+  }
+  @media (max-width: 720px) {
+    .shell { padding: 0 24px; }
+    nav a { font-size: .66rem; letter-spacing: .08em; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<nav>
+  <div class="shell">
+    <a href="index.html">Work</a>
+    <a href="play.html" class="here">Play</a>
+    <a href="about.html">About</a>
+    <a href="cv.html">CV</a>
+  </div>
+</nav>
+
+<header class="play-head shell">
+  <div class="mark"><span></span><span></span><span></span></div>
+  <div class="eyebrow">Play</div>
+  <p>Design sharpens how I solve problems. Art reminds me to slow down and observe.</p>
+</header>
+
+<main class="shell">
+  <div class="gallery" id="gallery"><!-- filled by script --></div>
+</main>
+
+<footer>
+  <div class="shell footer-row">
+    <div class="footer-links">
+      <a href="index.html">Work</a><a href="play.html">Play</a><a href="about.html">About</a><a href="cv.html">CV</a>
+    </div>
+    <div class="footer-meta">Made with care &middot; Last updated May 2026</div>
+  </div>
+</footer>
+
+<div class="proto-note">Prototype, Play gallery</div>
+
+<script>
+/* =====================================================================
+   YOUR GALLERY, this is the only thing you edit to add artwork.
+
+   TO ADD A NEW PIECE:
+     1. Save your image into the   assets/play/   folder
+     2. Copy one line below, change the filename + title
+     3. Re-publish the site. The grid rebuilds itself, no layout work.
+
+   "tint" is just the placeholder colour shown before a real image
+   loads, you can ignore it once every piece has a real file.
+   ===================================================================== */
+var gallery = [
+  { src: "assets/play/charcoal-portrait.jpg", title: "Charcoal portrait study", tint: "mauve" },
+  { src: "assets/play/banh-mi.jpg",           title: "Banh mi, gouache",        tint: "peach" },
+  { src: "assets/play/figure-study.jpg",      title: "Figure study",             tint: "blue"  },
+  { src: "assets/play/still-life.jpg",        title: "Still life in oils",       tint: "green" },
+  { src: "assets/play/ink-sketch.jpg",        title: "Ink sketchbook page",      tint: "lilac" },
+  { src: "assets/play/watercolour-sky.jpg",   title: "Watercolour sky",          tint: "blue"  },
+  { src: "assets/play/self-portrait.jpg",     title: "Self portrait",            tint: "mauve" },
+  { src: "assets/play/landscape.jpg",         title: "Landscape, plein air",    tint: "green" },
+  { src: "assets/play/colour-study.jpg",      title: "Colour study",             tint: "peach" }
+  /*  <-- add your next line here  */
+];
+
+/* ---- renderer: builds the grid + a circle cursor. You won't touch this. ---- */
+(function () {
+  var grid = document.getElementById("gallery");
+
+  gallery.forEach(function (piece) {
+    var fig = document.createElement("a");
+    fig.className = "item";
+    fig.href = piece.src;          /* click opens the full image */
+
+    var img = document.createElement("img");
+    img.alt = piece.title;
+    img.loading = "lazy";
+    img.src = piece.src;
+
+    /* if the real image file isn't there yet, show a tidy placeholder */
+    img.onerror = function () {
+      var ph = document.createElement("div");
+      ph.className = "ph tint-" + (piece.tint || "mauve");
+      /* varied placeholder heights so the masonry looks real */
+      var heights = [150, 200, 240, 290, 340];
+      ph.style.minHeight = heights[Math.floor(Math.random() * heights.length)] + "px";
+      ph.innerHTML = '<div class="t">' + piece.title + '</div>' +
+                     '<div class="s">drop the image into assets/play/</div>';
+      fig.removeChild(img);
+      fig.appendChild(ph);
+    };
+
+    fig.appendChild(img);
+    grid.appendChild(fig);
+  });
+
+  /* ---- circle cursor ---- */
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (fine) {
+    var cur = document.getElementById("cursor"), dot = document.getElementById("cursorDot");
+    var mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my;
+    document.addEventListener("mousemove", function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx+"px"; dot.style.top = my+"px";
+      if (reduced) { cur.style.left = mx+"px"; cur.style.top = my+"px"; }
+    });
+    if (!reduced) (function loop(){
+      cx += (mx-cx)*.16; cy += (my-cy)*.16;
+      cur.style.left = cx+"px"; cur.style.top = cy+"px";
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll("a, button").forEach(function (el) {
+      el.addEventListener("mouseenter", function(){ cur.classList.add("is-hover"); });
+      el.addEventListener("mouseleave", function(){ cur.classList.remove("is-hover"); });
+    });
+  }
+})();
+</script>
+</body>
+</html>
