@@ -1076,6 +1076,176 @@
     .bu-flag-actions .bu-btn { flex: 1 1 calc(50% - 4px); justify-content: center; }
   }
 
+  /* Stage 4: tinted wrapper, chat + assignment panel side-by-side */
+  .bu-stage4 {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 14px;
+    background: var(--bu-paper-2, var(--paper-2));
+    border-radius: 14px;
+    padding: 14px;
+  }
+  .bu-stage4 .bu-frame.bu-pa {
+    padding: 16px 18px;
+    border-radius: 10px;
+    background: var(--bu-paper, var(--paper));
+    margin: 0;
+  }
+  /* Scaled-down typography inside the stage so this prototype reads at the same
+     density as the other moments */
+  .bu-stage4 .bu-reply-head .bu-avatar { width: 22px; height: 22px; font-size: .62rem; }
+  .bu-stage4 .bu-reply-head .bu-name { font-size: .8rem; }
+  .bu-stage4 .bu-reply-head .bu-time { font-size: .7rem; }
+  .bu-stage4 .bu-stream { margin: 12px 0 14px; }
+  .bu-stage4 .bu-stream-step { font-size: .74rem; padding: 3px 0 3px 20px; }
+  .bu-stage4 .bu-stream-step.is-done::before { font-size: .72rem; top: 3px; }
+  .bu-stage4 .bu-summary { font-size: .82rem; margin: 4px 0 16px; line-height: 1.55; }
+  .bu-stage4 .bu-flagged-head { padding: 10px 12px; }
+  .bu-stage4 .bu-flagged-title { font-size: .76rem; }
+  .bu-stage4 .bu-folder-ic { width: 12px; height: 12px; }
+  .bu-stage4 .bu-flag-row-head { padding: 11px 12px; }
+  .bu-stage4 .bu-flag-row-title { font-size: .82rem; }
+  .bu-stage4 .bu-flag-row-sub { font-size: .7rem; }
+  .bu-stage4 .bu-flag-row-body { padding: 4px 12px 14px; }
+  .bu-stage4 .bu-flag-error { font-size: .76rem; padding: 10px 12px; }
+  .bu-stage4 .bu-flag-error-title { font-size: .64rem; }
+  .bu-stage4 .bu-flag-text { font-size: .78rem; margin-bottom: 10px; }
+  .bu-stage4 .bu-flag-actions { gap: 6px; margin-top: 14px; }
+  .bu-stage4 .bu-flag-actions .bu-btn { font-size: .66rem; padding: 6px 10px; }
+  .bu-stage4 .bu-pill-needs { font-size: .58rem; }
+
+  /* Right panel: assignment overview */
+  .bu-asgn {
+    background: var(--bu-paper, var(--paper));
+    border-radius: 10px;
+    padding: 14px;
+    display: flex; flex-direction: column;
+    min-width: 0;
+    font-size: .78rem; color: var(--ink);
+  }
+  .bu-asgn-head {
+    display: flex; align-items: flex-start; gap: 8px;
+    margin-bottom: 14px;
+  }
+  .bu-asgn-title { font-size: .84rem; color: var(--ink); flex: 1; min-width: 0;
+    line-height: 1.3; }
+
+  .bu-asgn-meta {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px;
+    margin: 0 0 14px;
+  }
+  .bu-asgn-meta dt {
+    color: var(--ink-soft); text-transform: uppercase;
+    letter-spacing: .08em; font-size: .58rem; margin-bottom: 4px;
+    font-weight: var(--w);
+  }
+  .bu-asgn-meta dd {
+    color: var(--ink); display: flex; align-items: center; gap: 6px;
+    font-size: .72rem; margin: 0;
+  }
+  .bu-asgn .av-mini {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--ink); color: var(--paper);
+    font-size: .54rem; letter-spacing: 0; flex-shrink: 0;
+  }
+  .bu-asgn .tag-mini {
+    display: inline-flex; align-items: center;
+    padding: 2px 8px; border-radius: 999px;
+    background: rgba(217, 136, 63, .15); color: #B36A2C;
+    font-size: .62rem;
+  }
+
+  .bu-asgn-tabs {
+    display: flex; gap: 3px; margin-bottom: 16px;
+    background: var(--bu-paper-2, var(--paper-2));
+    padding: 3px; border-radius: 8px;
+  }
+  .bu-asgn-tab {
+    flex: 1; padding: 6px 8px; border-radius: 6px;
+    font-size: .68rem; color: var(--ink-soft);
+    background: transparent; border: 0;
+    font-family: inherit; font-weight: var(--w);
+  }
+  .bu-asgn-tab.is-active {
+    background: var(--bu-paper, var(--paper));
+    color: var(--ink);
+    box-shadow: 0 1px 2px rgba(44, 42, 40, .08);
+  }
+
+  .bu-asgn-progress { margin-bottom: 14px; }
+  .bu-asgn-progress-head {
+    font-size: .72rem; color: var(--ink); margin-bottom: 12px;
+  }
+  .bu-asgn-count { color: var(--ink-soft); }
+
+  .bu-asgn-steps { list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 9px; }
+  .bu-asgn-steps li {
+    display: flex; align-items: flex-start; gap: 9px;
+    font-size: .72rem; color: var(--ink-soft);
+  }
+  .bu-asgn-steps .step-dot {
+    width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--rule); margin-top: 1px;
+  }
+  .bu-asgn-steps .step-dot.done { background: #2C7A55; color: #fff; }
+  .bu-asgn-steps .step-dot.done svg { width: 9px; height: 9px; }
+  .bu-asgn-steps .step-dot.active { background: var(--pink-deep); }
+  .bu-asgn-steps li.is-done { color: var(--ink); }
+  .bu-asgn-steps li.is-active { color: var(--ink); }
+  .bu-asgn-steps .step-label { display: flex; flex-direction: column;
+    line-height: 1.4; }
+  .bu-asgn-steps .step-meta {
+    font-size: .6rem; color: var(--ink-soft); margin-top: 1px;
+  }
+
+  .bu-asgn-outputs {
+    margin-top: auto; padding-top: 12px;
+    border-top: 1px solid var(--bu-border, var(--rule));
+  }
+  .bu-asgn-out-head {
+    font-size: .58rem; text-transform: uppercase; letter-spacing: .08em;
+    color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .bu-asgn-out {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 10px;
+    border: 1px solid var(--bu-border, var(--rule));
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: .68rem;
+  }
+  .bu-asgn-out:last-of-type { margin-bottom: 0; }
+  .bu-asgn-out .kind {
+    font-size: .54rem; padding: 2px 5px; border-radius: 3px;
+    background: var(--bu-paper-2, var(--paper-2));
+    color: var(--ink-soft); flex-shrink: 0; letter-spacing: .05em;
+  }
+  .bu-asgn-out .nm {
+    color: var(--ink); flex: 1; min-width: 0;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .bu-asgn-out .size {
+    font-size: .58rem; color: var(--ink-soft); flex-shrink: 0;
+  }
+
+  .bu-asgn-actions {
+    display: flex; gap: 8px; margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--bu-border, var(--rule));
+  }
+  .bu-asgn-actions .bu-btn {
+    flex: 1; font-size: .66rem;
+    padding: 7px 8px; justify-content: center;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+
+  @media (max-width: 720px) {
+    .bu-stage4 { grid-template-columns: 1fr; }
+  }
+
 </style>
 </head>
 <body>
@@ -1635,7 +1805,8 @@
           <h3 class="rv">04 &middot; When the agent needs you, it shows its <em>working</em></h3>
           <p class="muted rv">When the agent finishes its part, the items that need a person's decision sit right inside the conversation. Each one expands to show the specific invoice, the rule it broke, and a suggested action, so the person can read the reasoning in context and act without having to dig for the original document.</p>
           <figure class="rv brimui">
-            <div class="bu-frame bu-pa">
+            <div class="bu-stage4">
+              <div class="bu-frame bu-pa">
               <div class="bu-reply-head"><span class="bu-avatar">IA</span><span class="bu-name">Invoice Agent</span><span class="bu-time">&middot; 9:14</span></div>
 
               <ol class="bu-stream">
@@ -1704,8 +1875,95 @@
                   </div>
                 </div>
               </div>
+              </div>
+
+              <aside class="bu-asgn">
+                <div class="bu-asgn-head">
+                  <div class="bu-asgn-title">Daily Invoice Processing</div>
+                  <span class="bu-pill-needs">Pending Approval</span>
+                </div>
+
+                <dl class="bu-asgn-meta">
+                  <div>
+                    <dt>Created by</dt>
+                    <dd><span class="av-mini">TH</span>Tyler Holden</dd>
+                  </div>
+                  <div>
+                    <dt>Started</dt>
+                    <dd>Today, 09:14</dd>
+                  </div>
+                  <div style="grid-column: 1 / -1;">
+                    <dt>Function tags</dt>
+                    <dd><span class="tag-mini">Operations</span></dd>
+                  </div>
+                </dl>
+
+                <div class="bu-asgn-tabs">
+                  <button class="bu-asgn-tab is-active">Progress</button>
+                  <button class="bu-asgn-tab">Log</button>
+                  <button class="bu-asgn-tab">Context</button>
+                </div>
+
+                <div class="bu-asgn-progress">
+                  <div class="bu-asgn-progress-head">In Progress <span class="bu-asgn-count">&middot; 0/7 steps</span></div>
+                  <ol class="bu-asgn-steps">
+                    <li class="is-done">
+                      <span class="step-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                      <div class="step-label">Request inbox access<span class="step-meta">09:14 &middot; 8s</span></div>
+                    </li>
+                    <li class="is-done">
+                      <span class="step-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                      <div class="step-label">Scan inbox for invoices<span class="step-meta">09:14 &middot; 8s</span></div>
+                    </li>
+                    <li class="is-done">
+                      <span class="step-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                      <div class="step-label">Confirm emails with Tyler<span class="step-meta">09:14 &middot; 8s</span></div>
+                    </li>
+                    <li class="is-done">
+                      <span class="step-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                      <div class="step-label">Extract attachments<span class="step-meta">09:14 &middot; 8s</span></div>
+                    </li>
+                    <li class="is-active">
+                      <span class="step-dot active"></span>
+                      <div class="step-label">Apply CIS/VAT rules</div>
+                    </li>
+                    <li>
+                      <span class="step-dot"></span>
+                      <div class="step-label">Assign approvers</div>
+                    </li>
+                    <li>
+                      <span class="step-dot"></span>
+                      <div class="step-label">Present invoice batch</div>
+                    </li>
+                  </ol>
+                </div>
+
+                <div class="bu-asgn-outputs">
+                  <div class="bu-asgn-out-head">Outputs</div>
+                  <div class="bu-asgn-out">
+                    <span class="kind">PDF</span>
+                    <span class="nm">Pitkin &amp; Ruddock &mdash; Invoice 3351</span>
+                    <span class="size">22 KB</span>
+                  </div>
+                  <div class="bu-asgn-out">
+                    <span class="kind">PDF</span>
+                    <span class="nm">Buildbase &mdash; Invoice BB-9921</span>
+                    <span class="size">22 KB</span>
+                  </div>
+                  <div class="bu-asgn-out">
+                    <span class="kind">PDF</span>
+                    <span class="nm">Travis Perkins &mdash; Invoice TP-8812</span>
+                    <span class="size">22 KB</span>
+                  </div>
+                </div>
+
+                <div class="bu-asgn-actions">
+                  <button class="bu-btn"><svg viewBox="0 0 16 16" fill="currentColor" width="9" height="9"><rect x="4" y="3" width="2.5" height="10" rx=".5"/><rect x="9.5" y="3" width="2.5" height="10" rx=".5"/></svg>Pause</button>
+                  <button class="bu-btn ghost-danger"><svg viewBox="0 0 16 16" fill="currentColor" width="9" height="9"><rect x="3" y="3" width="10" height="10" rx=".5"/></svg>Stop</button>
+                </div>
+              </aside>
             </div>
-            <figcaption class="cap">When the agent finishes processing the day's invoices, the ones that need a person's decision sit inside the same conversation. Each expands to show the specific issue, the rule it broke, and the action the agent would take next. (Mock of the real product styling, abstracted.)</figcaption>
+            <figcaption class="cap">When the agent finishes processing the day's invoices, the items that need a person's decision sit inside the same conversation. The side panel keeps the assignment's progress and outputs in view, so the person can act on what is flagged while still seeing the full plan. (Mock of the real product styling, abstracted.)</figcaption>
           </figure>
         </div>
       </section>
