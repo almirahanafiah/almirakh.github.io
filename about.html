@@ -5,26 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About, Almira</title>
 <meta name="description" content="Product designer with a psychology background, working on AI-native software at Brim." />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
 <style>
   /* ============ TOKENS (shared) ============ */
   :root {
-    --paper:   #FBF9F3;
-    --paper-2: #F0EBDD;
+    --paper:   #fcfcfc;
+    --paper-2: #f4f0e9;
     --ink:     #2C2A28;
     --ink-soft:#79736A;
     --pink:    #EA5F82;
     --pink-deep:#C0395C;
     --rule:    rgba(44,42,40,0.16);
-    --font: "Inter", system-ui, sans-serif;
-    --w: 200;
+    --font: "Geist", system-ui, sans-serif;
+    --w: 300;
     --ease: cubic-bezier(0.23, 1, 0.32, 1);
     --shell: 1280px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+
+  /* smooth cross-fade between pages (Chrome 126+, Safari 18+); harmlessly ignored elsewhere */
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation-duration: .32s; animation-timing-function: ease; }
+  /* lift the masthead out of the cross-fade so it stays put while only the body content swaps */
+  header:has(.masthead) { view-transition-name: site-header; }
+  ::view-transition-old(site-header),
+  ::view-transition-new(site-header) { animation: none; }
   body {
     background: var(--paper); color: var(--ink);
     font-family: var(--font); font-weight: var(--w);
@@ -75,14 +85,14 @@
   .tip.show { opacity: 1; transform: scale(1); }
 
   /* ============ MASTHEAD ============ */
+  header { border-bottom: 1px solid var(--rule); }
   .masthead {
     display: flex; justify-content: space-between; align-items: baseline;
-    padding: 28px 0 20px; border-bottom: 1px solid var(--rule);
+    padding: 28px 0 20px;
   }
-  .wordmark { font-size: 1.5rem; letter-spacing: -.02em; }
-  .wordmark .mark {
-    display: inline-block; width: 7px; height: 7px;
-    background: var(--pink); border-radius: 50%; margin-left: 3px;
+  .wordmark {
+    font-size: 1.1rem; letter-spacing: -.01em;
+    color: var(--pink-deep);
   }
   .nav { display: flex; gap: 30px; }
   .nav a {
@@ -214,7 +224,7 @@
 <header>
   <div class="shell">
     <div class="masthead">
-      <a href="index.html" class="wordmark">Almira<span class="mark"></span></a>
+      <a href="index.html" class="wordmark">Almira Hanafiah &#10051;</a>
       <nav class="nav">
         <a href="index.html">Work</a>
         <a href="play.html">Play</a>
@@ -283,9 +293,10 @@
       <div class="links">
         <a href="mailto:almirahanafiah@gmail.com">almirahanafiah@gmail.com</a>
         <a href="https://linkedin.com/in/almira-hanafiah" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/almirakh" target="_blank" rel="noopener">GitHub</a>
         <a href="cv.html">CV</a>
       </div>
-      <div class="set">Product designer, based in London &middot; Set in Inter &middot; Built by hand, 2026</div>
+      <div class="set">Designed and built with &hearts;, 2026</div>
     </div>
   </div>
 </footer>

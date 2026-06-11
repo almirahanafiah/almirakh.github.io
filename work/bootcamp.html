@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Case study, Almira</title>
-<meta name="description" content="Case study template, editorial layout with a sticky table of contents." />
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<title>GAIA, a fashion app that learned to curate, Almira</title>
+<meta name="description" content="A bootcamp case study, end-to-end UX redesign of a personal-style app that pivoted from social inspiration to AI-curated styling around clothes people already own." />
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
@@ -201,6 +201,28 @@
   .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   figure .cap { display: block; margin-top: 10px; }
 
+  /* phone-screen filmstrip (solution moments) */
+  .flow { display: flex; gap: 14px; align-items: flex-start; }
+  .flow img {
+    flex: 1 1 0; min-width: 0; width: 100%; height: auto;
+    border: 1px solid var(--rule); border-radius: 12px;
+    background: var(--paper-2); display: block;
+  }
+
+  /* embedded Figma prototype (curator flow) */
+  .proto { max-width: 300px; margin: 10px auto 0; }
+  .proto .label { text-align: center; margin-bottom: 14px; }
+  .proto-phone {
+    position: relative; width: 100%; aspect-ratio: 390 / 844;
+    background: var(--paper-2); border: 1px solid var(--rule);
+    border-radius: 36px; overflow: hidden;
+    box-shadow: 0 26px 60px -30px rgba(44,42,40,.5), 0 1px 0 rgba(44,42,40,.05);
+  }
+  .proto-phone iframe {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    border: 0; display: block;
+  }
+
   /* learnings two-col */
   .cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
   .cols2 h3 { margin-top: 0; }
@@ -259,6 +281,8 @@
     .facts { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .tldr .part { grid-template-columns: 1fr; gap: 8px; }
     .pair, .cols2 { grid-template-columns: 1fr; gap: 22px; }
+    .flow { overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 12px; padding-bottom: 6px; }
+    .flow img { flex: 0 0 62%; }
   }
   @media (max-width: 560px) {
     .shell { padding: 0 20px; }
@@ -280,8 +304,8 @@
 <header>
   <div class="shell">
     <div class="bar">
-      <a href="index.html" class="back"><span class="ar">&larr;</span>Selected Work</a>
-      <a href="index.html" class="wordmark">Almira Hanafiah &#10051;</a>
+      <a href="../index.html" class="back"><span class="ar">&larr;</span>Selected Work</a>
+      <a href="../index.html" class="wordmark">Almira Hanafiah &#10051;</a>
     </div>
   </div>
 </header>
@@ -289,12 +313,12 @@
 <div class="shell">
   <div class="cs-header">
     <div class="eyebrow label rv">Bootcamp case study, 2024</div>
-    <h1 class="cs-title rv">An end-to-end UX redesign, from research to a <em>tested</em> solution.</h1>
-    <p class="dek rv">A template page, replace the copy with your own project. The layout, sticky contents, and styling carry over to all three case studies.</p>
+    <h1 class="cs-title rv">From a social feed to a personal <em>curator</em>.</h1>
+    <p class="dek rv">A 12-week project on personal style that began as a Pinterest-style inspiration feed and ended up, after a second round of user testing, as an AI-curated styling tool built around the clothes a person already owns.</p>
   </div>
   <figure class="rv">
     <div class="plate hero-plate"><div class="g" aria-hidden="true"></div></div>
-    <figcaption class="cap">[ Lead image, final solution, key screen, or a defining visual ]</figcaption>
+    <figcaption class="cap">GAIA, the final brand and a glimpse of the high-fidelity prototype, after two rounds of user testing and an AI-styling iteration.</figcaption>
   </figure>
 </div>
 
@@ -323,32 +347,34 @@
       <section class="cs-sec" id="overview">
         <div class="sec-tag label rv">01 &middot; Overview</div>
         <h2 class="rv">Overview</h2>
-        <p class="rv">[ One or two sentences framing the product and the brief: what it is, who it serves, and the shape of the work you were asked to do. ]</p>
+        <p class="rv">GAIA is a personal-style app, designed over 12 weeks for my UX bootcamp capstone. The brief was open, find a human-centred problem to design for, and the one I kept coming back to was my own. I loved clothes, and I wanted to figure out whether there was a way to dress more from what I already owned and less from what was being sold to me.</p>
+        <p class="rv">The shape of the work moved twice. A first round of interviews led me to design a social inspiration feed as the MVP, and a second round of usability testing pulled it somewhere different, toward a personal curator built around the user's wardrobe. That second turn is what most of this case study is about.</p>
         <div class="facts rv">
           <div><div class="k label">Role</div><div class="v">UX Designer</div></div>
-          <div><div class="k label">Timeline</div><div class="v">[ 8 weeks, 2024 ]</div></div>
-          <div><div class="k label">Team</div><div class="v">[ Solo / with mentor ]</div></div>
-          <div><div class="k label">Did</div><div class="v">Research, IxD, Visual, Testing</div></div>
+          <div><div class="k label">Timeline</div><div class="v">12 weeks, 2024</div></div>
+          <div><div class="k label">Team</div><div class="v">Independent, with mentor feedback</div></div>
+          <div><div class="k label">Did</div><div class="v">Research, IxD, visual, branding</div></div>
         </div>
         <p class="rv" style="margin-top:26px;">Outcome</p>
-        <div class="callout rv">[ One sentence on the result, the change your work <em>made</em>. ]</div>
+        <div class="callout rv">What started as a social inspiration feed ended up as GAIA, a prototype for AI-curated outfits built from <em>the clothes someone already owns</em>.</div>
       </section>
 
       <section class="cs-sec" id="tldr">
         <div class="sec-tag label rv">02 &middot; TL;DR</div>
         <h2 class="rv">TL;DR</h2>
+        <p class="muted rv">For the recruiter who skims, the whole story in three lines.</p>
         <div class="tldr rv">
           <div class="part">
             <div class="k label">The challenge</div>
-            <p>[ The problem in one or two sentences, the tension that needed solving. ]</p>
+            <p>Many people aspire to a personal style that reflects who they are, but the way style is sold to them, through fast fashion, micro-trends, and a noisy social feed, often gets in the way of figuring out what they actually like.</p>
           </div>
           <div class="part">
             <div class="k label">What I did</div>
-            <p>[ Your contribution, the research, the decisions, the design. ]</p>
+            <p>Ran user interviews on personal style, designed a social inspiration feed as the MVP, tested it across two rounds, then redesigned around an idea that came out of testing, an AI curator that builds outfits from the clothes someone already owns.</p>
           </div>
           <div class="part">
             <div class="k label">The outcome</div>
-            <p>[ The impact, what improved, shipped, or changed because of the work. ]</p>
+            <p>A full design from interviews to a high-fidelity prototype, the GAIA brand, and a clear sense of where the project wanted to go next, toward AI-curated outfits drawn from a person's own wardrobe and linked out to the brands they already love.</p>
           </div>
         </div>
       </section>
@@ -356,54 +382,75 @@
       <section class="cs-sec" id="problem">
         <div class="sec-tag label rv">03 &middot; Problem</div>
         <h2 class="rv">The problem</h2>
-        <div class="callout rv" style="max-width:30ch;">[ Frame the problem as a real tension, the thing that was <em>genuinely hard</em>. ]</div>
-        <p class="muted rv">[ Two or three sentences of context. Keep it tight, enough to make the tension legible, not a full history of the product. ]</p>
+        <div class="callout rv" style="max-width:30ch;">Personal style is hard to hear when so much of what surrounds you is built to sell you a <em>trend</em>.</div>
+        <p class="muted rv">For me, this was something I felt personally. I had spent a lot of time buying things I didn't wear and scrolling through outfits without feeling much closer to my own. The question I wanted the project to sit with was whether a digital tool could help someone find their own taste, rather than push them further from it.</p>
       </section>
 
       <section class="cs-sec" id="research">
         <div class="sec-tag label rv">04 &middot; Research</div>
         <h2 class="rv">Research</h2>
-        <p class="rv">[ What you did to understand the problem, interviews, competitive scan, surveys, and why those methods. ]</p>
+        <p class="rv">I ran six user interviews with women aged 22 to 31, who all shopped online and used social media for style. I kept the questions open, around how they described their style, what frustrated them about shopping, and what they wanted a tool to help with.</p>
+
+        <div class="insight rv">
+          <div class="k label">Key insight, from the interviews</div>
+          <p>All six interviewees said the same thing: it's much easier to figure out whether a piece of clothing will work for you when you see it on someone who looks <em>like you</em>, in skin tone, body shape, and the way they hold themselves. That finding shaped the first version of the app.</p>
+        </div>
+
         <figure class="rv">
           <div class="plate wide"><div class="g" aria-hidden="true"></div></div>
-          <figcaption class="cap">[ Research artifact, affinity map, journey, or interview synthesis ]</figcaption>
+          <figcaption class="cap">Affinity map of interview answers, grouped into behaviours, motivations, and pain points. The largest cluster was about wanting to see style on people who looked similar.</figcaption>
         </figure>
+
+        <p class="rv">After two rounds of usability testing with five users each, the design was working. What I hadn't expected was the kind of question that came up in round two, which kept circling back to the same gap and pointed somewhere I hadn't planned for.</p>
+
         <div class="insight rv">
-          <div class="k label">Key insight</div>
-          <p>[ The finding that changed your thinking, the pivot point of the project. ]</p>
+          <div class="k label">Key insight, from the testing</div>
+          <p>Two of the five testers asked variations of the same question: could you shop from this, and could it suggest outfits made from clothes you already own. Neither was on the build list, but both echoed what I had heard in the interviews. That gap was where the project shifted from a social feed to a personal <em>curator</em>.</p>
         </div>
+
+        <figure class="rv">
+          <div class="plate wide"><div class="g" aria-hidden="true"></div></div>
+          <figcaption class="cap">Usability testing summary. The questions that opened the second direction both came from round two.</figcaption>
+        </figure>
       </section>
 
       <section class="cs-sec" id="ideation">
         <div class="sec-tag label rv">05 &middot; Ideation</div>
         <h2 class="rv">Ideation</h2>
-        <p class="rv">[ How you explored solutions, the directions you considered, and the trade-offs that moved you toward one. ]</p>
+        <p class="rv">With the interview findings in hand, I worked through about forty user stories across three epics: wardrobe organisation, personalised style ideas, and social style discovery. Tara's biggest frustration was how long it took to find plus-size influencers who dressed the way she wanted, so the home feed had to filter by physical traits before she scrolled. A competitive scan pointed me toward a gap, somewhere on the socially-oriented and visually simple end. The interviews told me social media was already where most people found style inspiration, and the friction was mostly about how cluttered the feed felt. So a Pinterest-style feed, with a cleaner shape and a style quiz at onboarding, felt like the right MVP.</p>
         <figure class="rv">
           <div class="pair">
             <div class="plate screen"><div class="g" aria-hidden="true"></div></div>
             <div class="plate screen"><div class="g" aria-hidden="true"></div></div>
           </div>
-          <figcaption class="cap">[ Early concepts, sketches, wireframes, or directions explored ]</figcaption>
+          <figcaption class="cap">Early sketches and grayscale wireframes for the two task flows: the style quiz, and styling around an owned item.</figcaption>
         </figure>
       </section>
 
       <section class="cs-sec" id="solution">
         <div class="sec-tag label rv">06 &middot; Solution</div>
         <h2 class="rv">The solution</h2>
-        <p class="rv">[ A short intro to the final direction, the idea in one paragraph. ]</p>
+        <p class="rv">Two moments, the MVP and the iteration that came out of testing.</p>
 
-        <h3 class="rv">[ Solution moment one ]</h3>
-        <p class="muted rv">[ What this part of the design does, and the decision behind it. ]</p>
+        <h3 class="rv">01 &middot; The first version, GAIA as a social feed</h3>
+        <p class="muted rv">The first version of GAIA was a fashion inspiration feed built as four surfaces that fed each other: a home page filtered by the user's physical traits and brand preferences from the style quiz, a personal wardrobe they could upload their own clothes into, item and outfit detail pages, and collections to organise outfits by mood and occasion. Underneath, I built a small UI library so the prototype shipped consistently, with a 3:1 contrast minimum on interactive elements.</p>
         <figure class="rv">
           <div class="plate screen" style="max-width:340px;"><div class="g" aria-hidden="true"></div></div>
-          <figcaption class="cap">[ Screen, key flow or interaction ]</figcaption>
+          <figcaption class="cap">Home feed, personal wardrobe, item and outfit pages, and the style quiz at onboarding. The GAIA palette kept user-uploaded photos at the centre.</figcaption>
         </figure>
 
-        <h3 class="rv">[ Solution moment two ]</h3>
-        <p class="muted rv">[ A second key part of the design, and the reasoning. ]</p>
+        <h3 class="rv">02 &middot; The personal curator</h3>
+        <p class="muted rv">The second direction came out of those testing questions and reframed the wardrobe. What had been a side feature became the starting point, with an AI styling assistant that built outfits from the user's wardrobe, suggested items from high-street and small brands, and explained itself by referencing the user's onboarding answers. Each suggestion came with a short note underneath, like <em>built from your navy blazer and styled around the looks you saved from your favourite influencer</em>, so it read as a recommendation rather than a verdict.</p>
         <figure class="rv">
-          <div class="plate screen" style="max-width:340px;"><div class="g" aria-hidden="true"></div></div>
-          <figcaption class="cap">[ Screen, key flow or interaction ]</figcaption>
+          <div class="proto">
+            <div class="label">Interactive prototype</div>
+            <div class="proto-phone">
+              <iframe title="GAIA AI Style Assistant, interactive prototype"
+                      src="https://embed.figma.com/proto/fl5MbLMukciS5EXgmFhzsN/Untitled?node-id=1-13315&starting-point-node-id=1-13379&scaling=scale-down-width&content-scaling=fixed&page-id=0-1&hide-ui=1&embed-host=share"
+                      allowfullscreen loading="lazy"></iframe>
+            </div>
+          </div>
+          <figcaption class="cap">The personal-curator iteration, with outfit suggestions built from the user's wardrobe and a note explaining where each came from.</figcaption>
         </figure>
       </section>
 
@@ -413,11 +460,11 @@
         <div class="cols2 rv">
           <div>
             <h3>What worked</h3>
-            <p class="muted">[ A decision or method that paid off, and why. ]</p>
+            <p class="muted">Staying close to testing was the most useful thing I did. The second round was meant to validate the design and ended up reshaping it, and the work was better for letting that happen.</p>
           </div>
           <div>
             <h3>What I'd do differently</h3>
-            <p class="muted">[ An honest reflection, what you'd change with hindsight. ]</p>
+            <p class="muted">I'd test earlier, on paper or with a rough prototype. The questions in round two were close enough to interview signal that earlier testing could have caught the direction sooner.</p>
           </div>
         </div>
       </section>
@@ -428,23 +475,23 @@
 
 <footer>
   <div class="shell">
-    <a href="#" class="next">
+    <a href="ai-workflows.html" class="next">
       <div class="label">Next project</div>
-      <span class="nt">A design system for speed <span class="ar">&rarr;</span></span>
+      <span class="nt">Staying in control of an AI that doesn't stop <span class="ar">&rarr;</span></span>
     </a>
     <div class="colophon">
       <div class="links">
         <a href="mailto:almirahanafiah@gmail.com">almirahanafiah@gmail.com</a>
         <a href="https://linkedin.com/in/almira-hanafiah" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/almirakh" target="_blank" rel="noopener">GitHub</a>
-        <a href="cv.html">CV</a>
+        <a href="../cv.html">CV</a>
       </div>
       <div class="set">Designed and built with &hearts;, 2026</div>
     </div>
   </div>
 </footer>
 
-<div class="proto-note">Prototype, case study template</div>
+<div class="proto-note">Prototype, case study 03</div>
 
 <script>
 (function () {

@@ -2,6 +2,10 @@
 CLAUDE.md
 docs/
 
+# Case 03 source exports (kept local until bootcamp.html wires them in;
+# remove this line and recommit when you're ready to publish images)
+assets/case-03/
+
 # macOS noise
 .DS_Store
 .AppleDouble

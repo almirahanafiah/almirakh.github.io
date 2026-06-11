@@ -5,29 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Almira, AI Product Designer</title>
 <meta name="description" content="Product designer working at the seams of AI-native software, interaction systems, workflows, and 0→1 products." />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
 <style>
   /* ============ TOKENS ============ */
   :root {
-    --paper:   #FBF9F3;   /* warm near-white */
-    --paper-2: #F0EBDD;   /* tonal band / image wells */
+    --paper:   #fcfcfc;   /* neutral near-white */
+    --paper-2: #f4f0e9;   /* warm cream for tonal bands and image wells */
     --ink:     #2C2A28;   /* warm near-black */
     --ink-soft:#79736A;   /* warm grey */
     --pink:    #EA5F82;   /* bright rose, the one accent */
     --pink-deep:#C0395C;  /* readable rose, links, small text */
     --rule:    rgba(44,42,40,0.16);
 
-    --font: "Inter", system-ui, sans-serif;
-    --w: 200;             /* Inter weight 200, uniform */
+    --font: "Geist", system-ui, sans-serif;
+    --w: 300;             /* Geist Light, uniform */
 
     --ease: cubic-bezier(0.23, 1, 0.32, 1);
     --shell: 1280px;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+
+  /* smooth cross-fade between pages (Chrome 126+, Safari 18+); harmlessly ignored elsewhere */
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation-duration: .32s; animation-timing-function: ease; }
+  /* lift the masthead out of the cross-fade so it stays put while only the body content swaps */
+  header:has(.masthead) { view-transition-name: site-header; }
+  ::view-transition-old(site-header),
+  ::view-transition-new(site-header) { animation: none; }
 
   body {
     background: var(--paper);
@@ -72,16 +82,14 @@
   @media (hover: none),(pointer: coarse) { .cursor,.cursor-dot { display: none; } }
 
   /* ============ MASTHEAD ============ */
+  header { border-bottom: 1px solid var(--rule); }
   .masthead {
     display: flex; justify-content: space-between; align-items: baseline;
     padding: 28px 0 20px;
-    border-bottom: 1px solid var(--rule);
   }
-  .wordmark { font-size: 1.5rem; letter-spacing: -.02em; }
-  .wordmark .mark {
-    display: inline-block; width: 7px; height: 7px;
-    background: var(--pink); border-radius: 50%; margin-left: 3px;
-    vertical-align: baseline;
+  .wordmark {
+    font-size: 1.1rem; letter-spacing: -.01em;
+    color: var(--pink-deep);
   }
   .nav { display: flex; gap: 30px; }
   .nav a {
@@ -197,15 +205,21 @@
   .note p em { font-style: normal; color: var(--pink-deep); }
 
   /* ============ COLOPHON ============ */
-  footer { border-top: 1px solid var(--ink); padding: 54px 0 40px; position: relative; }
+  footer { border-top: 1px solid var(--rule); padding: 54px 0 40px; position: relative; overflow: hidden; }
   .sign {
-    font-size: clamp(3.4rem, 13vw, 9.5rem);
-    letter-spacing: -.05em; line-height: .9;
+    margin-top: 64px;
+    pointer-events: none;
   }
-  .sign .mark { color: var(--pink); }
+  .sign img {
+    display: block;
+    width: min(48vw, 560px);
+    height: auto;
+    mix-blend-mode: multiply;  /* lets the watercolor sit on paper without a hard png halo */
+    opacity: 0.6;              /* sign-off watermark feel */
+  }
   .colophon {
     display: flex; justify-content: space-between; flex-wrap: wrap;
-    gap: 22px; margin-top: 40px;
+    gap: 22px;
   }
   .colophon .links { display: flex; gap: 26px; flex-wrap: wrap; }
   .colophon a { font-size: .8rem; }
@@ -262,7 +276,7 @@
 <header>
   <div class="shell">
     <div class="masthead">
-      <a href="index.html" class="wordmark">Almira<span class="mark"></span></a>
+      <a href="index.html" class="wordmark">Almira Hanafiah &#10051;</a>
       <nav class="nav">
         <a href="index.html" class="here">Work</a>
         <a href="play.html">Play</a>
@@ -302,7 +316,6 @@
     <div class="shell">
       <div class="index-head rv">
         <h2>Selected Work</h2>
-        <span class="label">Three projects &middot; 2024&ndash;26</span>
       </div>
 
       <a href="work/ai-workflows.html" class="row rv">
@@ -372,15 +385,16 @@
 
 <footer>
   <div class="shell">
-    <div class="sign rv">Almira<span class="mark">.</span></div>
     <div class="colophon">
       <div class="links">
         <a href="mailto:almirahanafiah@gmail.com">almirahanafiah@gmail.com</a>
         <a href="https://linkedin.com/in/almira-hanafiah" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/almirakh" target="_blank" rel="noopener">GitHub</a>
         <a href="cv.html">CV</a>
       </div>
-      <div class="set">Product designer, based in London &middot; Set in Inter &middot; Built by hand, 2026</div>
+      <div class="set">Designed and built with &hearts;, 2026</div>
     </div>
+    <div class="sign rv"><img src="assets/brand/signature.png" alt="Almira Hanafiah" /></div>
   </div>
 </footer>
 
