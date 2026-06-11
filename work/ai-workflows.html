@@ -1346,7 +1346,8 @@
           <li><a href="#research" data-toc><span class="n">04</span><span class="tick"></span>Research</a></li>
           <li><a href="#principles" data-toc><span class="n">05</span><span class="tick"></span>Principles</a></li>
           <li><a href="#solution" data-toc><span class="n">06</span><span class="tick"></span>Solution</a></li>
-          <li><a href="#learnings" data-toc><span class="n">07</span><span class="tick"></span>Learnings</a></li>
+          <li><a href="#feedback" data-toc><span class="n">07</span><span class="tick"></span>Feedback</a></li>
+          <li><a href="#learnings" data-toc><span class="n">08</span><span class="tick"></span>Learnings</a></li>
         </ol>
       </nav>
     </aside>
@@ -1538,20 +1539,7 @@
           </div>
           <figcaption class="cap">A scheduled assignment in Claude versus the same work in Brim, this time researching sales leads. In Claude the result lands back in the chat, with no record of what it touched. In Brim the thread stays short while the side panel logs each step and keeps what it pulled, here the leads it found across Apollo and Sales Navigator before adding them to HubSpot, a record that changes every run and that a manager can open and verify. (Mock; Claude interface abstracted.)</figcaption>
         </figure>
-        <p class="rv">Alongside this desk research, I ran feedback sessions with around 20 of our early customers on the first version of assignments. A few things came up again and again.</p>
-        <figure class="rv brimui">
-          <div class="bu-figjam">
-            <div class="bu-figjam-label">Synthesis &middot; what kept coming up</div>
-            <div class="bu-stickies">
-              <div class="bu-sticky y"><span class="bu-sticky-tag">Insight</span>People often weren't logging in to check on their assignments at all.</div>
-              <div class="bu-sticky b"><span class="bu-sticky-tag">Trust</span>Trust came from seeing the work as it happened, not from being told it was done.</div>
-              <div class="bu-sticky g"><span class="bu-sticky-tag">Audit</span>The record of what the agent did mattered most, somewhere to go back and verify.</div>
-              <div class="bu-sticky p"><span class="bu-sticky-tag">Governance</span>A chat history isn't something a team or a manager can share, review, or answer for.</div>
-            </div>
-          </div>
-          <figcaption class="cap">Synthesising the feedback sessions into the things that came up again and again. (Anonymised.)</figcaption>
-        </figure>
-        <p class="rv">Those four pulled in the same direction, towards work the person can see, a record they and their managers can trust and share, and an assistant that reaches them rather than waiting to be checked on. That became the backbone of everything I designed next.</p>
+        <p class="rv">Brim was very early stage at this point, so a lot of the work happening alongside this was talking to potential customers to shape the direction of the product overall. None of those conversations were about assignments specifically yet, but the patterns I kept hearing about how people want to work with AI carried over when it came to designing them.</p>
       </section>
 
       <section class="cs-sec" id="principles">
@@ -1968,13 +1956,32 @@
         </div>
       </section>
 
+      <section class="cs-sec" id="feedback">
+        <div class="sec-tag label rv">07 &middot; Feedback</div>
+        <h2 class="rv">Taking the prototype back to the people who would <em>use</em> it.</h2>
+        <p class="rv">Once the prototype was in shape, I went back to a handful of our early customers and showed it to them against the work they actually wanted to use it for. I wanted to see whether the way assignments behaved made sense when the agent was running against their tools, their data, and their own kind of work. A few things came up again and again.</p>
+        <figure class="rv brimui">
+          <div class="bu-figjam">
+            <div class="bu-figjam-label">Synthesis &middot; what kept coming up</div>
+            <div class="bu-stickies">
+              <div class="bu-sticky y"><span class="bu-sticky-tag">Insight</span>People often weren't logging in to check on their assignments at all.</div>
+              <div class="bu-sticky b"><span class="bu-sticky-tag">Trust</span>Trust came from seeing the work as it happened, not from being told it was done.</div>
+              <div class="bu-sticky g"><span class="bu-sticky-tag">Audit</span>The record of what the agent did mattered most, somewhere to go back and verify.</div>
+              <div class="bu-sticky p"><span class="bu-sticky-tag">Governance</span>A chat history isn't something a team or a manager can share, review, or answer for.</div>
+            </div>
+          </div>
+          <figcaption class="cap">Synthesising the feedback sessions into the things that came up again and again. (Anonymised.)</figcaption>
+        </figure>
+        <p class="rv">Those four pulled in the same direction, towards work the person can see, a record they and their managers can trust and share, and an assistant that reaches them rather than waiting to be checked on. They confirmed the direction the assignment was heading and shaped the parts I went back to refine.</p>
+      </section>
+
       <div class="insight rv" style="margin: 10px 0 64px;">
         <div class="k label">Beyond Brim</div>
         <p>None of this is really specific to Brim. Any AI tool that acts on someone's behalf has to solve the same thing, which is how a person stays in control of work they cannot fully predict, and that is going to be true of most of the tools we use over the next few years.</p>
       </div>
 
       <section class="cs-sec" id="learnings" style="padding-bottom:24px;">
-        <div class="sec-tag label rv">07 &middot; Learnings</div>
+        <div class="sec-tag label rv">08 &middot; Learnings</div>
         <h2 class="rv">People will lean on AI for real decisions, so it has to earn their <em>trust</em>.</h2>
         <div class="cols2 rv">
           <div>
