@@ -980,6 +980,102 @@
     .bu-frame { padding: 16px 14px 18px; }
     .bu-prose { font-size: 12.5px; }
   }
+  /* ── Moment 4 (new): when the agent surfaces what needs your call ──────────── */
+  .bu-frame.bu-pa { padding: 22px 24px; }
+
+  .bu-stream { list-style: none; margin: 16px 0 20px; padding: 0; }
+  .bu-stream-step {
+    font-size: .82rem; color: var(--ink-soft);
+    padding: 4px 0 4px 22px; position: relative; line-height: 1.5;
+  }
+  .bu-stream-step.is-done::before {
+    content: "\2713"; position: absolute; left: 0; top: 4px;
+    font-size: .78rem; color: var(--ink-soft);
+  }
+
+  .bu-summary {
+    font-size: .94rem; line-height: 1.58; color: var(--ink);
+    margin: 6px 0 22px; max-width: 64ch;
+  }
+
+  .bu-flagged {
+    border: 1px solid var(--bu-border, var(--rule));
+    border-radius: 10px; overflow: hidden;
+    background: var(--bu-paper, var(--paper));
+  }
+  .bu-flagged-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--bu-border, var(--rule));
+    background: var(--bu-paper-2, var(--paper-2));
+  }
+  .bu-flagged-title {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: .85rem; color: var(--ink);
+  }
+  .bu-folder-ic { width: 14px; height: 14px; flex-shrink: 0; color: var(--ink-soft); }
+
+  .bu-flag-row { border-bottom: 1px solid var(--bu-border, var(--rule)); }
+  .bu-flag-row:last-child { border-bottom: none; }
+  .bu-flag-row-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 16px;
+  }
+  .bu-flag-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .bu-flag-dot.tone-red { background: var(--pink-deep); }
+  .bu-flag-dot.tone-orange { background: #D9883F; }
+  .bu-flag-dot.tone-quiet { background: var(--ink-soft); opacity: .4; }
+
+  .bu-flag-row-info { flex: 1; min-width: 0; }
+  .bu-flag-row-title { font-size: .92rem; color: var(--ink); }
+  .bu-flag-row-sub { font-size: .78rem; color: var(--ink-soft); margin-top: 2px; }
+  .bu-flag-chev { color: var(--ink-soft); display: inline-flex;
+    transition: transform .2s var(--ease); }
+  .bu-flag-chev svg { width: 14px; height: 14px; display: block; }
+  .bu-flag-row.is-expanded .bu-flag-chev { color: var(--ink); }
+
+  .bu-flag-row-body { display: none; padding: 4px 16px 18px; }
+  .bu-flag-row.is-expanded .bu-flag-row-body { display: block; }
+
+  .bu-flag-error {
+    background: rgba(192, 57, 92, .07);
+    border: 1px solid rgba(192, 57, 92, .25);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    font-size: .85rem;
+    line-height: 1.6;
+  }
+  .bu-flag-error-title { color: var(--ink); margin-bottom: 4px; font-size: .78rem;
+    text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); }
+  .bu-flag-error-line { color: var(--ink); }
+  .bu-flag-error-line .strike { text-decoration: line-through; opacity: .55; }
+  .bu-flag-error-line .x { color: var(--pink-deep); margin-left: 6px; font-weight: var(--w); }
+
+  .bu-flag-text {
+    font-size: .88rem; color: var(--ink);
+    margin: 0 0 12px; line-height: 1.6;
+    max-width: none;
+  }
+  .bu-flag-text .bu-flag-sug { color: var(--ink-soft); }
+
+  .bu-flag-actions {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px;
+  }
+  .bu-btn.ghost-danger {
+    color: var(--pink-deep); border-color: transparent; background: transparent;
+  }
+  .bu-btn.ghost-danger:hover { background: rgba(192, 57, 92, .08); }
+  .bu-btn .ar-out { display: inline-block; transform: translate(0, -1px);
+    font-size: .9em; margin-right: 2px; }
+
+  @media (max-width: 560px) {
+    .bu-flag-actions { width: 100%; }
+    .bu-flag-actions .bu-btn { flex: 1 1 calc(50% - 4px); justify-content: center; }
+  }
+
 </style>
 </head>
 <body>
@@ -1536,65 +1632,80 @@
         </div>
 
         <div class="moment">
-          <h3 class="rv">04 &middot; The outputs and the record you can go back to</h3>
-          <p class="muted rv">When a run finishes, it leaves a record. Every file the agent produced sits in the panel beside the thread, where the person can open any of them and read exactly what the agent did. Nothing is hidden once the run is over, which turned out to matter for trust as much as watching it live.</p>
+          <h3 class="rv">04 &middot; When the agent needs you, it shows its <em>working</em></h3>
+          <p class="muted rv">When the agent finishes its part, the items that need a person's decision sit right inside the conversation. Each one expands to show the specific invoice, the rule it broke, and a suggested action, so the person can read the reasoning in context and act without having to dig for the original document.</p>
           <figure class="rv brimui">
-            <div class="bu-win4" id="bu-run4">
-              <div class="bu-win4-main">
-                <div class="bu-reply-head"><span class="bu-avatar">FA</span><span class="bu-name">Finance Agent</span><span class="bu-time">&middot; 9:08</span></div>
-                <div class="bu-msg4">Run complete. I reconciled all 42 supplier invoices, posted 38 to NetSuite, and held INV-4821 for your call. The full report and the entries I posted are on the right.</div>
-                <div class="bu-rep4">
-                  <div class="bu-rep4-stats">
-                    <div class="bu-rep4-stat"><span class="bu-rep4-l">Reconciled</span><span class="bu-rep4-v">42</span></div>
-                    <div class="bu-rep4-stat"><span class="bu-rep4-l">Posted</span><span class="bu-rep4-v">38</span></div>
-                    <div class="bu-rep4-stat"><span class="bu-rep4-l">Held for you</span><span class="bu-rep4-v held">1</span></div>
-                    <div class="bu-rep4-stat"><span class="bu-rep4-l">Took</span><span class="bu-rep4-v">4m</span></div>
+            <div class="bu-frame bu-pa">
+              <div class="bu-reply-head"><span class="bu-avatar">IA</span><span class="bu-name">Invoice Agent</span><span class="bu-time">&middot; 9:14</span></div>
+
+              <ol class="bu-stream">
+                <li class="bu-stream-step is-done">Extracted 5 attachments from approved emails</li>
+                <li class="bu-stream-step is-done">Applying Invoice Processing Skill to 5 invoices</li>
+                <li class="bu-stream-step is-done">CIS check complete, 2 flagged, 3 clean</li>
+                <li class="bu-stream-step is-done">Approver routing complete</li>
+              </ol>
+
+              <p class="bu-summary">Done processing. I found 2 invoices that need your attention, one has a CIS/VAT error and one is missing a job number. The other 3 look correct. Review and action each one below.</p>
+
+              <div class="bu-flagged">
+                <div class="bu-flagged-head">
+                  <span class="bu-flagged-title">
+                    <svg class="bu-folder-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M2 4.5a1 1 0 0 1 1-1h3.5l1.5 1.5H13a1 1 0 0 1 1 1V12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4.5Z"/></svg>
+                    2 flagged invoices
+                  </span>
+                  <span class="bu-pill-needs">Pending Approval</span>
+                </div>
+
+                <div class="bu-flag-row is-expanded">
+                  <div class="bu-flag-row-head">
+                    <span class="bu-flag-dot tone-red"></span>
+                    <div class="bu-flag-row-info">
+                      <div class="bu-flag-row-title">Pitkin &amp; Ruddock &mdash; Invoice 3351</div>
+                      <div class="bu-flag-row-sub">CIS error detected</div>
+                    </div>
+                    <span class="bu-flag-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></span>
+                  </div>
+                  <div class="bu-flag-row-body">
+                    <div class="bu-flag-error">
+                      <div class="bu-flag-error-title">Invoice amounts</div>
+                      <div class="bu-flag-error-line">&pound;2,000.00 &middot; + VAT &pound;400.00</div>
+                      <div class="bu-flag-error-line"><span class="strike">Total &pound;2,400.00</span> <span class="x">&times;</span></div>
+                    </div>
+                    <p class="bu-flag-text">VAT of &pound;400 has been added to the total on a CIS subcontractor invoice. CIS invoices must not include VAT in the total.</p>
+                    <p class="bu-flag-text"><span class="bu-flag-sug">Suggested action:</span> Request corrected invoice from Pitkin &amp; Ruddock with VAT removed from total.</p>
+                    <div class="bu-flag-actions">
+                      <button class="bu-btn ghost-danger">Dismiss</button>
+                      <button class="bu-btn"><span class="ar-out">&#8599;</span>Open</button>
+                      <button class="bu-btn">Override</button>
+                      <button class="bu-btn primary">Request correction</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="bu-win4-panel">
-                <div class="bu-p4-head">
-                  <div class="bu-p4-eyebrow">Run #42</div>
-                  <div class="bu-p4-statusrow">
-                    <span class="bu-statuspill" data-tone="completed"><span class="d"></span>Completed</span>
-                    <span class="bu-agent-badge"><span class="av">FA</span>Finance Agent</span>
+
+                <div class="bu-flag-row">
+                  <div class="bu-flag-row-head">
+                    <span class="bu-flag-dot tone-orange"></span>
+                    <div class="bu-flag-row-info">
+                      <div class="bu-flag-row-title">Buildbase &mdash; Invoice BB-9921</div>
+                      <div class="bu-flag-row-sub">No job number found</div>
+                    </div>
+                    <span class="bu-flag-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
                   </div>
                 </div>
-                <div class="bu-p4-body">
-                  <div class="bu-p4-outhead">Outputs &middot; 4</div>
-                  <div id="bu-p4-rows">
-                    <div class="bu-out clickable"><span class="kind">PDF</span><div><div class="nm">reconciliation-report.pdf</div><div class="om">42 invoices &middot; 38 posted &middot; 1 held</div></div><span class="st" data-s="ready">Ready</span></div>
-                    <div class="bu-out clickable"><span class="kind">CSV</span><div><div class="nm">journal-entries.csv</div><div class="om">38 entries posted to NetSuite</div></div><span class="st" data-s="ready">Ready</span></div>
-                    <div class="bu-out clickable"><span class="kind">MD</span><div><div class="nm">inv-4821-review.md</div><div class="om">decision note &middot; awaiting your call</div></div><span class="st" data-s="ready">Ready</span></div>
-                    <div class="bu-out clickable"><span class="kind">MD</span><div><div class="nm">daily-recap.md</div><div class="om">summary posted to #supplier-ops</div></div><span class="st" data-s="ready">Ready</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="bu-preview" id="bu-preview">
-                <div class="bu-doc">
-                  <div class="bu-doc-bar">
-                    <span class="di"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M4 2.5h5l3 3V13a.5.5 0 0 1-.5.5h-7A.5.5 0 0 1 4 13V3a.5.5 0 0 1 .5-.5Z"/><path d="M9 2.5v3h3"/></svg></span>
-                    <span class="bu-doc-name">reconciliation-report.pdf</span>
-                    <span class="bu-doc-close" id="bu-doc-close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg></span>
-                  </div>
-                  <div class="bu-doc-body">
-                    <div class="bu-doc-title">Reconciliation report</div>
-                    <div class="bu-doc-sub">Supplier invoices &middot; 14 May 2026 &middot; 42 invoices</div>
-                    <table class="bu-doc-table">
-                      <thead><tr><th>Invoice</th><th>Result</th><th class="r">Amount</th><th class="r">VAT</th></tr></thead>
-                      <tbody>
-                        <tr><td><span class="nm">INV-4828 &middot; Oakline</span></td><td>Matched</td><td class="r">&pound;980.00</td><td class="r">&pound;163.33</td></tr>
-                        <tr><td><span class="nm">HB-2931 &middot; Harbour Home</span></td><td>Matched</td><td class="r">&pound;1,204.50</td><td class="r">&pound;200.75</td></tr>
-                        <tr class="held"><td><span class="nm">INV-4821 &middot; Oakline</span></td><td>Held &middot; VAT &gt; PO</td><td class="r">&pound;1,240.00</td><td class="r">&pound;206.67</td></tr>
-                        <tr><td><span class="nm">VV-7782 &middot; Velvet &amp; Vine</span></td><td>Matched</td><td class="r">&pound;640.00</td><td class="r">&pound;106.67</td></tr>
-                        <tr><td><span class="nm">38 more</span></td><td>Matched</td><td class="r">&mdash;</td><td class="r">&mdash;</td></tr>
-                      </tbody>
-                    </table>
+
+                <div class="bu-flag-row">
+                  <div class="bu-flag-row-head">
+                    <span class="bu-flag-dot tone-quiet"></span>
+                    <div class="bu-flag-row-info">
+                      <div class="bu-flag-row-title">Travis Perkins &mdash; Invoice TP-8812</div>
+                      <div class="bu-flag-row-sub">No flagged items</div>
+                    </div>
+                    <span class="bu-flag-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
                   </div>
                 </div>
               </div>
             </div>
-            <figcaption class="cap">When the run is done, the thread sums it up and the outputs sit in the panel beside it. Opening one, here the reconciliation report, shows exactly what the agent did, with INV-4821 marked as held. (Animated mock of the real product styling, abstracted.)</figcaption>
+            <figcaption class="cap">When the agent finishes processing the day's invoices, the ones that need a person's decision sit inside the same conversation. Each expands to show the specific issue, the rule it broke, and the action the agent would take next. (Mock of the real product styling, abstracted.)</figcaption>
           </figure>
         </div>
       </section>
