@@ -1076,20 +1076,22 @@
     .bu-flag-actions .bu-btn { flex: 1 1 calc(50% - 4px); justify-content: center; }
   }
 
-  /* Stage 4: tinted wrapper, chat + assignment panel side-by-side */
+  /* Stage 4: unified app surface, chat + assignment panel as two columns */
   .bu-stage4 {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 14px;
-    background: var(--bu-paper-2, var(--paper-2));
+    grid-template-columns: 1.5fr 1fr;
+    gap: 0;
+    background: var(--bu-paper, var(--paper));
+    border: 1px solid var(--bu-border, var(--rule));
     border-radius: 14px;
-    padding: 14px;
+    overflow: hidden;
   }
   .bu-stage4 .bu-frame.bu-pa {
-    padding: 16px 18px;
-    border-radius: 10px;
-    background: var(--bu-paper, var(--paper));
+    padding: 20px 22px;
+    border-radius: 0;
+    background: transparent;
     margin: 0;
+    border-right: 1px solid var(--bu-border, var(--rule));
   }
   /* Scaled-down typography inside the stage so this prototype reads at the same
      density as the other moments */
@@ -1116,9 +1118,9 @@
 
   /* Right panel: assignment overview */
   .bu-asgn {
-    background: var(--bu-paper, var(--paper));
-    border-radius: 10px;
-    padding: 14px;
+    background: transparent;
+    border-radius: 0;
+    padding: 20px 22px;
     display: flex; flex-direction: column;
     min-width: 0;
     font-size: .78rem; color: var(--ink);
@@ -1242,8 +1244,85 @@
     display: inline-flex; align-items: center; gap: 5px;
   }
 
+  /* Completed-state additions */
+  .bu-pill-done {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px 3px 8px; border-radius: 999px;
+    background: rgba(44, 122, 85, .12);
+    color: #2C7A55;
+    font-size: .58rem;
+    text-transform: uppercase; letter-spacing: .06em;
+    flex-shrink: 0;
+  }
+  .bu-pill-done::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: #2C7A55; flex-shrink: 0;
+  }
+
+  .bu-asgn-complete {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    background: rgba(44, 122, 85, .08);
+    border: 1px solid rgba(44, 122, 85, .3);
+    margin-bottom: 8px;
+  }
+  .bu-asgn-complete-check {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #2C7A55; color: #fff;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .bu-asgn-complete-check svg { width: 11px; height: 11px; }
+  .bu-asgn-complete-title {
+    font-size: .8rem; color: var(--ink); line-height: 1.3;
+  }
+  .bu-asgn-complete-meta {
+    font-size: .62rem; color: var(--ink-soft); margin-top: 3px;
+  }
+
+  .bu-asgn-summary {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: var(--bu-paper-2, var(--paper-2));
+    margin-bottom: 16px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .bu-asgn-summary-line {
+    display: flex; align-items: center; gap: 8px;
+    font-size: .72rem; color: var(--ink);
+  }
+  .bu-asgn-summary-ic {
+    width: 12px; height: 12px; flex-shrink: 0;
+    color: var(--ink-soft);
+  }
+  .bu-asgn-summary-checkbox {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 13px; height: 13px; border-radius: 3px;
+    background: #2C7A55; color: #fff;
+    flex-shrink: 0;
+  }
+  .bu-asgn-summary-checkbox svg { width: 9px; height: 9px; }
+
+  .bu-asgn-outputs-empty {
+    font-size: .68rem; font-style: italic;
+    color: var(--ink-soft); padding: 6px 4px;
+  }
+
+  .bu-btn.bu-run-again {
+    background: var(--ink); color: var(--paper);
+    border-color: var(--ink);
+    flex: 1; gap: 6px;
+    justify-content: center;
+  }
+  .bu-btn.bu-run-again:hover { background: var(--pink-deep); border-color: var(--pink-deep); }
+
   @media (max-width: 720px) {
     .bu-stage4 { grid-template-columns: 1fr; }
+    .bu-stage4 .bu-frame.bu-pa {
+      border-right: none;
+      border-bottom: 1px solid var(--bu-border, var(--rule));
+    }
   }
 
 </style>
@@ -1868,7 +1947,7 @@
               <aside class="bu-asgn">
                 <div class="bu-asgn-head">
                   <div class="bu-asgn-title">Daily Invoice Processing</div>
-                  <span class="bu-pill-needs">Pending Approval</span>
+                  <span class="bu-pill-done">Completed</span>
                 </div>
 
                 <dl class="bu-asgn-meta">
@@ -1892,8 +1971,31 @@
                   <button class="bu-asgn-tab">Context</button>
                 </div>
 
+                <div class="bu-asgn-complete">
+                  <span class="bu-asgn-complete-check">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg>
+                  </span>
+                  <div>
+                    <div class="bu-asgn-complete-title">Assignment completed</div>
+                    <div class="bu-asgn-complete-meta">Finished 15 Mar 2026 at 14:18 &middot; 4 min 12s total</div>
+                  </div>
+                </div>
+
+                <div class="bu-asgn-summary">
+                  <div class="bu-asgn-summary-line">
+                    <svg class="bu-asgn-summary-ic" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M4 2.5h5l3 3V13a.5.5 0 0 1-.5.5h-7A.5.5 0 0 1 4 13V3a.5.5 0 0 1 .5-.5Z"/><path d="M9 2.5v3h3"/></svg>
+                    5 invoices processed
+                  </div>
+                  <div class="bu-asgn-summary-line">
+                    <span class="bu-asgn-summary-checkbox">
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg>
+                    </span>
+                    2 flags actioned
+                  </div>
+                </div>
+
                 <div class="bu-asgn-progress">
-                  <div class="bu-asgn-progress-head">In Progress <span class="bu-asgn-count">&middot; 0/7 steps</span></div>
+                  <div class="bu-asgn-progress-head">In Progress <span class="bu-asgn-count">&middot; 7/7 steps</span></div>
                   <ol class="bu-asgn-steps">
                     <li class="is-done">
                       <span class="step-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
@@ -1911,43 +2013,31 @@
                       <span class="step-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
                       <div class="step-label">Extract attachments<span class="step-meta">09:14 &middot; 8s</span></div>
                     </li>
-                    <li class="is-active">
-                      <span class="step-dot active"></span>
-                      <div class="step-label">Apply CIS/VAT rules</div>
+                    <li class="is-done">
+                      <span class="step-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                      <div class="step-label">Apply CIS/VAT rules<span class="step-meta">09:14 &middot; 8s</span></div>
                     </li>
-                    <li>
-                      <span class="step-dot"></span>
-                      <div class="step-label">Assign approvers</div>
+                    <li class="is-done">
+                      <span class="step-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                      <div class="step-label">Assign approvers<span class="step-meta">09:14 &middot; 8s</span></div>
                     </li>
-                    <li>
-                      <span class="step-dot"></span>
-                      <div class="step-label">Present invoice batch</div>
+                    <li class="is-done">
+                      <span class="step-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                      <div class="step-label">Present invoice batch<span class="step-meta">09:14 &middot; 8s</span></div>
                     </li>
                   </ol>
                 </div>
 
                 <div class="bu-asgn-outputs">
                   <div class="bu-asgn-out-head">Outputs</div>
-                  <div class="bu-asgn-out">
-                    <span class="kind">PDF</span>
-                    <span class="nm">Pitkin &amp; Ruddock &mdash; Invoice 3351</span>
-                    <span class="size">22 KB</span>
-                  </div>
-                  <div class="bu-asgn-out">
-                    <span class="kind">PDF</span>
-                    <span class="nm">Buildbase &mdash; Invoice BB-9921</span>
-                    <span class="size">22 KB</span>
-                  </div>
-                  <div class="bu-asgn-out">
-                    <span class="kind">PDF</span>
-                    <span class="nm">Travis Perkins &mdash; Invoice TP-8812</span>
-                    <span class="size">22 KB</span>
-                  </div>
+                  <div class="bu-asgn-outputs-empty">Files will appear here once Brim starts creating them</div>
                 </div>
 
                 <div class="bu-asgn-actions">
-                  <button class="bu-btn"><svg viewBox="0 0 16 16" fill="currentColor" width="9" height="9"><rect x="4" y="3" width="2.5" height="10" rx=".5"/><rect x="9.5" y="3" width="2.5" height="10" rx=".5"/></svg>Pause</button>
-                  <button class="bu-btn ghost-danger"><svg viewBox="0 0 16 16" fill="currentColor" width="9" height="9"><rect x="3" y="3" width="10" height="10" rx=".5"/></svg>Stop</button>
+                  <button class="bu-btn bu-run-again">
+                    <svg viewBox="0 0 16 16" fill="currentColor" width="9" height="9"><path d="M5 3.5v9l7-4.5z"/></svg>
+                    Run again
+                  </button>
                 </div>
               </aside>
             </div>
