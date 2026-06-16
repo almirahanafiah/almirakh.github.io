@@ -1,440 +1,876 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Almira, AI Product Designer</title>
-<meta name="description" content="Product designer working at the seams of AI-native software, interaction systems, workflows, and 0→1 products." />
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
-<style>
-  /* ============ TOKENS ============ */
-  :root {
-    --paper:   #fcfcfc;   /* neutral near-white */
-    --paper-2: #f4f0e9;   /* warm cream for tonal bands and image wells */
-    --ink:     #2C2A28;   /* warm near-black */
-    --ink-soft:#79736A;   /* warm grey */
-    --pink:    #EA5F82;   /* bright rose, the one accent */
-    --pink-deep:#C0395C;  /* readable rose, links, small text */
-    --rule:    rgba(44,42,40,0.16);
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Almira Hanafiah | AI Product Designer</title>
+        <meta
+            name="description"
+            content="Product designer working at the seams of AI-native software, interaction systems, workflows, and 0→1 products."
+        />
+        <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            /* ============ TOKENS ============ */
+            :root {
+                --paper: #fcfcfc; /* neutral near-white */
+                --paper-2: #f4f0e9; /* warm cream for tonal bands and image wells */
+                --ink: #2c2a28; /* warm near-black */
+                --ink-soft: #79736a; /* warm grey */
+                --pink: #ea5f82; /* bright rose, the one accent */
+                --pink-deep: #c0395c; /* readable rose, links, small text */
+                --rule: rgba(44, 42, 40, 0.16);
 
-    --font: "Geist", system-ui, sans-serif;
-    --w: 300;             /* Geist Light, uniform */
+                --font: "Geist", system-ui, sans-serif;
+                --w: 300; /* Geist Light, uniform */
 
-    --ease: cubic-bezier(0.23, 1, 0.32, 1);
-    --shell: 1280px;
-  }
+                --ease: cubic-bezier(0.23, 1, 0.32, 1);
+                --shell: 1280px;
+            }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+                scrollbar-gutter: stable;
+            }
 
-  /* smooth cross-fade between pages (Chrome 126+, Safari 18+); harmlessly ignored elsewhere */
-  @view-transition { navigation: auto; }
-  ::view-transition-old(root),
-  ::view-transition-new(root) { animation-duration: .32s; animation-timing-function: ease; }
-  /* lift the masthead out of the cross-fade so it stays put while only the body content swaps */
-  header:has(.masthead) { view-transition-name: site-header; }
-  ::view-transition-old(site-header),
-  ::view-transition-new(site-header) { animation: none; }
+            /* smooth cross-fade between pages (Chrome 126+, Safari 18+); harmlessly ignored elsewhere */
+            @view-transition {
+                navigation: auto;
+            }
+            ::view-transition-old(root),
+            ::view-transition-new(root) {
+                animation-duration: 0.32s;
+                animation-timing-function: ease;
+            }
+            /* lift the masthead out of the cross-fade so it stays put while only the body content swaps */
+            header:has(.masthead) {
+                view-transition-name: site-header;
+            }
+            ::view-transition-old(site-header),
+            ::view-transition-new(site-header) {
+                animation: none;
+            }
 
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: var(--font);
-    font-weight: var(--w);
-    font-size: 18px;
-    line-height: 1.62;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  a, p, h1, h2, h3, div, span, nav, li { font-weight: var(--w); }
-  a { color: inherit; text-decoration: none; }
-  ::selection { background: var(--pink); color: var(--paper); }
+            body {
+                background: var(--paper);
+                color: var(--ink);
+                font-family: var(--font);
+                font-weight: var(--w);
+                font-size: 18px;
+                line-height: 1.62;
+                -webkit-font-smoothing: antialiased;
+                overflow-x: hidden;
+            }
+            a,
+            p,
+            h1,
+            h2,
+            h3,
+            div,
+            span,
+            nav,
+            li {
+                font-weight: var(--w);
+            }
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+            ::selection {
+                background: var(--pink);
+                color: var(--paper);
+            }
 
-  @media (hover: hover) and (pointer: fine) {
-    body, a, button, .row { cursor: none; }
-  }
+            @media (hover: hover) and (pointer: fine) {
+                body,
+                a,
+                button,
+                .row {
+                    cursor: none;
+                }
+            }
 
-  .shell { max-width: var(--shell); margin: 0 auto; padding: 0 56px; }
+            .shell {
+                max-width: var(--shell);
+                margin: 0 auto;
+                padding: 0 56px;
+            }
 
-  /* micro-label used throughout */
-  .label {
-    font-size: .7rem; text-transform: uppercase;
-    letter-spacing: .19em; color: var(--ink-soft);
-  }
+            /* micro-label used throughout */
+            .label {
+                font-size: 0.7rem;
+                text-transform: uppercase;
+                letter-spacing: 0.19em;
+                color: var(--ink-soft);
+            }
 
-  /* ============ CURSOR ============ */
-  .cursor {
-    position: fixed; top: 0; left: 0; width: 22px; height: 22px;
-    border: 1px solid var(--pink); border-radius: 50%;
-    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
-    transition: width .22s var(--ease), height .22s var(--ease),
-                background-color .22s var(--ease);
-  }
-  .cursor.hot { width: 54px; height: 54px; background: rgba(234,95,130,.12); }
-  .cursor-dot {
-    position: fixed; top: 0; left: 0; width: 4px; height: 4px;
-    background: var(--pink-deep); border-radius: 50%;
-    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
-  }
-  @media (hover: none),(pointer: coarse) { .cursor,.cursor-dot { display: none; } }
+            /* ============ CURSOR ============ */
+            .cursor {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 22px;
+                height: 22px;
+                border: 1px solid var(--pink);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition:
+                    width 0.22s var(--ease),
+                    height 0.22s var(--ease),
+                    background-color 0.22s var(--ease);
+            }
+            .cursor.hot {
+                width: 54px;
+                height: 54px;
+                background: rgba(234, 95, 130, 0.12);
+            }
+            .cursor-dot {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 4px;
+                height: 4px;
+                background: var(--pink-deep);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+            }
+            @media (hover: none), (pointer: coarse) {
+                .cursor,
+                .cursor-dot {
+                    display: none;
+                }
+            }
 
-  /* ============ MASTHEAD ============ */
-  header { border-bottom: 1px solid var(--rule); }
-  .masthead {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 28px 0 20px;
-  }
-  .wordmark {
-    font-size: 1.1rem; letter-spacing: -.01em;
-    color: var(--pink-deep);
-  }
-  .nav { display: flex; gap: 30px; }
-  .nav a {
-    font-size: .76rem; text-transform: uppercase; letter-spacing: .15em;
-    position: relative; padding-bottom: 3px;
-  }
-  .nav a::after {
-    content: ""; position: absolute; left: 0; bottom: 0;
-    width: 100%; height: 1px; background: var(--pink);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform .26s var(--ease);
-  }
-  .nav a:hover::after { transform: scaleX(1); }
-  .nav a.here { color: var(--pink-deep); }
-  .nav a.here::after { transform: scaleX(1); }
+            /* ============ MASTHEAD ============ */
+            header {
+                border-bottom: 1px solid var(--rule);
+            }
+            .masthead {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                padding: 28px 0 20px;
+            }
+            .wordmark {
+                font-size: 1.1rem;
+                letter-spacing: -0.01em;
+                color: var(--pink-deep);
+            }
+            .nav {
+                display: flex;
+                gap: 30px;
+            }
+            .nav a {
+                font-size: 0.76rem;
+                text-transform: uppercase;
+                letter-spacing: 0.15em;
+                position: relative;
+                padding-bottom: 3px;
+            }
+            .nav a::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 1px;
+                background: var(--pink);
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.26s var(--ease);
+            }
+            .nav a:hover::after {
+                transform: scaleX(1);
+            }
+            .nav a.here {
+                color: var(--pink-deep);
+            }
+            .nav a.here::after {
+                transform: scaleX(1);
+            }
 
-  /* ============ LEAD ============ */
-  .lead { position: relative; padding: 88px 0 96px; }
-  .lead-grid {
-    display: grid; grid-template-columns: repeat(12, 1fr); gap: 26px;
-    position: relative; z-index: 2;
-  }
-  .lead .eyebrow { grid-column: 1 / 8; margin-bottom: 30px; }
-  .display {
-    grid-column: 1 / 12;
-    font-size: clamp(2.7rem, 6.6vw, 5.5rem);
-    line-height: 1.04; letter-spacing: -.035em;
-    max-width: 19ch;
-  }
-  .display em { font-style: normal; color: var(--pink-deep); }
-  .dek {
-    grid-column: 7 / 13; margin-top: 46px;
-    font-size: 1.06rem; color: var(--ink); max-width: 46ch;
-    justify-self: end;
-  }
-  .dek .q { color: var(--ink-soft); }
+            /* ============ LEAD ============ */
+            .lead {
+                position: relative;
+                padding: 88px 0 96px;
+            }
+            .lead-grid {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 26px;
+                position: relative;
+                z-index: 2;
+            }
+            .lead .eyebrow {
+                grid-column: 1 / 8;
+                margin-bottom: 30px;
+            }
+            .display {
+                grid-column: 1 / 12;
+                font-size: clamp(2.7rem, 6.6vw, 5.5rem);
+                line-height: 1.04;
+                letter-spacing: -0.035em;
+                max-width: 19ch;
+            }
+            .display em {
+                font-style: normal;
+                color: var(--pink-deep);
+            }
+            .dek {
+                grid-column: 7 / 13;
+                margin-top: 46px;
+                font-size: 1.06rem;
+                color: var(--ink);
+                max-width: 46ch;
+                justify-self: end;
+            }
+            .dek .q {
+                color: var(--ink-soft);
+            }
 
-  /* line-art accents (placeholders for your scanned drawings) */
-  .accent { position: absolute; z-index: 1; pointer-events: none; }
-  .accent path, .accent circle { fill: none; stroke-linecap: round; stroke-linejoin: round; }
-  .accent .stroke { stroke-width: 1.5px; }
-  .accent-1 .stroke { stroke: var(--pink); }
-  .accent-2 .stroke { stroke: var(--ink-soft); }
-  .accent-1 { top: 18px; right: -54px; width: 248px; }
-  .accent-2 { bottom: -86px; left: -96px; width: 300px; transform: rotate(-8deg); }
+            /* line-art accents (placeholders for your scanned drawings) */
+            .accent {
+                position: absolute;
+                z-index: 1;
+                pointer-events: none;
+            }
+            .accent path,
+            .accent circle {
+                fill: none;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+            .accent .stroke {
+                stroke-width: 1.5px;
+            }
+            .accent-1 .stroke {
+                stroke: var(--pink);
+            }
+            .accent-2 .stroke {
+                stroke: var(--ink-soft);
+            }
+            .accent-1 {
+                top: 18px;
+                right: -54px;
+                width: 248px;
+            }
+            .accent-2 {
+                bottom: -86px;
+                left: -96px;
+                width: 300px;
+                transform: rotate(-8deg);
+            }
 
-  /* ============ WORK INDEX ============ */
-  .index { padding: 8px 0 40px; }
-  .index-head {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding-bottom: 16px; border-bottom: 1px solid var(--rule);
-  }
-  .index-head h2 { font-size: 1.05rem; letter-spacing: .01em; }
+            /* ============ WORK INDEX ============ */
+            .index {
+                padding: 8px 0 40px;
+            }
+            .index-head {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                padding-bottom: 16px;
+                border-bottom: 1px solid var(--rule);
+            }
+            .index-head h2 {
+                font-size: 1.05rem;
+                letter-spacing: 0.01em;
+            }
 
-  .row {
-    display: grid; grid-template-columns: repeat(12, 1fr); gap: 26px;
-    align-items: center;
-    padding: 58px 0;
-    border-bottom: 1px solid var(--rule);
-    transition: transform .3s var(--ease);
-  }
-  .row:hover { transform: translateX(10px); }
-  .row:active { transform: translateX(10px) scale(0.997); }
-  .r-num {
-    grid-column: 1 / 2; font-size: .82rem;
-    font-variant-numeric: tabular-nums; color: var(--ink-soft);
-    transition: color .26s var(--ease);
-  }
-  .row:hover .r-num { color: var(--pink-deep); }
-  .r-main { grid-column: 2 / 7; }
-  .r-title {
-    font-size: clamp(1.5rem, 3vw, 2.35rem);
-    letter-spacing: -.025em; line-height: 1.12;
-    display: inline;
-    background-image: linear-gradient(var(--pink), var(--pink));
-    background-size: 0% 1px; background-position: 0 1.08em;
-    background-repeat: no-repeat;
-    transition: background-size .34s var(--ease);
-  }
-  .row:hover .r-title { background-size: 100% 1px; }
-  .r-desc { margin-top: 12px; font-size: .98rem; color: var(--ink-soft); max-width: 42ch; }
-  .r-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-  .r-tag {
-    font-size: .64rem; text-transform: uppercase; letter-spacing: .13em;
-    color: var(--ink-soft);
-    border: 1px solid var(--rule); border-radius: 2px;
-    padding: 5px 10px;
-    transition: border-color .26s var(--ease), color .26s var(--ease);
-  }
-  .row:hover .r-tag { border-color: rgba(234,95,130,.4); }
-  .r-thumb {
-    grid-column: 7 / 13;
-    aspect-ratio: 3 / 2; border: 1px solid var(--rule);
-    background: var(--paper-2); overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .r-thumb .g { width: 22px; height: 22px; border: 1px solid var(--ink-soft); }
-  .r-thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .r-glyph { transition: transform .4s var(--ease); }
-  .row:hover .r-glyph { transform: scale(1.06); }
+            .row {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 26px;
+                align-items: center;
+                padding: 58px 0;
+                border-bottom: 1px solid var(--rule);
+                transition: transform 0.3s var(--ease);
+            }
+            .row:hover {
+                transform: translateX(10px);
+            }
+            .row:active {
+                transform: translateX(10px) scale(0.997);
+            }
+            .r-num {
+                grid-column: 1 / 2;
+                font-size: 0.82rem;
+                font-variant-numeric: tabular-nums;
+                color: var(--ink-soft);
+                transition: color 0.26s var(--ease);
+            }
+            .row:hover .r-num {
+                color: var(--pink-deep);
+            }
+            .r-main {
+                grid-column: 2 / 7;
+            }
+            .r-title {
+                font-size: clamp(1.5rem, 3vw, 2.35rem);
+                letter-spacing: -0.025em;
+                line-height: 1.12;
+                display: inline;
+                background-image: linear-gradient(var(--pink), var(--pink));
+                background-size: 0% 1px;
+                background-position: 0 1.08em;
+                background-repeat: no-repeat;
+                transition: background-size 0.34s var(--ease);
+            }
+            .row:hover .r-title {
+                background-size: 100% 1px;
+            }
+            .r-desc {
+                margin-top: 12px;
+                font-size: 0.98rem;
+                color: var(--ink-soft);
+                max-width: 42ch;
+            }
+            .r-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 24px;
+            }
+            .r-tag {
+                font-size: 0.64rem;
+                text-transform: uppercase;
+                letter-spacing: 0.13em;
+                color: var(--ink-soft);
+                border: 1px solid var(--rule);
+                border-radius: 2px;
+                padding: 5px 10px;
+                transition:
+                    border-color 0.26s var(--ease),
+                    color 0.26s var(--ease);
+            }
+            .row:hover .r-tag {
+                border-color: rgba(234, 95, 130, 0.4);
+            }
+            .r-thumb {
+                grid-column: 7 / 13;
+                aspect-ratio: 3 / 2;
+                border: 1px solid var(--rule);
+                background: var(--paper-2);
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .r-thumb .g {
+                width: 22px;
+                height: 22px;
+                border: 1px solid var(--ink-soft);
+            }
+            .r-thumb img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .r-glyph {
+                transition: transform 0.4s var(--ease);
+            }
+            .row:hover .r-glyph {
+                transform: scale(1.06);
+            }
 
-  /* ============ NOTE ============ */
-  .note { position: relative; padding: 96px 0 104px; }
-  .note-grid {
-    display: grid; grid-template-columns: repeat(12, 1fr); gap: 26px;
-  }
-  .note .label { grid-column: 1 / 3; padding-top: 8px; }
-  .note p {
-    grid-column: 4 / 12;
-    font-size: clamp(1.3rem, 2.5vw, 1.85rem);
-    line-height: 1.42; letter-spacing: -.018em; color: var(--ink);
-  }
-  .note p em { font-style: normal; color: var(--pink-deep); }
+            /* ============ NOTE ============ */
+            .note {
+                position: relative;
+                padding: 96px 0 104px;
+            }
+            .note-grid {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                gap: 26px;
+            }
+            .note .label {
+                grid-column: 1 / 3;
+                padding-top: 8px;
+            }
+            .note p {
+                grid-column: 4 / 12;
+                font-size: clamp(1.3rem, 2.5vw, 1.85rem);
+                line-height: 1.42;
+                letter-spacing: -0.018em;
+                color: var(--ink);
+            }
+            .note p em {
+                font-style: normal;
+                color: var(--pink-deep);
+            }
 
-  /* ============ COLOPHON ============ */
-  footer { border-top: 1px solid var(--rule); padding: 54px 0 40px; position: relative; overflow: hidden; }
-  .sign {
-    margin-top: 64px;
-    pointer-events: none;
-  }
-  .sign img {
-    display: block;
-    width: min(48vw, 560px);
-    height: auto;
-    mix-blend-mode: multiply;  /* lets the watercolor sit on paper without a hard png halo */
-    opacity: 0.6;              /* sign-off watermark feel */
-  }
-  .colophon {
-    display: flex; justify-content: space-between; flex-wrap: wrap;
-    gap: 22px;
-  }
-  .colophon .links { display: flex; gap: 26px; flex-wrap: wrap; }
-  .colophon a { font-size: .8rem; }
-  .colophon a:hover { color: var(--pink-deep); }
-  .colophon .set { font-size: .72rem; color: var(--ink-soft); letter-spacing: .04em; }
+            /* ============ COLOPHON ============ */
+            footer {
+                border-top: 1px solid var(--rule);
+                padding: 54px 0 40px;
+                position: relative;
+                overflow: hidden;
+            }
+            .sign {
+                margin-top: 64px;
+                pointer-events: none;
+            }
+            .sign img {
+                display: block;
+                width: min(48vw, 560px);
+                height: auto;
+                mix-blend-mode: multiply; /* lets the watercolor sit on paper without a hard png halo */
+                opacity: 0.6; /* sign-off watermark feel */
+            }
+            .colophon {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 22px;
+            }
+            .colophon .links {
+                display: flex;
+                gap: 26px;
+                flex-wrap: wrap;
+            }
+            .colophon a {
+                font-size: 0.8rem;
+            }
+            .colophon a:hover {
+                color: var(--pink-deep);
+            }
+            .colophon .set {
+                font-size: 0.72rem;
+                color: var(--ink-soft);
+                letter-spacing: 0.04em;
+            }
 
-  /* ============ REVEAL ============ */
-  .rv { opacity: 0; transform: translateY(14px);
-        transition: opacity .6s var(--ease), transform .6s var(--ease); }
-  .rv.in { opacity: 1; transform: none; }
+            /* ============ REVEAL ============ */
+            .rv {
+                opacity: 0;
+                transform: translateY(14px);
+                transition:
+                    opacity 0.6s var(--ease),
+                    transform 0.6s var(--ease);
+            }
+            .rv.in {
+                opacity: 1;
+                transform: none;
+            }
 
-  .proto-note {
-    position: fixed; bottom: 14px; right: 14px; z-index: 200;
-    background: var(--ink); color: var(--paper);
-    font-size: .68rem; letter-spacing: .05em;
-    padding: 7px 13px; border-radius: 999px; opacity: .82;
-  }
+            .proto-note {
+                position: fixed;
+                bottom: 14px;
+                right: 14px;
+                z-index: 200;
+                background: var(--ink);
+                color: var(--paper);
+                font-size: 0.68rem;
+                letter-spacing: 0.05em;
+                padding: 7px 13px;
+                border-radius: 999px;
+                opacity: 0.82;
+            }
 
-  /* ============ RESPONSIVE ============ */
-  @media (max-width: 900px) {
-    .shell { padding: 0 30px; }
-    .display { grid-column: 1 / 13; max-width: 100%; }
-    .dek { grid-column: 1 / 13; justify-self: start; margin-top: 32px; }
-    .lead .eyebrow { grid-column: 1 / 13; }
-    .accent-1 { width: 150px; right: -30px; opacity: .8; }
-    .accent-2 { width: 180px; left: -70px; }
-    .row { grid-template-columns: repeat(6, 1fr); gap: 14px; padding: 42px 0; }
-    .r-num { grid-column: 1 / 7; }
-    .r-main { grid-column: 1 / 7; margin: 6px 0 22px; }
-    .r-thumb { grid-column: 1 / 7; }
-    .note p { grid-column: 1 / 13; }
-    .note .label { grid-column: 1 / 13; margin-bottom: 14px; }
-  }
-  @media (max-width: 560px) {
-    .shell { padding: 0 20px; }
-    .nav { gap: 16px; }
-    .nav a { font-size: .66rem; letter-spacing: .1em; }
-    .lead { padding: 56px 0 64px; }
-  }
+            /* ============ RESPONSIVE ============ */
+            @media (max-width: 900px) {
+                .shell {
+                    padding: 0 30px;
+                }
+                .display {
+                    grid-column: 1 / 13;
+                    max-width: 100%;
+                }
+                .dek {
+                    grid-column: 1 / 13;
+                    justify-self: start;
+                    margin-top: 32px;
+                }
+                .lead .eyebrow {
+                    grid-column: 1 / 13;
+                }
+                .accent-1 {
+                    width: 150px;
+                    right: -30px;
+                    opacity: 0.8;
+                }
+                .accent-2 {
+                    width: 180px;
+                    left: -70px;
+                }
+                .row {
+                    grid-template-columns: repeat(6, 1fr);
+                    gap: 14px;
+                    padding: 42px 0;
+                }
+                .r-num {
+                    grid-column: 1 / 7;
+                }
+                .r-main {
+                    grid-column: 1 / 7;
+                    margin: 6px 0 22px;
+                }
+                .r-thumb {
+                    grid-column: 1 / 7;
+                }
+                .note p {
+                    grid-column: 1 / 13;
+                }
+                .note .label {
+                    grid-column: 1 / 13;
+                    margin-bottom: 14px;
+                }
+            }
+            @media (max-width: 560px) {
+                .shell {
+                    padding: 0 20px;
+                }
+                .nav {
+                    gap: 16px;
+                }
+                .nav a {
+                    font-size: 0.66rem;
+                    letter-spacing: 0.1em;
+                }
+                .lead {
+                    padding: 56px 0 64px;
+                }
+            }
 
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .rv { opacity: 1 !important; transform: none !important; transition: none; }
-    .cursor, .row, .r-glyph { transition: none !important; }
-    .accent path, .accent circle { stroke-dashoffset: 0 !important; transition: none !important; }
-  }
-</style>
-</head>
-<body>
+            @media (prefers-reduced-motion: reduce) {
+                html {
+                    scroll-behavior: auto;
+                }
+                .rv {
+                    opacity: 1 !important;
+                    transform: none !important;
+                    transition: none;
+                }
+                .cursor,
+                .row,
+                .r-glyph {
+                    transition: none !important;
+                }
+                .accent path,
+                .accent circle {
+                    stroke-dashoffset: 0 !important;
+                    transition: none !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="cursor" id="cursor" aria-hidden="true"></div>
+        <div class="cursor-dot" id="dot" aria-hidden="true"></div>
 
-<div class="cursor" id="cursor" aria-hidden="true"></div>
-<div class="cursor-dot" id="dot" aria-hidden="true"></div>
+        <header>
+            <div class="shell">
+                <div class="masthead">
+                    <a href="index.html" class="wordmark"
+                        >Almira Hanafiah &#10051;</a
+                    >
+                    <nav class="nav">
+                        <a href="index.html" class="here">Work</a>
+                        <a href="play.html">Play</a>
+                        <a href="about.html">About</a>
+                        <a href="cv.html">CV</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
 
-<header>
-  <div class="shell">
-    <div class="masthead">
-      <a href="index.html" class="wordmark">Almira Hanafiah &#10051;</a>
-    </div>
-  </div>
-</header>
+        <main>
+            <!-- ===== LEAD ===== -->
+            <section class="lead">
+                <!-- ACCENT 1, placeholder for your scanned drawing. Bleeds off the right. -->
+                <svg
+                    class="accent accent-1"
+                    viewBox="0 0 240 320"
+                    aria-hidden="true"
+                >
+                    <path
+                        class="stroke"
+                        stroke="var(--pink)"
+                        stroke-width="1.5"
+                        d="M196 312 C 168 256 158 196 176 138 C 186 104 210 82 198 44"
+                    />
+                    <path
+                        class="stroke"
+                        stroke="var(--pink)"
+                        stroke-width="1.5"
+                        d="M178 132 C 138 122 116 96 150 80 C 174 68 192 110 178 132 Z"
+                    />
+                    <path
+                        class="stroke"
+                        stroke="var(--pink)"
+                        stroke-width="1.5"
+                        d="M170 198 C 210 196 236 172 210 150 C 190 134 156 174 170 198 Z"
+                    />
+                    <path
+                        class="stroke"
+                        stroke="var(--pink)"
+                        stroke-width="1.5"
+                        d="M183 256 C 146 262 120 244 144 220 C 162 202 196 234 183 256 Z"
+                    />
+                </svg>
+                <div class="shell">
+                    <div class="lead-grid">
+                        <div class="eyebrow label rv">Hi! I'm Almira ⋆✴︎˚｡⋆</div>
+                        <h1 class="display rv">
+                            Designing how people and AI actually work
+                            <em>together</em>.
+                        </h1>
+                        <p class="dek rv">
+                            I work at the seams of AI-native software
+                            <span class="q"
+                                >, the interaction systems, workflows, and
+                                0&rarr;1 products where human judgment meets
+                                machine intelligence.</span
+                            >
+                            Psychology-trained, systems-minded, AI-native end to
+                            end: from research through to built interface.
+                        </p>
+                    </div>
+                </div>
+            </section>
 
-<main>
+            <!-- ===== WORK INDEX ===== -->
+            <section class="index">
+                <div class="shell">
+                    <div class="index-head rv">
+                        <h2>Selected Work</h2>
+                    </div>
 
-  <!-- ===== LEAD ===== -->
-  <section class="lead">
-    <!-- ACCENT 1, placeholder for your scanned drawing. Bleeds off the right. -->
-    <svg class="accent accent-1" viewBox="0 0 240 320" aria-hidden="true">
-      <path class="stroke" stroke="var(--pink)" stroke-width="1.5"
-        d="M196 312 C 168 256 158 196 176 138 C 186 104 210 82 198 44" />
-      <path class="stroke" stroke="var(--pink)" stroke-width="1.5"
-        d="M178 132 C 138 122 116 96 150 80 C 174 68 192 110 178 132 Z" />
-      <path class="stroke" stroke="var(--pink)" stroke-width="1.5"
-        d="M170 198 C 210 196 236 172 210 150 C 190 134 156 174 170 198 Z" />
-      <path class="stroke" stroke="var(--pink)" stroke-width="1.5"
-        d="M183 256 C 146 262 120 244 144 220 C 162 202 196 234 183 256 Z" />
-    </svg>
-    <div class="shell">
-      <div class="lead-grid">
-        <div class="eyebrow label rv">AI Product Designer, currently at Brim</div>
-        <h1 class="display rv">Designing how people and AI actually work <em>together</em>.</h1>
-        <p class="dek rv">I work at the seams of AI-native software <span class="q">, the interaction systems, workflows, and 0&rarr;1 products where human judgment meets machine intelligence.</span> Psychology-trained, systems-minded, AI-native end to end: from research through to built interface.</p>
-      </div>
-    </div>
-  </section>
+                    <a href="work/ai-workflows.html" class="row rv">
+                        <div class="r-num">01</div>
+                        <div class="r-main">
+                            <span class="r-title"
+                                >Designing AI-native workflows</span
+                            >
+                            <p class="r-desc">
+                                Interaction patterns for non-deterministic
+                                systems and human-in-the-loop approvals.
+                            </p>
+                            <div class="r-tags">
+                                <span class="r-tag">AI Product Design</span>
+                                <span class="r-tag">Interaction</span>
+                                <span class="r-tag">Systems</span>
+                                <span class="r-tag">2025</span>
+                            </div>
+                        </div>
+                        <div class="r-thumb">
+                            <div class="g r-glyph" aria-hidden="true"></div>
+                        </div>
+                    </a>
 
-  <!-- ===== WORK INDEX ===== -->
-  <section class="index">
-    <div class="shell">
-      <div class="index-head rv">
-        <h2>Selected Work</h2>
-      </div>
+                    <a href="work/design-system.html" class="row rv">
+                        <div class="r-num">02</div>
+                        <div class="r-main">
+                            <span class="r-title"
+                                >A design system for speed</span
+                            >
+                            <p class="r-desc">
+                                Cutting implementation cycles from months to
+                                under a week with reusable systems.
+                            </p>
+                            <div class="r-tags">
+                                <span class="r-tag">AI Product Design</span>
+                                <span class="r-tag">Design Systems</span>
+                                <span class="r-tag">Frontend</span>
+                                <span class="r-tag">2025</span>
+                            </div>
+                        </div>
+                        <div class="r-thumb">
+                            <div class="g r-glyph" aria-hidden="true"></div>
+                        </div>
+                    </a>
+                </div>
+            </section>
 
-      <a href="work/ai-workflows.html" class="row rv">
-        <div class="r-num">01</div>
-        <div class="r-main">
-          <span class="r-title">Designing AI-native workflows</span>
-          <p class="r-desc">Interaction patterns for non-deterministic systems and human-in-the-loop approvals.</p>
-          <div class="r-tags">
-            <span class="r-tag">AI Product Design</span>
-            <span class="r-tag">Interaction</span>
-            <span class="r-tag">Systems</span>
-            <span class="r-tag">2025</span>
-          </div>
-        </div>
-        <div class="r-thumb"><div class="g r-glyph" aria-hidden="true"></div></div>
-      </a>
+            <!-- ===== NOTE ===== -->
+            <section class="note">
+                <!-- ACCENT 2, placeholder for your scanned drawing. Bleeds off the left. -->
+                <svg
+                    class="accent accent-2"
+                    viewBox="0 0 320 260"
+                    aria-hidden="true"
+                >
+                    <path
+                        class="stroke"
+                        stroke="var(--ink-soft)"
+                        stroke-width="1.4"
+                        d="M14 196 C 70 150 96 92 168 96 C 224 100 236 168 196 196 C 150 228 96 206 122 152 C 146 102 224 78 304 110"
+                    />
+                    <circle
+                        class="stroke"
+                        stroke="var(--ink-soft)"
+                        stroke-width="1.4"
+                        cx="276"
+                        cy="64"
+                        r="20"
+                    />
+                </svg>
+                <div class="shell">
+                    <div class="note-grid">
+                        <div class="label rv">Approach</div>
+                        <p class="rv">
+                            Most of my work is invisible, the difference between
+                            an AI feature people <em>trust</em> and one they
+                            quietly stop using. I design for that difference:
+                            the states, the seams, and the moments a person
+                            decides whether the machine has earned the next
+                            step.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
 
-      <a href="work/design-system.html" class="row rv">
-        <div class="r-num">02</div>
-        <div class="r-main">
-          <span class="r-title">A design system for speed</span>
-          <p class="r-desc">Cutting implementation cycles from months to under a week with reusable systems.</p>
-          <div class="r-tags">
-            <span class="r-tag">AI Product Design</span>
-            <span class="r-tag">Design Systems</span>
-            <span class="r-tag">Frontend</span>
-            <span class="r-tag">2025</span>
-          </div>
-        </div>
-        <div class="r-thumb"><div class="g r-glyph" aria-hidden="true"></div></div>
-      </a>
+        <footer>
+            <div class="shell">
+                <div class="colophon">
+                    <div class="links">
+                        <a href="mailto:almirahanafiah@gmail.com"
+                            >almirahanafiah@gmail.com</a
+                        >
+                        <a
+                            href="https://linkedin.com/in/almira-hanafiah"
+                            target="_blank"
+                            rel="noopener"
+                            >LinkedIn</a
+                        >
+                        <a
+                            href="https://github.com/almirakh"
+                            target="_blank"
+                            rel="noopener"
+                            >GitHub</a
+                        >
+                    </div>
+                    <div class="set">
+                        Designed and built with &hearts;, 2026
+                    </div>
+                </div>
+                <div class="sign rv">
+                    <img
+                        src="assets/brand/signature.png"
+                        alt="Almira Hanafiah"
+                    />
+                </div>
+            </div>
+        </footer>
 
-    </div>
-  </section>
+        <div class="proto-note">Prototype, editorial direction</div>
 
-  <!-- ===== NOTE ===== -->
-  <section class="note">
-    <!-- ACCENT 2, placeholder for your scanned drawing. Bleeds off the left. -->
-    <svg class="accent accent-2" viewBox="0 0 320 260" aria-hidden="true">
-      <path class="stroke" stroke="var(--ink-soft)" stroke-width="1.4"
-        d="M14 196 C 70 150 96 92 168 96 C 224 100 236 168 196 196 C 150 228 96 206 122 152 C 146 102 224 78 304 110" />
-      <circle class="stroke" stroke="var(--ink-soft)" stroke-width="1.4" cx="276" cy="64" r="20" />
-    </svg>
-    <div class="shell">
-      <div class="note-grid">
-        <div class="label rv">Approach</div>
-        <p class="rv">Most of my work is invisible, the difference between an AI feature people <em>trust</em> and one they quietly stop using. I design for that difference: the states, the seams, and the moments a person decides whether the machine has earned the next step.</p>
-      </div>
-    </div>
-  </section>
+        <script>
+            (function () {
+                var reduced = matchMedia(
+                    "(prefers-reduced-motion: reduce)",
+                ).matches;
+                var fine = matchMedia(
+                    "(hover: hover) and (pointer: fine)",
+                ).matches;
 
-</main>
+                /* ---- custom cursor ---- */
+                if (fine) {
+                    var cur = document.getElementById("cursor"),
+                        dot = document.getElementById("dot");
+                    var mx = innerWidth / 2,
+                        my = innerHeight / 2,
+                        cx = mx,
+                        cy = my;
+                    addEventListener("mousemove", function (e) {
+                        mx = e.clientX;
+                        my = e.clientY;
+                        dot.style.left = mx + "px";
+                        dot.style.top = my + "px";
+                        if (reduced) {
+                            cur.style.left = mx + "px";
+                            cur.style.top = my + "px";
+                        }
+                    });
+                    if (!reduced)
+                        (function loop() {
+                            cx += (mx - cx) * 0.17;
+                            cy += (my - cy) * 0.17;
+                            cur.style.left = cx + "px";
+                            cur.style.top = cy + "px";
+                            requestAnimationFrame(loop);
+                        })();
+                    document
+                        .querySelectorAll("a, button, .row")
+                        .forEach(function (el) {
+                            el.addEventListener("mouseenter", function () {
+                                cur.classList.add("hot");
+                            });
+                            el.addEventListener("mouseleave", function () {
+                                cur.classList.remove("hot");
+                            });
+                        });
+                    addEventListener("mouseleave", function () {
+                        cur.style.opacity = 0;
+                        dot.style.opacity = 0;
+                    });
+                    addEventListener("mouseenter", function () {
+                        cur.style.opacity = 1;
+                        dot.style.opacity = 1;
+                    });
+                }
 
-<footer>
-  <div class="shell">
-    <div class="colophon">
-      <div class="links">
-        <a href="mailto:almirahanafiah@gmail.com">almirahanafiah@gmail.com</a>
-        <a href="https://linkedin.com/in/almira-hanafiah" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/almirakh" target="_blank" rel="noopener">GitHub</a>
-      </div>
-      <div class="set">Designed and built with &hearts;, 2026</div>
-    </div>
-    <div class="sign rv"><img src="assets/brand/signature.png" alt="Almira Hanafiah" /></div>
-  </div>
-</footer>
+                /* ---- accent line-draw reveal (the drawings draw themselves in) ---- */
+                var strokes = document.querySelectorAll(".accent .stroke");
+                strokes.forEach(function (el, i) {
+                    var len = el.getTotalLength ? el.getTotalLength() : 0;
+                    if (!len) return;
+                    el.style.strokeDasharray = len;
+                    if (reduced) {
+                        el.style.strokeDashoffset = 0;
+                        return;
+                    }
+                    el.style.strokeDashoffset = len;
+                    el.style.transition = "stroke-dashoffset 1.9s var(--ease)";
+                    setTimeout(
+                        function () {
+                            el.style.strokeDashoffset = 0;
+                        },
+                        280 + i * 220,
+                    );
+                });
 
-<div class="proto-note">Prototype, editorial direction</div>
-
-<script>
-(function () {
-  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-  /* ---- custom cursor ---- */
-  if (fine) {
-    var cur = document.getElementById("cursor"), dot = document.getElementById("dot");
-    var mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my;
-    addEventListener("mousemove", function (e) {
-      mx = e.clientX; my = e.clientY;
-      dot.style.left = mx+"px"; dot.style.top = my+"px";
-      if (reduced) { cur.style.left = mx+"px"; cur.style.top = my+"px"; }
-    });
-    if (!reduced) (function loop(){
-      cx += (mx-cx)*.17; cy += (my-cy)*.17;
-      cur.style.left = cx+"px"; cur.style.top = cy+"px";
-      requestAnimationFrame(loop);
-    })();
-    document.querySelectorAll("a, button, .row").forEach(function (el) {
-      el.addEventListener("mouseenter", function(){ cur.classList.add("hot"); });
-      el.addEventListener("mouseleave", function(){ cur.classList.remove("hot"); });
-    });
-    addEventListener("mouseleave", function(){ cur.style.opacity=0; dot.style.opacity=0; });
-    addEventListener("mouseenter", function(){ cur.style.opacity=1; dot.style.opacity=1; });
-  }
-
-  /* ---- accent line-draw reveal (the drawings draw themselves in) ---- */
-  var strokes = document.querySelectorAll(".accent .stroke");
-  strokes.forEach(function (el, i) {
-    var len = el.getTotalLength ? el.getTotalLength() : 0;
-    if (!len) return;
-    el.style.strokeDasharray = len;
-    if (reduced) { el.style.strokeDashoffset = 0; return; }
-    el.style.strokeDashoffset = len;
-    el.style.transition = "stroke-dashoffset 1.9s var(--ease)";
-    setTimeout(function () { el.style.strokeDashoffset = 0; }, 280 + i * 220);
-  });
-
-  /* ---- scroll reveal ---- */
-  var rv = document.querySelectorAll(".rv");
-  if (reduced || !("IntersectionObserver" in window)) {
-    rv.forEach(function (el){ el.classList.add("in"); });
-  } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en, i) {
-        if (en.isIntersecting) {
-          var el = en.target;
-          setTimeout(function(){ el.classList.add("in"); }, i * 70);
-          io.unobserve(el);
-        }
-      });
-    }, { threshold: .14 });
-    rv.forEach(function (el){ io.observe(el); });
-  }
-})();
-</script>
-</body>
+                /* ---- scroll reveal ---- */
+                var rv = document.querySelectorAll(".rv");
+                if (reduced || !("IntersectionObserver" in window)) {
+                    rv.forEach(function (el) {
+                        el.classList.add("in");
+                    });
+                } else {
+                    var io = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (en, i) {
+                                if (en.isIntersecting) {
+                                    var el = en.target;
+                                    setTimeout(function () {
+                                        el.classList.add("in");
+                                    }, i * 70);
+                                    io.unobserve(el);
+                                }
+                            });
+                        },
+                        { threshold: 0.14 },
+                    );
+                    rv.forEach(function (el) {
+                        io.observe(el);
+                    });
+                }
+            })();
+        </script>
+    </body>
 </html>

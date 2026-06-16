@@ -121,6 +121,7 @@
     border-top: 1px solid var(--rule);
   }
   .block:first-child { border-top: none; padding-top: 0; }
+  .block.solo { grid-template-columns: 1fr; }
   .block .k { padding-top: 5px; }
   .block h1 {
     font-size: clamp(1.12rem, 1.5vw, 1.4rem);
@@ -150,7 +151,7 @@
     display: flex; flex-direction: column;
     align-items: center; justify-content: center; gap: 8px;
   }
-  .shot img {
+  .shot img, .shot video {
     width: 100%; height: 100%; object-fit: cover;
     display: block; -webkit-user-drag: none; user-select: none;
   }
@@ -186,14 +187,17 @@
       height: 100dvh; overflow: hidden;
       display: flex; flex-direction: column;
     }
-    main { flex: 1; min-height: 0; display: flex; align-items: center; }
-    main .shell { width: 100%; }
+    main { flex: 1; min-height: 0; display: flex; align-items: stretch; }
+    main .shell { width: 100%; height: 100%; }
     .about {
       grid-template-columns: 452px 1fr; gap: 72px;
-      align-items: stretch; padding: 0;
+      grid-template-rows: minmax(0, 1fr);
+      align-items: stretch; padding: 0; height: 100%;
     }
-    /* gallery column stretches to match the text column's height */
-    .gallery-col { display: flex; flex-direction: column; }
+    /* text is centered vertically against the full-height gallery */
+    .about-text { display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+    /* gallery fills the row height; images crop to it via object-fit */
+    .gallery-col { display: flex; flex-direction: column; min-height: 0; }
     .scroller { flex: 1; min-height: 0; }
     .track { height: 100%; }
     .shot { height: 100%; width: auto; }
@@ -243,26 +247,13 @@
       <!-- ===== TEXT COLUMN ===== -->
       <div class="about-text">
 
-        <div class="block rv">
-          <div class="k label">Hello</div>
+        <div class="block solo rv">
           <div>
-            <h1>I'm Almira, a product designer working on <em>AI-native</em> software at Brim.</h1>
-          </div>
-        </div>
-
-        <div class="block rv">
-          <div class="k label">Background</div>
-          <div>
-            <p>I came to design from psychology. I trained as a psychologist and spent a placement year in the NHS, expecting to practise clinically.</p>
-            <p class="soft">Over time I grew more interested in how people think, trust, and decide around technology, and product design started to feel like the place where I could actually do something with those questions.</p>
-          </div>
-        </div>
-
-        <div class="block rv">
-          <div class="k label">How I work</div>
-          <div>
-            <p>I care about interaction design that respects attention, human&ndash;AI collaboration that keeps people in control, and systems other people can build on.</p>
-            <p class="soft">I work end to end, from research through to the built interface, and I've come to feel at home in the ambiguity that AI products live in.</p>
+            <p>As a designer with a psychology background, I'm interested in how people think and how that shapes the products we build &ndash; especially as AI becomes part of everyday tools.</p>
+            <p>Most of my work sits between research and product &ndash; understanding problems properly, then helping shape them into something real. I'm still learning to code, and I like being involved end to end where I can.</p>
+            <p>I also draw and paint portraits, and I tend to approach design in the same way: starting with structure before detail, trying to understand what holds the composition together before refining how it looks or feels.</p>
+            <p class="soft">Currently exploring opportunities where I can stay close to both research and building, especially in AI-driven products.</p>
+            <p class="soft">Feel free to reach out to chat and collaborate (or grab a coffee!) &#9786;&#xFE0E;</p>
           </div>
         </div>
 
@@ -270,16 +261,25 @@
 
       <!-- ===== GALLERY COLUMN (horizontal scroll) ===== -->
       <div class="gallery-col">
-        <!-- 5 photos. Each .shot carries a data-cap caption (shown as a tooltip on hover).
-             To use a real image, replace the inner placeholder with:
-             <img src="assets/about/photo-1.jpg" alt="...">, keep the data-cap. -->
+        <!-- 4 photos + 1 video. Each .shot carries a data-cap caption (shown as a tooltip on hover). -->
         <div class="scroller" id="scroller">
           <div class="track">
-            <figure class="shot" data-cap="Charcoal study"><div class="g" aria-hidden="true"></div><span class="cap">[ photo 1 ]</span></figure>
-            <figure class="shot" data-cap="Oil portrait, in progress"><div class="g" aria-hidden="true"></div><span class="cap">[ photo 2 ]</span></figure>
-            <figure class="shot" data-cap="Sketchbook, 2024"><div class="g" aria-hidden="true"></div><span class="cap">[ photo 3 ]</span></figure>
-            <figure class="shot" data-cap="Plein air study"><div class="g" aria-hidden="true"></div><span class="cap">[ photo 4 ]</span></figure>
-            <figure class="shot" data-cap="Studio corner"><div class="g" aria-hidden="true"></div><span class="cap">[ photo 5 ]</span></figure>
+            <figure class="shot" data-cap="it's me :)">
+              <img src="assets/about/about-1-me.jpg" alt="Almira in a black-and-white photobooth strip" loading="lazy" />
+            </figure>
+            <figure class="shot" data-cap="the painting corner">
+              <img src="assets/about/about-2-painting-corner.jpeg" alt="An easel with a portrait in progress beside a window and a monstera plant" loading="lazy" />
+            </figure>
+            <figure class="shot" data-cap="my cats">
+              <img src="assets/about/about-3-cats.jpg" alt="Two cats on marble stairs beside a eucalyptus plant" loading="lazy" />
+            </figure>
+            <figure class="shot" data-cap="i love visiting art museums">
+              <img src="assets/about/about-4-art-museum.jpeg" alt="Almira looking at abstract paintings in a gallery" loading="lazy" />
+            </figure>
+            <figure class="shot" data-cap="thanks for visiting &#9788;">
+              <video src="assets/about/about-5-sunset.mp4" poster="assets/about/about-5-sunset.jpg"
+                     autoplay muted loop playsinline preload="metadata" aria-label="A sunset"></video>
+            </figure>
           </div>
         </div>
       </div>
