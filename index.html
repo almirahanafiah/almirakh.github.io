@@ -400,14 +400,14 @@
                 top: 10%;
                 left: 6%;
                 width: 122%;
-                height: 118%;
+                height: 124%;
                 background: #FFFDF8;
                 border: 1px solid #D9D9D9;
                 border-radius: 10px;
                 box-shadow: 0 14px 30px rgba(30, 60, 57, 0.18);
                 padding: 11px 13px;
                 display: flex;
-                gap: 9px;
+                gap: 10px;
                 overflow: hidden;
                 pointer-events: none;
                 font-family: "Instrument Sans", var(--font);
@@ -425,9 +425,11 @@
                 padding-bottom: 7px;
                 border-bottom: 1px solid #F0EFEC;
                 margin-bottom: 8px;
+                white-space: nowrap;
+                overflow: hidden;
             }
             .cs01-crumb {
-                font-size: 0.46rem;
+                font-size: 0.44rem;
                 color: #757575;
             }
             .cs01-crumb.is-last {
@@ -436,7 +438,7 @@
             }
             .cs01-crumb-sep {
                 color: #9F9C99;
-                font-size: 0.5rem;
+                font-size: 0.48rem;
             }
             .cs01-pill {
                 margin-left: auto;
@@ -468,7 +470,7 @@
                 display: flex;
                 align-items: center;
                 gap: 5px;
-                margin-bottom: 8px;
+                margin-bottom: 7px;
             }
             .cs01-av {
                 width: 14px;
@@ -491,53 +493,222 @@
                 font-size: 0.46rem;
                 color: #9F9C99;
             }
+            /* rail with vertical connector line */
             .cs01-rail {
+                position: relative;
+                padding-left: 11px;
                 display: flex;
                 flex-direction: column;
-                gap: 5px;
+            }
+            .cs01-rail::before {
+                content: "";
+                position: absolute;
+                left: 10px;
+                top: 8px;
+                bottom: 8px;
+                width: 1px;
+                background: #E5E2DC;
             }
             .cs01-step {
-                display: flex;
-                align-items: flex-start;
-                gap: 6px;
-                font-size: 0.5rem;
-                color: #484848;
-                line-height: 1.4;
+                position: relative;
+                padding-left: 13px;
+                padding-bottom: 4px;
             }
-            .cs01-step.is-warn {
-                color: #1E1E1E;
-                font-weight: 500;
-            }
-            .cs01-dot {
-                width: 11px;
-                height: 11px;
-                border-radius: 50%;
-                flex-shrink: 0;
+            .cs01-dotwrap {
+                position: absolute;
+                left: -8px;
+                top: 1px;
+                width: 14px;
+                height: 14px;
+                background: #FFFDF8;
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                margin-top: 1px;
+                z-index: 1;
+            }
+            .cs01-dot {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
             }
             .cs01-dot.done {
-                background: #3DB17A;
-                color: #fff;
+                border: 1px solid #484848;
+                background: #FFFDF8;
+                color: #484848;
             }
             .cs01-dot.done svg {
-                width: 6px;
-                height: 6px;
+                width: 7px;
+                height: 7px;
             }
             .cs01-dot.warn {
                 background: #E9C96D;
-                color: #1E1E1E;
-                font-size: 0.5rem;
-                font-weight: 700;
+                color: #fff;
+                font-size: 0.46rem;
+                font-weight: 600;
                 line-height: 1;
             }
             .cs01-dot.pending {
-                background: #F0EFEC;
+                border: 1px dashed #9F9C99;
+                background: #FFFDF8;
+            }
+            .cs01-step-head {
+                display: flex;
+                align-items: baseline;
+                flex-wrap: wrap;
+                gap: 0 4px;
+                padding: 1px 0 2px;
+            }
+            .cs01-step-lab {
+                font-size: 0.5rem;
+                color: #484848;
+                font-weight: 500;
+                line-height: 1.4;
+            }
+            .cs01-step.is-pending .cs01-step-lab {
+                color: #757575;
+                font-weight: 400;
+            }
+            .cs01-step.is-warn .cs01-step-lab {
+                color: #E2B020;
+            }
+            .cs01-step-meta {
+                font-size: 0.42rem;
+                color: #9F9C99;
+                line-height: 1.4;
+            }
+            .cs01-step-body {
+                padding: 0 0 5px 0;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                margin-top: 2px;
+            }
+            .cs01-prose {
+                font-size: 0.46rem;
+                line-height: 1.55;
+                color: #484848;
+                margin: 0;
+            }
+            .cs01-tools {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+                align-items: flex-start;
+            }
+            .cs01-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                max-width: 100%;
+                height: 14px;
+                padding: 0 7px 0 6px;
+                background: #FFFDFB;
+                border: 1px solid #F0EFEC;
+                border-radius: 999px;
+                font-size: 0.4rem;
+                color: #757575;
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+                line-height: 1;
+            }
+            .cs01-chip-ic {
+                display: inline-flex;
+                align-items: center;
+                flex-shrink: 0;
+                color: #757575;
+            }
+            .cs01-chip-ic svg {
+                width: 7px;
+                height: 7px;
+            }
+            .cs01-chip-lab {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .cs01-chip-check {
+                display: inline-flex;
+                align-items: center;
+                color: #3DB17A;
+                flex-shrink: 0;
+            }
+            .cs01-chip-check svg {
+                width: 7px;
+                height: 7px;
+            }
+            .cs01-a2ui {
+                margin-top: 2px;
+                background: #FDF4E1;
+                border: 1px solid #F4DE9D;
+                border-radius: 7px;
+                padding: 6px 7px;
+                display: flex;
+                gap: 6px;
+            }
+            .cs01-a2ui-icon {
+                width: 14px;
+                height: 14px;
+                border-radius: 4px;
+                background: #FFFDFB;
+                color: #E2B020;
+                border: 1px solid #F4DE9D;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                font-size: 0.48rem;
+                font-weight: 700;
+                line-height: 1;
+            }
+            .cs01-a2ui-content {
+                min-width: 0;
+                flex: 1;
+            }
+            .cs01-a2ui-title {
+                font-size: 0.48rem;
+                color: #1E1E1E;
+                font-weight: 500;
+                line-height: 1.3;
+            }
+            .cs01-a2ui-text {
+                font-size: 0.42rem;
+                color: #484848;
+                margin-top: 2px;
+                line-height: 1.4;
+            }
+            .cs01-a2ui-actions {
+                display: flex;
+                gap: 3px;
+                margin-top: 5px;
+                flex-wrap: wrap;
+            }
+            .cs01-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 3px;
+                height: 13px;
+                padding: 0 6px;
+                background: #FFFDFB;
+                color: #484848;
+                border: 1px solid #F0EFEC;
+                border-radius: 999px;
+                font-size: 0.4rem;
+                font-weight: 500;
+                white-space: nowrap;
+                line-height: 1;
+            }
+            .cs01-btn.primary {
+                background: #1B5855;
+                color: #fff;
+                border-color: #1B5855;
+            }
+            .cs01-btn.danger {
+                color: #902217;
             }
             .cs01-rpanel {
-                width: 28%;
+                width: 26%;
                 border-left: 1px solid #F0EFEC;
                 padding-left: 8px;
                 flex-shrink: 0;
@@ -1004,6 +1175,8 @@
                                     <div class="cs01-topline">
                                         <span class="cs01-crumb">Assignments</span>
                                         <span class="cs01-crumb-sep">&rsaquo;</span>
+                                        <span class="cs01-crumb">Supplier Invoice Reconciliation</span>
+                                        <span class="cs01-crumb-sep">&rsaquo;</span>
                                         <span class="cs01-crumb is-last">Run #42</span>
                                         <span class="cs01-pill">Held &middot; step 3 of 5</span>
                                     </div>
@@ -1014,20 +1187,64 @@
                                     </div>
                                     <div class="cs01-rail">
                                         <div class="cs01-step">
-                                            <span class="cs01-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
-                                            <span>Pulled supplier invoices</span>
+                                            <div class="cs01-dotwrap"><span class="cs01-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span></div>
+                                            <div class="cs01-step-head">
+                                                <span class="cs01-step-lab">Pulled supplier invoices from Xero</span>
+                                                <span class="cs01-step-meta">&middot; 42 invoices &middot; 14s</span>
+                                            </div>
                                         </div>
                                         <div class="cs01-step">
-                                            <span class="cs01-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
-                                            <span>Grouped by furniture type</span>
+                                            <div class="cs01-dotwrap"><span class="cs01-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span></div>
+                                            <div class="cs01-step-head">
+                                                <span class="cs01-step-lab">Grouped by furniture type and matched</span>
+                                                <span class="cs01-step-meta">&middot; 38 matched &middot; 4 held</span>
+                                            </div>
                                         </div>
                                         <div class="cs01-step is-warn">
-                                            <span class="cs01-dot warn">!</span>
-                                            <span>Resolving mismatches</span>
+                                            <div class="cs01-dotwrap"><span class="cs01-dot warn">!</span></div>
+                                            <div class="cs01-step-head">
+                                                <span class="cs01-step-lab">Resolving mismatches</span>
+                                                <span class="cs01-step-meta">&middot; 3 of 4 resolved</span>
+                                            </div>
+                                            <div class="cs01-step-body">
+                                                <p class="cs01-prose">Three were zero-rated, so I cleared those. The last is a sofa order from Oakline where the VAT billed is higher than the PO allows.</p>
+                                                <div class="cs01-tools">
+                                                    <span class="cs01-chip">
+                                                        <span class="cs01-chip-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M4 2.5h5l3 3V13a.5.5 0 0 1-.5.5h-7A.5.5 0 0 1 4 13V3a.5.5 0 0 1 .5-.5Z"/><path d="M9 2.5v3h3"/></svg></span>
+                                                        <span class="cs01-chip-lab">read &middot; INV-4821 &middot; Oakline</span>
+                                                        <span class="cs01-chip-check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                                                    </span>
+                                                    <span class="cs01-chip">
+                                                        <span class="cs01-chip-ic"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 5-3 3 3 3M11 5l3 3-3 3M9 4l-2 8"/></svg></span>
+                                                        <span class="cs01-chip-lab">compute &middot; VAT vs. PO</span>
+                                                        <span class="cs01-chip-check"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                                                    </span>
+                                                </div>
+                                                <div class="cs01-a2ui">
+                                                    <span class="cs01-a2ui-icon">!</span>
+                                                    <div class="cs01-a2ui-content">
+                                                        <div class="cs01-a2ui-title">INV-4821 needs your call before I post the batch</div>
+                                                        <div class="cs01-a2ui-text">Oakline billed VAT at 20% (&pound;206.67), but PO-441 caps it at 16.6% (&pound;170.67).</div>
+                                                        <div class="cs01-a2ui-actions">
+                                                            <button class="cs01-btn primary">Approve at 16.6%</button>
+                                                            <button class="cs01-btn">Approve as billed</button>
+                                                            <button class="cs01-btn danger">Send back</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="cs01-step">
-                                            <span class="cs01-dot pending"></span>
-                                            <span>Post journal entries</span>
+                                        <div class="cs01-step is-pending">
+                                            <div class="cs01-dotwrap"><span class="cs01-dot pending"></span></div>
+                                            <div class="cs01-step-head">
+                                                <span class="cs01-step-lab">Post journal entries to NetSuite</span>
+                                            </div>
+                                        </div>
+                                        <div class="cs01-step is-pending">
+                                            <div class="cs01-dotwrap"><span class="cs01-dot pending"></span></div>
+                                            <div class="cs01-step-head">
+                                                <span class="cs01-step-lab">Notify the team in #supplier-ops</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
