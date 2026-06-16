@@ -421,15 +421,13 @@
                 overflow: hidden;
             }
             .sign {
-                margin-top: 64px;
-                pointer-events: none;
+                margin-top: 32px;
             }
-            .sign img {
-                display: block;
-                width: min(48vw, 560px);
-                height: auto;
-                mix-blend-mode: multiply; /* lets the watercolor sit on paper without a hard png halo */
-                opacity: 0.6; /* sign-off watermark feel */
+            .sign-mark {
+                display: inline-block;
+                font-size: 1.6rem;
+                line-height: 1;
+                color: var(--pink-deep);
             }
             .colophon {
                 display: flex;
@@ -654,7 +652,7 @@
                         <div class="r-num">01</div>
                         <div class="r-main">
                             <span class="r-title"
-                                >Designing AI-native workflows</span
+                                >Designing agentic AI workflows</span
                             >
                             <p class="r-desc">
                                 Interaction patterns for non-deterministic
@@ -676,11 +674,11 @@
                         <div class="r-num">02</div>
                         <div class="r-main">
                             <span class="r-title"
-                                >A design system for speed</span
+                                >A design system for dynamism</span
                             >
                             <p class="r-desc">
-                                Cutting implementation cycles from months to
-                                under a week with reusable systems.
+                                Adapting a traditional design system from Figma
+                                to a compositional system.
                             </p>
                             <div class="r-tags">
                                 <span class="r-tag">AI Product Design</span>
@@ -696,43 +694,6 @@
                 </div>
             </section>
 
-            <!-- ===== NOTE ===== -->
-            <section class="note">
-                <!-- ACCENT 2, placeholder for your scanned drawing. Bleeds off the left. -->
-                <svg
-                    class="accent accent-2"
-                    viewBox="0 0 320 260"
-                    aria-hidden="true"
-                >
-                    <path
-                        class="stroke"
-                        stroke="var(--ink-soft)"
-                        stroke-width="1.4"
-                        d="M14 196 C 70 150 96 92 168 96 C 224 100 236 168 196 196 C 150 228 96 206 122 152 C 146 102 224 78 304 110"
-                    />
-                    <circle
-                        class="stroke"
-                        stroke="var(--ink-soft)"
-                        stroke-width="1.4"
-                        cx="276"
-                        cy="64"
-                        r="20"
-                    />
-                </svg>
-                <div class="shell">
-                    <div class="note-grid">
-                        <div class="label rv">Approach</div>
-                        <p class="rv">
-                            Most of my work is invisible, the difference between
-                            an AI feature people <em>trust</em> and one they
-                            quietly stop using. I design for that difference:
-                            the states, the seams, and the moments a person
-                            decides whether the machine has earned the next
-                            step.
-                        </p>
-                    </div>
-                </div>
-            </section>
         </main>
 
         <footer>
@@ -760,10 +721,7 @@
                     </div>
                 </div>
                 <div class="sign rv">
-                    <img
-                        src="assets/brand/signature.png"
-                        alt="Almira Hanafiah"
-                    />
+                    <span class="sign-mark" aria-hidden="true">&#10051;</span>
                 </div>
             </div>
         </footer>
