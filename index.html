@@ -387,6 +387,276 @@
                 transform: scale(1.06);
             }
 
+            /* ============ CASE 01 THUMB: assignment running window peek ============ */
+            .r-thumb.thumb-cs01 {
+                display: block;
+                position: relative;
+                padding: 0;
+                background: var(--paper-2);
+            }
+            .cs01-window {
+                position: absolute;
+                top: 14%;
+                left: 6%;
+                width: 118%;
+                height: 116%;
+                background: #fff;
+                border: 1px solid rgba(44, 42, 40, 0.12);
+                border-radius: 10px;
+                padding: 14px 16px;
+                box-shadow: 3px 7px 18px rgba(20, 50, 48, 0.08);
+                font-family: var(--font);
+                pointer-events: none;
+            }
+            .cs01-head {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                padding-bottom: 9px;
+                border-bottom: 1px solid rgba(44, 42, 40, 0.08);
+                margin-bottom: 10px;
+            }
+            .cs01-av {
+                width: 19px;
+                height: 19px;
+                border-radius: 50%;
+                background: #1B5855;
+                color: #fff;
+                font-size: 0.52rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                letter-spacing: 0.02em;
+                flex-shrink: 0;
+            }
+            .cs01-name {
+                font-size: 0.66rem;
+                color: var(--ink);
+            }
+            .cs01-pill {
+                margin-left: auto;
+                font-size: 0.46rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                padding: 2px 6px 2px 6px;
+                border-radius: 999px;
+                background: rgba(44, 122, 85, 0.12);
+                color: #2C7A55;
+                display: inline-flex;
+                align-items: center;
+                gap: 3px;
+                flex-shrink: 0;
+            }
+            .cs01-pill::before {
+                content: "";
+                width: 4px;
+                height: 4px;
+                border-radius: 50%;
+                background: #2C7A55;
+            }
+            .cs01-stream {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+            .cs01-step {
+                font-size: 0.56rem;
+                color: var(--ink-soft);
+                padding-left: 15px;
+                position: relative;
+                line-height: 1.5;
+            }
+            .cs01-step.done {
+                color: var(--ink);
+            }
+            .cs01-step.done::before {
+                content: "✓";
+                position: absolute;
+                left: 0;
+                top: 0;
+                color: #2C7A55;
+                font-size: 0.55rem;
+            }
+            .cs01-step.running::before {
+                content: "";
+                position: absolute;
+                left: 1px;
+                top: 3px;
+                width: 8px;
+                height: 8px;
+                border: 1.4px solid #1B5855;
+                border-top-color: transparent;
+                border-radius: 50%;
+                animation: cs01-spin 1s linear infinite;
+            }
+            .cs01-step.pending::before {
+                content: "";
+                position: absolute;
+                left: 2px;
+                top: 5px;
+                width: 6px;
+                height: 6px;
+                background: rgba(44, 42, 40, 0.14);
+                border-radius: 50%;
+            }
+            @keyframes cs01-spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+
+            /* ============ CASE 02 THUMB: figma primitives → composed form ============ */
+            .r-thumb.thumb-cs02 {
+                background: var(--paper-2);
+                position: relative;
+            }
+            .cs02-stage {
+                position: relative;
+                width: 56%;
+                aspect-ratio: 4 / 5;
+                pointer-events: none;
+            }
+            .cs02-figma,
+            .cs02-form {
+                position: absolute;
+                inset: 0;
+                background: #fff;
+                border: 1px solid rgba(44, 42, 40, 0.10);
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 2px 5px 14px rgba(0, 0, 0, 0.05);
+                display: flex;
+                flex-direction: column;
+            }
+            .cs02-figma { animation: cs02-phase1 6.5s ease-in-out infinite; }
+            .cs02-form { animation: cs02-phase2 6.5s ease-in-out infinite; }
+
+            .cs02-card-bar {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                padding: 5px 9px;
+                background: #FAFAF8;
+                border-bottom: 1px solid #EEECE7;
+                flex-shrink: 0;
+            }
+            .cs02-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: #DAD8D2;
+            }
+            .cs02-card-name {
+                margin-left: 5px;
+                font-size: 0.46rem;
+                color: #8C8A85;
+                letter-spacing: 0.02em;
+            }
+
+            .cs02-figma-canvas {
+                flex: 1;
+                background: #F4F3F0;
+                padding: 9px;
+                display: flex;
+                flex-direction: column;
+                gap: 7px;
+            }
+            .cs02-prim {
+                border: 1.2px dashed #9747FF;
+                border-radius: 4px;
+                padding: 5px 7px;
+                background: #fff;
+            }
+            .cs02-prim-lab {
+                display: block;
+                font-size: 0.42rem;
+                color: #6F6C66;
+                margin-bottom: 3px;
+            }
+            .cs02-prim-in {
+                height: 9px;
+                border: 1px solid #DCDAD4;
+                border-radius: 3px;
+                background: #fff;
+            }
+            .cs02-prim-in.cs02-prim-sel {
+                position: relative;
+            }
+            .cs02-prim-in.cs02-prim-sel::after {
+                content: "";
+                position: absolute;
+                right: 4px;
+                top: 50%;
+                width: 5px;
+                height: 5px;
+                border-right: 1px solid #B5B2AC;
+                border-bottom: 1px solid #B5B2AC;
+                transform: translateY(-65%) rotate(45deg);
+            }
+            .cs02-prim-btn {
+                height: 11px;
+                border-radius: 3px;
+                background: #1B5855;
+                width: 48%;
+            }
+
+            .cs02-form-body {
+                flex: 1;
+                padding: 9px 10px;
+                background: #FFFDFB;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .cs02-form-title {
+                font-size: 0.6rem;
+                color: #1E1E1E;
+                margin-bottom: 1px;
+            }
+            .cs02-form-row {
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+            }
+            .cs02-form-lab {
+                font-size: 0.4rem;
+                color: #757575;
+            }
+            .cs02-form-in {
+                font-size: 0.48rem;
+                color: #1E1E1E;
+                border: 1px solid #E6E1D8;
+                border-radius: 4px;
+                background: #fff;
+                padding: 3px 6px;
+            }
+            .cs02-form-action {
+                margin-top: auto;
+                align-self: flex-start;
+                font-size: 0.48rem;
+                color: #fff;
+                background: #1B5855;
+                border-radius: 4px;
+                padding: 4px 9px;
+            }
+
+            @keyframes cs02-phase1 {
+                0%, 42% { opacity: 1; transform: scale(1); }
+                50%, 92% { opacity: 0; transform: scale(0.96); }
+                100% { opacity: 1; transform: scale(1); }
+            }
+            @keyframes cs02-phase2 {
+                0%, 42% { opacity: 0; transform: scale(0.96); }
+                50%, 92% { opacity: 1; transform: scale(1); }
+                100% { opacity: 0; transform: scale(0.96); }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .cs01-step.running::before { animation: none; }
+                .cs02-figma, .cs02-form { animation: none; }
+                .cs02-figma { opacity: 1; }
+                .cs02-form { opacity: 0; }
+            }
+
             /* ============ NOTE ============ */
             .note {
                 position: relative;
@@ -665,8 +935,21 @@
                                 <span class="r-tag">2025</span>
                             </div>
                         </div>
-                        <div class="r-thumb">
-                            <div class="g r-glyph" aria-hidden="true"></div>
+                        <div class="r-thumb thumb-cs01">
+                            <div class="cs01-window" aria-hidden="true">
+                                <div class="cs01-head">
+                                    <span class="cs01-av">IA</span>
+                                    <span class="cs01-name">Invoice Agent</span>
+                                    <span class="cs01-pill">Running</span>
+                                </div>
+                                <div class="cs01-stream">
+                                    <div class="cs01-step done">Extracted 5 attachments</div>
+                                    <div class="cs01-step done">Applying Invoice Processing</div>
+                                    <div class="cs01-step done">CIS check complete</div>
+                                    <div class="cs01-step running">Approver routing</div>
+                                    <div class="cs01-step pending">Present invoice batch</div>
+                                </div>
+                            </div>
                         </div>
                     </a>
 
@@ -687,8 +970,51 @@
                                 <span class="r-tag">2025</span>
                             </div>
                         </div>
-                        <div class="r-thumb">
-                            <div class="g r-glyph" aria-hidden="true"></div>
+                        <div class="r-thumb thumb-cs02">
+                            <div class="cs02-stage" aria-hidden="true">
+                                <div class="cs02-figma">
+                                    <div class="cs02-card-bar">
+                                        <span class="cs02-dot"></span>
+                                        <span class="cs02-dot"></span>
+                                        <span class="cs02-dot"></span>
+                                        <span class="cs02-card-name">Form primitives &middot; Figma</span>
+                                    </div>
+                                    <div class="cs02-figma-canvas">
+                                        <div class="cs02-prim">
+                                            <span class="cs02-prim-lab">Text input</span>
+                                            <div class="cs02-prim-in"></div>
+                                        </div>
+                                        <div class="cs02-prim">
+                                            <span class="cs02-prim-lab">Select</span>
+                                            <div class="cs02-prim-in cs02-prim-sel"></div>
+                                        </div>
+                                        <div class="cs02-prim">
+                                            <span class="cs02-prim-lab">Action</span>
+                                            <div class="cs02-prim-btn"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cs02-form">
+                                    <div class="cs02-card-bar">
+                                        <span class="cs02-dot"></span>
+                                        <span class="cs02-dot"></span>
+                                        <span class="cs02-dot"></span>
+                                        <span class="cs02-card-name">Composed at runtime</span>
+                                    </div>
+                                    <div class="cs02-form-body">
+                                        <div class="cs02-form-title">New vendor invoice</div>
+                                        <div class="cs02-form-row">
+                                            <span class="cs02-form-lab">Vendor</span>
+                                            <div class="cs02-form-in">Acme Supplies</div>
+                                        </div>
+                                        <div class="cs02-form-row">
+                                            <span class="cs02-form-lab">Amount</span>
+                                            <div class="cs02-form-in">&pound;4,820.00</div>
+                                        </div>
+                                        <div class="cs02-form-action">Add to QuickBooks</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </a>
                 </div>
