@@ -387,195 +387,262 @@
                 transform: scale(1.06);
             }
 
-            /* ============ CASE 01 THUMB: assignment running window peek ============ */
+            /* ============ CASE 01 THUMB: hero-style assignment run, top-left peek ============ */
             .r-thumb.thumb-cs01 {
                 display: block;
-                position: relative;
                 padding: 0;
-                background: var(--paper-2);
+                background: linear-gradient(135deg, #DCE7E0 0%, #CCDAD4 100%);
+                position: relative;
+                overflow: hidden;
             }
             .cs01-window {
                 position: absolute;
-                top: 14%;
+                top: 10%;
                 left: 6%;
-                width: 118%;
-                height: 116%;
-                background: #fff;
-                border: 1px solid rgba(44, 42, 40, 0.12);
+                width: 122%;
+                height: 118%;
+                background: #FFFDF8;
+                border: 1px solid #D9D9D9;
                 border-radius: 10px;
-                padding: 14px 16px;
-                box-shadow: 3px 7px 18px rgba(20, 50, 48, 0.08);
-                font-family: var(--font);
+                box-shadow: 0 14px 30px rgba(30, 60, 57, 0.18);
+                padding: 11px 13px;
+                display: flex;
+                gap: 9px;
+                overflow: hidden;
                 pointer-events: none;
+                font-family: "Instrument Sans", var(--font);
             }
-            .cs01-head {
+            .cs01-main {
+                flex: 1;
+                min-width: 0;
+                display: flex;
+                flex-direction: column;
+            }
+            .cs01-topline {
                 display: flex;
                 align-items: center;
-                gap: 7px;
-                padding-bottom: 9px;
-                border-bottom: 1px solid rgba(44, 42, 40, 0.08);
-                margin-bottom: 10px;
+                gap: 4px;
+                padding-bottom: 7px;
+                border-bottom: 1px solid #F0EFEC;
+                margin-bottom: 8px;
             }
-            .cs01-av {
-                width: 19px;
-                height: 19px;
-                border-radius: 50%;
-                background: #1B5855;
-                color: #fff;
-                font-size: 0.52rem;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                letter-spacing: 0.02em;
-                flex-shrink: 0;
+            .cs01-crumb {
+                font-size: 0.46rem;
+                color: #757575;
             }
-            .cs01-name {
-                font-size: 0.66rem;
-                color: var(--ink);
+            .cs01-crumb.is-last {
+                color: #1E1E1E;
+                font-weight: 500;
+            }
+            .cs01-crumb-sep {
+                color: #9F9C99;
+                font-size: 0.5rem;
             }
             .cs01-pill {
                 margin-left: auto;
-                font-size: 0.46rem;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                padding: 2px 6px 2px 6px;
+                font-size: 0.4rem;
+                font-weight: 500;
+                padding: 2px 6px 2px 5px;
                 border-radius: 999px;
-                background: rgba(44, 122, 85, 0.12);
-                color: #2C7A55;
+                background: #B1D4D0;
+                color: #184C49;
                 display: inline-flex;
                 align-items: center;
                 gap: 3px;
                 flex-shrink: 0;
+                line-height: 1;
             }
             .cs01-pill::before {
                 content: "";
                 width: 4px;
                 height: 4px;
                 border-radius: 50%;
-                background: #2C7A55;
+                background: #1B5855;
+                animation: cs01-pulse 1.8s ease-in-out infinite;
             }
-            .cs01-stream {
+            @keyframes cs01-pulse {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.45; }
+            }
+            .cs01-head {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                margin-bottom: 8px;
+            }
+            .cs01-av {
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                background: #1B5855;
+                color: #fff;
+                font-size: 0.42rem;
+                font-weight: 500;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .cs01-name {
+                font-size: 0.55rem;
+                color: #1E1E1E;
+                font-weight: 500;
+            }
+            .cs01-time {
+                font-size: 0.46rem;
+                color: #9F9C99;
+            }
+            .cs01-rail {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .cs01-step {
+                display: flex;
+                align-items: flex-start;
+                gap: 6px;
+                font-size: 0.5rem;
+                color: #484848;
+                line-height: 1.4;
+            }
+            .cs01-step.is-warn {
+                color: #1E1E1E;
+                font-weight: 500;
+            }
+            .cs01-dot {
+                width: 11px;
+                height: 11px;
+                border-radius: 50%;
+                flex-shrink: 0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 1px;
+            }
+            .cs01-dot.done {
+                background: #3DB17A;
+                color: #fff;
+            }
+            .cs01-dot.done svg {
+                width: 6px;
+                height: 6px;
+            }
+            .cs01-dot.warn {
+                background: #E9C96D;
+                color: #1E1E1E;
+                font-size: 0.5rem;
+                font-weight: 700;
+                line-height: 1;
+            }
+            .cs01-dot.pending {
+                background: #F0EFEC;
+            }
+            .cs01-rpanel {
+                width: 28%;
+                border-left: 1px solid #F0EFEC;
+                padding-left: 8px;
+                flex-shrink: 0;
                 display: flex;
                 flex-direction: column;
                 gap: 6px;
+                padding-top: 1px;
             }
-            .cs01-step {
-                font-size: 0.56rem;
-                color: var(--ink-soft);
-                padding-left: 15px;
-                position: relative;
-                line-height: 1.5;
-            }
-            .cs01-step.done {
-                color: var(--ink);
-            }
-            .cs01-step.done::before {
-                content: "✓";
-                position: absolute;
-                left: 0;
-                top: 0;
-                color: #2C7A55;
-                font-size: 0.55rem;
-            }
-            .cs01-step.running::before {
-                content: "";
-                position: absolute;
-                left: 1px;
-                top: 3px;
-                width: 8px;
-                height: 8px;
-                border: 1.4px solid #1B5855;
-                border-top-color: transparent;
-                border-radius: 50%;
-                animation: cs01-spin 1s linear infinite;
-            }
-            .cs01-step.pending::before {
-                content: "";
-                position: absolute;
-                left: 2px;
-                top: 5px;
-                width: 6px;
-                height: 6px;
-                background: rgba(44, 42, 40, 0.14);
-                border-radius: 50%;
-            }
-            @keyframes cs01-spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
+            .cs01-skel {
+                background: #F7F3EA;
+                border-radius: 3px;
             }
 
-            /* ============ CASE 02 THUMB: figma primitives → composed form ============ */
+            /* ============ CASE 02 THUMB: one card, figma swaps to dynamic form inside ============ */
             .r-thumb.thumb-cs02 {
                 background: var(--paper-2);
                 position: relative;
             }
-            .cs02-stage {
-                position: relative;
-                width: 56%;
-                aspect-ratio: 4 / 5;
-                pointer-events: none;
-            }
-            .cs02-figma,
-            .cs02-form {
-                position: absolute;
-                inset: 0;
+            .cs02-card {
+                width: 62%;
                 background: #fff;
                 border: 1px solid rgba(44, 42, 40, 0.10);
                 border-radius: 8px;
+                box-shadow: 2px 6px 18px rgba(0, 0, 0, 0.06);
                 overflow: hidden;
-                box-shadow: 2px 5px 14px rgba(0, 0, 0, 0.05);
-                display: flex;
-                flex-direction: column;
+                pointer-events: none;
             }
-            .cs02-figma { animation: cs02-phase1 6.5s ease-in-out infinite; }
-            .cs02-form { animation: cs02-phase2 6.5s ease-in-out infinite; }
-
-            .cs02-card-bar {
+            .cs02-bar {
                 display: flex;
                 align-items: center;
                 gap: 4px;
                 padding: 5px 9px;
                 background: #FAFAF8;
                 border-bottom: 1px solid #EEECE7;
-                flex-shrink: 0;
+                position: relative;
+                height: 17px;
             }
             .cs02-dot {
                 width: 5px;
                 height: 5px;
                 border-radius: 50%;
                 background: #DAD8D2;
+                flex-shrink: 0;
             }
-            .cs02-card-name {
-                margin-left: 5px;
-                font-size: 0.46rem;
+            .cs02-bar-name {
+                position: absolute;
+                left: 38px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 0.44rem;
                 color: #8C8A85;
                 letter-spacing: 0.02em;
+                white-space: nowrap;
+            }
+            .cs02-bar-name.cs02-name-a {
+                animation: cs02-fade-a 6.5s ease-in-out infinite;
+            }
+            .cs02-bar-name.cs02-name-b {
+                animation: cs02-fade-b 6.5s ease-in-out infinite;
+                opacity: 0;
             }
 
-            .cs02-figma-canvas {
-                flex: 1;
-                background: #F4F3F0;
-                padding: 9px;
+            .cs02-body {
+                position: relative;
+                height: 84px;
+            }
+            .cs02-state {
+                position: absolute;
+                inset: 0;
+                padding: 9px 10px;
                 display: flex;
                 flex-direction: column;
-                gap: 7px;
+                gap: 5px;
             }
+            .cs02-state-a {
+                background: #F4F3F0;
+                animation: cs02-fade-a 6.5s ease-in-out infinite;
+            }
+            .cs02-state-b {
+                background: #FFFDFB;
+            }
+            .cs02-state-b > * {
+                opacity: 0;
+                animation: cs02-slide-in 6.5s ease-in-out infinite both;
+            }
+            .cs02-state-b > *:nth-child(1) { animation-delay: 0s; }
+            .cs02-state-b > *:nth-child(2) { animation-delay: 0.14s; }
+            .cs02-state-b > *:nth-child(3) { animation-delay: 0.28s; }
+
             .cs02-prim {
                 border: 1.2px dashed #9747FF;
-                border-radius: 4px;
-                padding: 5px 7px;
+                border-radius: 3px;
+                padding: 3px 6px;
                 background: #fff;
             }
             .cs02-prim-lab {
                 display: block;
-                font-size: 0.42rem;
+                font-size: 0.38rem;
                 color: #6F6C66;
-                margin-bottom: 3px;
+                margin-bottom: 1px;
             }
             .cs02-prim-in {
-                height: 9px;
+                height: 7px;
                 border: 1px solid #DCDAD4;
-                border-radius: 3px;
+                border-radius: 2px;
                 background: #fff;
             }
             .cs02-prim-in.cs02-prim-sel {
@@ -584,77 +651,73 @@
             .cs02-prim-in.cs02-prim-sel::after {
                 content: "";
                 position: absolute;
-                right: 4px;
+                right: 3px;
                 top: 50%;
-                width: 5px;
-                height: 5px;
+                width: 4px;
+                height: 4px;
                 border-right: 1px solid #B5B2AC;
                 border-bottom: 1px solid #B5B2AC;
                 transform: translateY(-65%) rotate(45deg);
             }
             .cs02-prim-btn {
-                height: 11px;
-                border-radius: 3px;
+                height: 9px;
+                border-radius: 2px;
                 background: #1B5855;
-                width: 48%;
+                width: 45%;
             }
 
-            .cs02-form-body {
-                flex: 1;
-                padding: 9px 10px;
-                background: #FFFDFB;
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-            }
-            .cs02-form-title {
-                font-size: 0.6rem;
-                color: #1E1E1E;
-                margin-bottom: 1px;
-            }
             .cs02-form-row {
                 display: flex;
                 flex-direction: column;
                 gap: 1px;
             }
             .cs02-form-lab {
-                font-size: 0.4rem;
+                font-size: 0.38rem;
                 color: #757575;
             }
             .cs02-form-in {
-                font-size: 0.48rem;
+                font-size: 0.46rem;
                 color: #1E1E1E;
                 border: 1px solid #E6E1D8;
-                border-radius: 4px;
+                border-radius: 3px;
                 background: #fff;
-                padding: 3px 6px;
+                padding: 2px 5px;
             }
             .cs02-form-action {
-                margin-top: auto;
                 align-self: flex-start;
-                font-size: 0.48rem;
+                font-size: 0.44rem;
                 color: #fff;
                 background: #1B5855;
-                border-radius: 4px;
-                padding: 4px 9px;
+                border-radius: 3px;
+                padding: 3px 7px;
             }
 
-            @keyframes cs02-phase1 {
-                0%, 42% { opacity: 1; transform: scale(1); }
-                50%, 92% { opacity: 0; transform: scale(0.96); }
-                100% { opacity: 1; transform: scale(1); }
+            @keyframes cs02-fade-a {
+                0%, 45% { opacity: 1; }
+                55%, 92% { opacity: 0; }
+                100% { opacity: 1; }
             }
-            @keyframes cs02-phase2 {
-                0%, 42% { opacity: 0; transform: scale(0.96); }
-                50%, 92% { opacity: 1; transform: scale(1); }
-                100% { opacity: 0; transform: scale(0.96); }
+            @keyframes cs02-fade-b {
+                0%, 45% { opacity: 0; }
+                55%, 92% { opacity: 1; }
+                100% { opacity: 0; }
+            }
+            @keyframes cs02-slide-in {
+                0%, 45% { opacity: 0; transform: translateY(10px); }
+                55%, 92% { opacity: 1; transform: translateY(0); }
+                100% { opacity: 0; transform: translateY(10px); }
             }
 
             @media (prefers-reduced-motion: reduce) {
-                .cs01-step.running::before { animation: none; }
-                .cs02-figma, .cs02-form { animation: none; }
-                .cs02-figma { opacity: 1; }
-                .cs02-form { opacity: 0; }
+                .cs01-pill::before { animation: none; }
+                .cs02-state-a,
+                .cs02-bar-name.cs02-name-a,
+                .cs02-bar-name.cs02-name-b,
+                .cs02-state-b > * { animation: none; }
+                .cs02-state-a { opacity: 1; }
+                .cs02-bar-name.cs02-name-a { opacity: 1; }
+                .cs02-bar-name.cs02-name-b { opacity: 0; }
+                .cs02-state-b > * { opacity: 0; transform: none; }
             }
 
             /* ============ NOTE ============ */
@@ -937,18 +1000,45 @@
                         </div>
                         <div class="r-thumb thumb-cs01">
                             <div class="cs01-window" aria-hidden="true">
-                                <div class="cs01-head">
-                                    <span class="cs01-av">IA</span>
-                                    <span class="cs01-name">Invoice Agent</span>
-                                    <span class="cs01-pill">Running</span>
+                                <div class="cs01-main">
+                                    <div class="cs01-topline">
+                                        <span class="cs01-crumb">Assignments</span>
+                                        <span class="cs01-crumb-sep">&rsaquo;</span>
+                                        <span class="cs01-crumb is-last">Run #42</span>
+                                        <span class="cs01-pill">Held &middot; step 3 of 5</span>
+                                    </div>
+                                    <div class="cs01-head">
+                                        <span class="cs01-av">FA</span>
+                                        <span class="cs01-name">Finance Agent</span>
+                                        <span class="cs01-time">&middot; 9:00</span>
+                                    </div>
+                                    <div class="cs01-rail">
+                                        <div class="cs01-step">
+                                            <span class="cs01-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                                            <span>Pulled supplier invoices</span>
+                                        </div>
+                                        <div class="cs01-step">
+                                            <span class="cs01-dot done"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 3.5 3.5L13 5"/></svg></span>
+                                            <span>Grouped by furniture type</span>
+                                        </div>
+                                        <div class="cs01-step is-warn">
+                                            <span class="cs01-dot warn">!</span>
+                                            <span>Resolving mismatches</span>
+                                        </div>
+                                        <div class="cs01-step">
+                                            <span class="cs01-dot pending"></span>
+                                            <span>Post journal entries</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="cs01-stream">
-                                    <div class="cs01-step done">Extracted 5 attachments</div>
-                                    <div class="cs01-step done">Applying Invoice Processing</div>
-                                    <div class="cs01-step done">CIS check complete</div>
-                                    <div class="cs01-step running">Approver routing</div>
-                                    <div class="cs01-step pending">Present invoice batch</div>
-                                </div>
+                                <aside class="cs01-rpanel">
+                                    <div class="cs01-skel" style="height: 7px; width: 60%;"></div>
+                                    <div class="cs01-skel" style="height: 12px; width: 100%; border-radius: 9999px;"></div>
+                                    <div class="cs01-skel" style="height: 6px; width: 82%;"></div>
+                                    <div class="cs01-skel" style="height: 6px; width: 64%;"></div>
+                                    <div class="cs01-skel" style="height: 18px; width: 100%; border-radius: 4px;"></div>
+                                    <div class="cs01-skel" style="height: 18px; width: 100%; border-radius: 4px;"></div>
+                                </aside>
                             </div>
                         </div>
                     </a>
@@ -971,15 +1061,27 @@
                             </div>
                         </div>
                         <div class="r-thumb thumb-cs02">
-                            <div class="cs02-stage" aria-hidden="true">
-                                <div class="cs02-figma">
-                                    <div class="cs02-card-bar">
-                                        <span class="cs02-dot"></span>
-                                        <span class="cs02-dot"></span>
-                                        <span class="cs02-dot"></span>
-                                        <span class="cs02-card-name">Form primitives &middot; Figma</span>
+                            <div class="cs02-card" aria-hidden="true">
+                                <div class="cs02-bar">
+                                    <span class="cs02-dot"></span>
+                                    <span class="cs02-dot"></span>
+                                    <span class="cs02-dot"></span>
+                                    <span class="cs02-bar-name cs02-name-a">Form primitives &middot; Figma</span>
+                                    <span class="cs02-bar-name cs02-name-b">Composed at runtime</span>
+                                </div>
+                                <div class="cs02-body">
+                                    <div class="cs02-state cs02-state-b">
+                                        <div class="cs02-form-row">
+                                            <span class="cs02-form-lab">Vendor</span>
+                                            <div class="cs02-form-in">Acme Supplies</div>
+                                        </div>
+                                        <div class="cs02-form-row">
+                                            <span class="cs02-form-lab">Amount</span>
+                                            <div class="cs02-form-in">&pound;4,820.00</div>
+                                        </div>
+                                        <div class="cs02-form-action">Add to QuickBooks</div>
                                     </div>
-                                    <div class="cs02-figma-canvas">
+                                    <div class="cs02-state cs02-state-a">
                                         <div class="cs02-prim">
                                             <span class="cs02-prim-lab">Text input</span>
                                             <div class="cs02-prim-in"></div>
@@ -992,26 +1094,6 @@
                                             <span class="cs02-prim-lab">Action</span>
                                             <div class="cs02-prim-btn"></div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="cs02-form">
-                                    <div class="cs02-card-bar">
-                                        <span class="cs02-dot"></span>
-                                        <span class="cs02-dot"></span>
-                                        <span class="cs02-dot"></span>
-                                        <span class="cs02-card-name">Composed at runtime</span>
-                                    </div>
-                                    <div class="cs02-form-body">
-                                        <div class="cs02-form-title">New vendor invoice</div>
-                                        <div class="cs02-form-row">
-                                            <span class="cs02-form-lab">Vendor</span>
-                                            <div class="cs02-form-in">Acme Supplies</div>
-                                        </div>
-                                        <div class="cs02-form-row">
-                                            <span class="cs02-form-lab">Amount</span>
-                                            <div class="cs02-form-in">&pound;4,820.00</div>
-                                        </div>
-                                        <div class="cs02-form-action">Add to QuickBooks</div>
                                     </div>
                                 </div>
                             </div>
