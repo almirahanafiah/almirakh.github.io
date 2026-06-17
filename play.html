@@ -34,10 +34,9 @@
   @view-transition { navigation: auto; }
   ::view-transition-old(root),
   ::view-transition-new(root) { animation-duration: .32s; animation-timing-function: ease; }
-  /* lift the masthead out of the cross-fade so it stays put while only the body content swaps */
-  header:has(.masthead) { view-transition-name: site-header; }
-  ::view-transition-old(site-header),
-  ::view-transition-new(site-header) { animation: none; }
+  /* whole page cross-fades as one opaque snapshot; the header is NOT pinned as
+     its own snapshot (its transparent background made the old/new headers overlay
+     mid-transition). Matches assets/css/styles.css on the other pages. */
   body {
     background: var(--paper); color: var(--ink);
     font-family: var(--font); font-weight: var(--w);
