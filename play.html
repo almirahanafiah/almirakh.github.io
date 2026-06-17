@@ -16,378 +16,121 @@
             href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
             rel="stylesheet"
         />
+        <link rel="stylesheet" href="assets/css/styles.css" />
         <style>
-            :root {
-                --paper: #fcfcfc;
-                --paper-deep: #f1eee4;
-                --ink: #2c2a28;
-                --ink-soft: #79736a;
-                --mauve: #ea5f82;
-                --mauve-deep: #c0395c;
-                --blue: #8a9db5;
-                --stone: #9b9384;
-                --line: rgba(155, 147, 132, 0.32);
-                --rule: rgba(44, 42, 40, 0.16);
-                --font: "Geist", system-ui, sans-serif;
-                --w: 300; /* Geist Light, uniform */
-                --ease: cubic-bezier(0.23, 1, 0.32, 1);
-                --shell: 1280px;
-            }
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            html {
-                scroll-behavior: smooth;
-                scrollbar-gutter: stable;
-            }
 
-            /* smooth cross-fade between pages (Chrome 126+, Safari 18+); harmlessly ignored elsewhere */
-            @view-transition {
-                navigation: auto;
-            }
-            ::view-transition-old(root),
-            ::view-transition-new(root) {
-                animation-duration: 0.32s;
-                animation-timing-function: ease;
-            }
-            /* whole page cross-fades as one opaque snapshot; the header is NOT pinned as
-     its own snapshot (its transparent background made the old/new headers overlay
-     mid-transition). Matches assets/css/styles.css on the other pages. */
-            body {
-                background: var(--paper);
-                color: var(--ink);
-                font-family: var(--font);
-                font-weight: var(--w);
-                font-size: 18px;
-                line-height: 1.7;
-                -webkit-font-smoothing: antialiased;
-                overflow-x: hidden;
-            }
-            a,
-            p,
-            h1,
-            h2,
-            h3,
-            div,
-            span,
-            nav {
-                font-weight: var(--w);
-            }
-            @media (hover: hover) and (pointer: fine) {
-                body,
-                a,
-                button {
-                    cursor: none;
-                }
-            }
-            a {
-                color: inherit;
-                text-decoration: none;
-            }
-            .shell {
-                max-width: var(--shell);
-                margin: 0 auto;
-                padding: 0 56px;
-                width: 100%;
-            }
+  /* play.html is bespoke (a mauve palette + masonry gallery). It links the shared
+     assets/css/styles.css and keeps only its page-specific styles below, which load
+     after the shared sheet so these win. */
 
-            /* ---- cursor ---- */
-            .cursor {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 30px;
-                height: 30px;
-                border: 1.5px solid var(--mauve);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-                transition:
-                    width 0.22s ease,
-                    height 0.22s ease,
-                    background-color 0.22s ease,
-                    border-color 0.22s ease;
-                mix-blend-mode: multiply;
-            }
-            .cursor.is-hover {
-                width: 60px;
-                height: 60px;
-                background: rgba(194, 140, 153, 0.12);
-                border-color: var(--mauve-deep);
-            }
-            .cursor-dot {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 5px;
-                height: 5px;
-                background: var(--mauve-deep);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-            }
-            @media (hover: none), (pointer: coarse) {
-                .cursor,
-                .cursor-dot {
-                    display: none;
-                }
-            }
+  /* the "mauve" accents are the same hues as the site's pink, just named for this
+     page; plus a few tokens used only here */
+  :root {
+    --mauve: var(--pink);
+    --mauve-deep: var(--pink-deep);
+    --paper-deep: #f1eee4;   /* slightly warmer cream than the site --paper-2 */
+    --blue: #8a9db5;
+    --stone: #9b9384;
+    --line: rgba(155, 147, 132, 0.32);
+  }
+  body { line-height: 1.7; }
 
-            /* ---- CAPTION TOOLTIP (same pattern as the About page) ---- */
-            .tip {
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 9998;
-                pointer-events: none;
-                background: var(--paper);
-                color: var(--ink);
-                border: 1px solid var(--ink);
-                border-radius: 2px;
-                padding: 7px 11px;
-                font-size: 0.62rem;
-                text-transform: uppercase;
-                letter-spacing: 0.14em;
-                white-space: nowrap;
-                box-shadow: 0 10px 24px -12px rgba(44, 42, 40, 0.55);
-                opacity: 0;
-                transform: scale(0.94);
-                transform-origin: top left;
-                transition:
-                    opacity 0.14s var(--ease),
-                    transform 0.14s var(--ease);
-            }
-            .tip.show {
-                opacity: 1;
-                transform: scale(1);
-            }
+  /* ---- cursor: larger, mauve, multiply blend, uses .is-hover ---- */
+  .cursor {
+    width: 30px; height: 30px;
+    border: 1.5px solid var(--mauve);
+    transition: width .22s ease, height .22s ease, background-color .22s ease, border-color .22s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor.is-hover {
+    width: 60px; height: 60px;
+    background: rgba(194, 140, 153, .12);
+    border-color: var(--mauve-deep);
+  }
+  .cursor-dot { width: 5px; height: 5px; }
 
-            /* ---- MASTHEAD (uniform with the rest of the site) ---- */
-            header {
-                border-bottom: 1px solid var(--rule);
-            }
-            .masthead {
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline;
-                padding: 28px 0 20px;
-            }
-            .wordmark {
-                font-size: 1.1rem;
-                letter-spacing: -0.01em;
-                color: var(--mauve-deep);
-            }
-            .nav {
-                display: flex;
-                gap: 30px;
-            }
-            .nav a {
-                font-size: 0.76rem;
-                text-transform: uppercase;
-                letter-spacing: 0.15em;
-                position: relative;
-                padding-bottom: 3px;
-                color: var(--ink);
-                text-decoration: none;
-            }
-            .nav a::after {
-                content: "";
-                position: absolute;
-                left: 0;
-                bottom: 0;
-                width: 100%;
-                height: 1px;
-                background: var(--mauve);
-                transform: scaleX(0);
-                transform-origin: left;
-                transition: transform 0.26s var(--ease);
-            }
-            .nav a:hover::after {
-                transform: scaleX(1);
-            }
-            .nav a.here {
-                color: var(--mauve-deep);
-            }
-            .nav a.here::after {
-                transform: scaleX(1);
-            }
+  /* ---- caption tooltip ---- */
+  .tip {
+    position: fixed; top: 0; left: 0; z-index: 9998;
+    pointer-events: none;
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--ink); border-radius: 2px;
+    padding: 7px 11px;
+    font-size: .62rem; text-transform: uppercase; letter-spacing: .14em;
+    white-space: nowrap;
+    box-shadow: 0 10px 24px -12px rgba(44, 42, 40, .55);
+    opacity: 0; transform: scale(.94); transform-origin: top left;
+    transition: opacity .14s var(--ease), transform .14s var(--ease);
+  }
+  .tip.show { opacity: 1; transform: scale(1); }
 
-            /* ---- page header ---- */
-            .play-head {
-                text-align: center;
-                padding: 64px 0 56px;
-                border-bottom: 0;
-            }
-            .play-head .eyebrow {
-                font-size: 0.78rem;
-                text-transform: uppercase;
-                letter-spacing: 0.22em;
-                color: var(--ink-soft);
-                margin-bottom: 14px;
-            }
-            .play-head p {
-                max-width: 52ch;
-                margin: 0 auto;
-                font-size: 1.05rem;
-                color: var(--ink-soft);
-                line-height: 1.6;
-            }
-            .play-head p + p {
-                margin-top: 18px;
-            }
+  /* ---- page header ---- */
+  .play-head { text-align: center; padding: 64px 0 56px; border-bottom: 0; }
+  .play-head .eyebrow {
+    font-size: .78rem; text-transform: uppercase;
+    letter-spacing: .22em; color: var(--ink-soft); margin-bottom: 14px;
+  }
+  .play-head p {
+    max-width: 52ch; margin: 0 auto;
+    font-size: 1.05rem; color: var(--ink-soft); line-height: 1.6;
+  }
+  .play-head p + p { margin-top: 18px; }
 
-            /* ---- gallery: CSS-column masonry ---- */
-            .gallery {
-                column-count: 3;
-                column-gap: 18px;
-                padding-bottom: 96px;
-            }
-            @media (max-width: 900px) {
-                .gallery {
-                    column-count: 2;
-                }
-            }
-            @media (max-width: 560px) {
-                .gallery {
-                    column-count: 1;
-                }
-            }
+  /* ---- gallery: CSS-column masonry ---- */
+  .gallery { column-count: 3; column-gap: 18px; padding-bottom: 96px; }
+  @media (max-width: 900px) { .gallery { column-count: 2; } }
+  @media (max-width: 560px) { .gallery { column-count: 1; } }
 
-            .item {
-                break-inside: avoid;
-                margin-bottom: 18px;
-                border-radius: 12px;
-                overflow: hidden;
-                border: 1px solid var(--line);
-                display: block;
-                position: relative;
-                transition:
-                    transform 0.28s ease,
-                    box-shadow 0.28s ease;
-            }
-            .item:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 20px 40px -22px rgba(56, 60, 82, 0.45);
-            }
-            .item img,
-            .item video {
-                display: block;
-                width: 100%;
-                height: auto;
-            }
+  .item {
+    break-inside: avoid; margin-bottom: 18px;
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--line);
+    display: block; position: relative;
+    transition: transform .28s ease, box-shadow .28s ease;
+  }
+  .item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -22px rgba(56, 60, 82, .45);
+  }
+  .item img, .item video { display: block; width: 100%; height: auto; }
 
-            /* placeholder shown until a real image file exists */
-            .item .ph {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 6px;
-                padding: 22px;
-                text-align: center;
-            }
-            .item .ph .t {
-                font-size: 0.9rem;
-                color: var(--ink);
-            }
-            .item .ph .s {
-                font-size: 0.76rem;
-                color: var(--ink-soft);
-            }
-            .ph.tint-mauve {
-                background: linear-gradient(155deg, #e7c9cf, #f1eee4);
-            }
-            .ph.tint-blue {
-                background: linear-gradient(155deg, #c9d3de, #f1eee4);
-            }
-            .ph.tint-peach {
-                background: linear-gradient(155deg, #ebd8c0, #f1eee4);
-            }
-            .ph.tint-green {
-                background: linear-gradient(155deg, #c9dbd3, #f1eee4);
-            }
-            .ph.tint-lilac {
-                background: linear-gradient(155deg, #d8c9dd, #f1eee4);
-            }
+  /* placeholder shown until a real image file exists */
+  .item .ph {
+    width: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 6px; padding: 22px; text-align: center;
+  }
+  .item .ph .t { font-size: .9rem; color: var(--ink); }
+  .item .ph .s { font-size: .76rem; color: var(--ink-soft); }
+  .ph.tint-mauve { background: linear-gradient(155deg, #e7c9cf, #f1eee4); }
+  .ph.tint-blue  { background: linear-gradient(155deg, #c9d3de, #f1eee4); }
+  .ph.tint-peach { background: linear-gradient(155deg, #ebd8c0, #f1eee4); }
+  .ph.tint-green { background: linear-gradient(155deg, #c9dbd3, #f1eee4); }
+  .ph.tint-lilac { background: linear-gradient(155deg, #d8c9dd, #f1eee4); }
 
-            /* ---- footer ---- */
-            footer {
-                border-top: 1px solid var(--line);
-                padding: 48px 0 32px;
-            }
-            .colophon {
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                gap: 18px;
-            }
-            .colophon .links {
-                display: flex;
-                gap: 24px;
-                flex-wrap: wrap;
-            }
-            .colophon a {
-                text-decoration: none;
-                color: var(--ink);
-                font-size: 0.8rem;
-                transition: color 0.2s ease;
-            }
-            .colophon a:hover {
-                color: var(--mauve-deep);
-            }
-            .colophon .set {
-                font-size: 0.72rem;
-                color: var(--stone);
-            }
-            .sign {
-                margin-top: 30px;
-            }
-            .sign-mark {
-                display: inline-block;
-                font-size: 1.6rem;
-                line-height: 1;
-                color: var(--mauve-deep);
-            }
+  /* ---- footer: warmer hairline + padding, stone "set" text ---- */
+  footer { border-top: 1px solid var(--line); padding: 48px 0 32px; }
+  .colophon { gap: 18px; }
+  .colophon a { transition: color .2s ease; }
+  .colophon .set { color: var(--stone); }
 
-            .proto-note {
-                position: fixed;
-                bottom: 16px;
-                right: 16px;
-                z-index: 200;
-                background: var(--ink);
-                color: var(--paper);
-                font-size: 0.72rem;
-                letter-spacing: 0.04em;
-                padding: 8px 14px;
-                border-radius: 999px;
-                opacity: 0.85;
-            }
-            @media (prefers-reduced-motion: reduce) {
-                html {
-                    scroll-behavior: auto;
-                }
-                .item,
-                .cursor {
-                    transition: none !important;
-                }
-            }
-            @media (max-width: 720px) {
-                .shell {
-                    padding: 0 24px;
-                }
-                .nav {
-                    gap: 16px;
-                }
-                .nav a {
-                    font-size: 0.66rem;
-                    letter-spacing: 0.08em;
-                }
-            }
+  /* ---- prototype badge ---- */
+  .proto-note {
+    bottom: 16px; right: 16px; z-index: 200;
+    font-size: .72rem; letter-spacing: .04em;
+    padding: 8px 14px; opacity: .85;
+  }
+
+  /* ---- responsive ---- */
+  @media (max-width: 720px) {
+    .shell { padding: 0 24px; }
+    .nav { gap: 16px; }
+    .nav a { font-size: .66rem; letter-spacing: .08em; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .item, .cursor { transition: none !important; }
+  }
         </style>
     </head>
     <body>
