@@ -1,240 +1,477 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="noindex,nofollow" />
-<title>Play, Almira</title>
-<meta name="description" content="A gallery of traditional art, sketches, and creative experiments." />
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --paper:      #fcfcfc;
-    --paper-deep: #F1EEE4;
-    --ink:        #2C2A28;
-    --ink-soft:   #79736A;
-    --mauve:      #EA5F82;
-    --mauve-deep: #C0395C;
-    --blue:       #8A9DB5;
-    --stone:      #9B9384;
-    --line:       rgba(155,147,132,0.32);
-    --rule:       rgba(44,42,40,0.16);
-    --font:       "Geist", system-ui, sans-serif;
-    --w: 300;     /* Geist Light, uniform */
-    --ease:       cubic-bezier(0.23, 1, 0.32, 1);
-    --shell: 1280px;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Play, Almira</title>
+        <meta
+            name="description"
+            content="A gallery of traditional art, sketches, and creative experiments."
+        />
+        <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --paper: #fcfcfc;
+                --paper-deep: #f1eee4;
+                --ink: #2c2a28;
+                --ink-soft: #79736a;
+                --mauve: #ea5f82;
+                --mauve-deep: #c0395c;
+                --blue: #8a9db5;
+                --stone: #9b9384;
+                --line: rgba(155, 147, 132, 0.32);
+                --rule: rgba(44, 42, 40, 0.16);
+                --font: "Geist", system-ui, sans-serif;
+                --w: 300; /* Geist Light, uniform */
+                --ease: cubic-bezier(0.23, 1, 0.32, 1);
+                --shell: 1280px;
+            }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+                scrollbar-gutter: stable;
+            }
 
-  /* smooth cross-fade between pages (Chrome 126+, Safari 18+); harmlessly ignored elsewhere */
-  @view-transition { navigation: auto; }
-  ::view-transition-old(root),
-  ::view-transition-new(root) { animation-duration: .32s; animation-timing-function: ease; }
-  /* whole page cross-fades as one opaque snapshot; the header is NOT pinned as
+            /* smooth cross-fade between pages (Chrome 126+, Safari 18+); harmlessly ignored elsewhere */
+            @view-transition {
+                navigation: auto;
+            }
+            ::view-transition-old(root),
+            ::view-transition-new(root) {
+                animation-duration: 0.32s;
+                animation-timing-function: ease;
+            }
+            /* whole page cross-fades as one opaque snapshot; the header is NOT pinned as
      its own snapshot (its transparent background made the old/new headers overlay
      mid-transition). Matches assets/css/styles.css on the other pages. */
-  body {
-    background: var(--paper); color: var(--ink);
-    font-family: var(--font); font-weight: var(--w);
-    font-size: 18px; line-height: 1.7;
-    -webkit-font-smoothing: antialiased; overflow-x: hidden;
-  }
-  a, p, h1, h2, h3, div, span, nav { font-weight: var(--w); }
-  @media (hover: hover) and (pointer: fine) { body, a, button { cursor: none; } }
-  a { color: inherit; text-decoration: none; }
-  .shell { max-width: var(--shell); margin: 0 auto; padding: 0 56px; width: 100%; }
+            body {
+                background: var(--paper);
+                color: var(--ink);
+                font-family: var(--font);
+                font-weight: var(--w);
+                font-size: 18px;
+                line-height: 1.7;
+                -webkit-font-smoothing: antialiased;
+                overflow-x: hidden;
+            }
+            a,
+            p,
+            h1,
+            h2,
+            h3,
+            div,
+            span,
+            nav {
+                font-weight: var(--w);
+            }
+            @media (hover: hover) and (pointer: fine) {
+                body,
+                a,
+                button {
+                    cursor: none;
+                }
+            }
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+            .shell {
+                max-width: var(--shell);
+                margin: 0 auto;
+                padding: 0 56px;
+                width: 100%;
+            }
 
-  /* ---- cursor ---- */
-  .cursor {
-    position: fixed; top: 0; left: 0; width: 30px; height: 30px;
-    border: 1.5px solid var(--mauve); border-radius: 50%;
-    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
-    transition: width .22s ease, height .22s ease, background-color .22s ease, border-color .22s ease;
-    mix-blend-mode: multiply;
-  }
-  .cursor.is-hover { width: 60px; height: 60px; background: rgba(194,140,153,.12); border-color: var(--mauve-deep); }
-  .cursor-dot {
-    position: fixed; top: 0; left: 0; width: 5px; height: 5px;
-    background: var(--mauve-deep); border-radius: 50%;
-    pointer-events: none; z-index: 9999; transform: translate(-50%,-50%);
-  }
-  @media (hover: none),(pointer: coarse) { .cursor,.cursor-dot { display: none; } }
+            /* ---- cursor ---- */
+            .cursor {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 30px;
+                height: 30px;
+                border: 1.5px solid var(--mauve);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition:
+                    width 0.22s ease,
+                    height 0.22s ease,
+                    background-color 0.22s ease,
+                    border-color 0.22s ease;
+                mix-blend-mode: multiply;
+            }
+            .cursor.is-hover {
+                width: 60px;
+                height: 60px;
+                background: rgba(194, 140, 153, 0.12);
+                border-color: var(--mauve-deep);
+            }
+            .cursor-dot {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 5px;
+                height: 5px;
+                background: var(--mauve-deep);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+            }
+            @media (hover: none), (pointer: coarse) {
+                .cursor,
+                .cursor-dot {
+                    display: none;
+                }
+            }
 
-  /* ---- CAPTION TOOLTIP (same pattern as the About page) ---- */
-  .tip {
-    position: fixed; top: 0; left: 0; z-index: 9998;
-    pointer-events: none;
-    background: var(--paper); color: var(--ink);
-    border: 1px solid var(--ink); border-radius: 2px;
-    padding: 7px 11px;
-    font-size: .62rem; text-transform: uppercase; letter-spacing: .14em;
-    white-space: nowrap;
-    box-shadow: 0 10px 24px -12px rgba(44,42,40,.55);
-    opacity: 0; transform: scale(.94);
-    transform-origin: top left;
-    transition: opacity .14s var(--ease), transform .14s var(--ease);
-  }
-  .tip.show { opacity: 1; transform: scale(1); }
+            /* ---- CAPTION TOOLTIP (same pattern as the About page) ---- */
+            .tip {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 9998;
+                pointer-events: none;
+                background: var(--paper);
+                color: var(--ink);
+                border: 1px solid var(--ink);
+                border-radius: 2px;
+                padding: 7px 11px;
+                font-size: 0.62rem;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                white-space: nowrap;
+                box-shadow: 0 10px 24px -12px rgba(44, 42, 40, 0.55);
+                opacity: 0;
+                transform: scale(0.94);
+                transform-origin: top left;
+                transition:
+                    opacity 0.14s var(--ease),
+                    transform 0.14s var(--ease);
+            }
+            .tip.show {
+                opacity: 1;
+                transform: scale(1);
+            }
 
-  /* ---- MASTHEAD (uniform with the rest of the site) ---- */
-  header { border-bottom: 1px solid var(--rule); }
-  .masthead {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 28px 0 20px;
-  }
-  .wordmark {
-    font-size: 1.1rem; letter-spacing: -.01em;
-    color: var(--mauve-deep);
-  }
-  .nav { display: flex; gap: 30px; }
-  .nav a {
-    font-size: .76rem; text-transform: uppercase; letter-spacing: .15em;
-    position: relative; padding-bottom: 3px; color: var(--ink);
-    text-decoration: none;
-  }
-  .nav a::after {
-    content: ""; position: absolute; left: 0; bottom: 0;
-    width: 100%; height: 1px; background: var(--mauve);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform .26s var(--ease);
-  }
-  .nav a:hover::after { transform: scaleX(1); }
-  .nav a.here { color: var(--mauve-deep); }
-  .nav a.here::after { transform: scaleX(1); }
+            /* ---- MASTHEAD (uniform with the rest of the site) ---- */
+            header {
+                border-bottom: 1px solid var(--rule);
+            }
+            .masthead {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                padding: 28px 0 20px;
+            }
+            .wordmark {
+                font-size: 1.1rem;
+                letter-spacing: -0.01em;
+                color: var(--mauve-deep);
+            }
+            .nav {
+                display: flex;
+                gap: 30px;
+            }
+            .nav a {
+                font-size: 0.76rem;
+                text-transform: uppercase;
+                letter-spacing: 0.15em;
+                position: relative;
+                padding-bottom: 3px;
+                color: var(--ink);
+                text-decoration: none;
+            }
+            .nav a::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 1px;
+                background: var(--mauve);
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform 0.26s var(--ease);
+            }
+            .nav a:hover::after {
+                transform: scaleX(1);
+            }
+            .nav a.here {
+                color: var(--mauve-deep);
+            }
+            .nav a.here::after {
+                transform: scaleX(1);
+            }
 
-  /* ---- page header ---- */
-  .play-head { text-align: center; padding: 64px 0 56px; border-bottom: 0; }
-  .play-head .eyebrow {
-    font-size: .78rem; text-transform: uppercase;
-    letter-spacing: .22em; color: var(--ink-soft); margin-bottom: 14px;
-  }
-  .play-head p {
-    max-width: 30rem; margin: 0 auto;
-    font-size: 1.18rem; color: var(--ink); line-height: 1.5;
-  }
+            /* ---- page header ---- */
+            .play-head {
+                text-align: center;
+                padding: 64px 0 56px;
+                border-bottom: 0;
+            }
+            .play-head .eyebrow {
+                font-size: 0.78rem;
+                text-transform: uppercase;
+                letter-spacing: 0.22em;
+                color: var(--ink-soft);
+                margin-bottom: 14px;
+            }
+            .play-head p {
+                max-width: 52ch;
+                margin: 0 auto;
+                font-size: 1.05rem;
+                color: var(--ink-soft);
+                line-height: 1.6;
+            }
+            .play-head p + p {
+                margin-top: 18px;
+            }
 
-  /* ---- gallery: CSS-column masonry ---- */
-  .gallery {
-    column-count: 3; column-gap: 18px;
-    padding-bottom: 96px;
-  }
-  @media (max-width: 900px) { .gallery { column-count: 2; } }
-  @media (max-width: 560px) { .gallery { column-count: 1; } }
+            /* ---- gallery: CSS-column masonry ---- */
+            .gallery {
+                column-count: 3;
+                column-gap: 18px;
+                padding-bottom: 96px;
+            }
+            @media (max-width: 900px) {
+                .gallery {
+                    column-count: 2;
+                }
+            }
+            @media (max-width: 560px) {
+                .gallery {
+                    column-count: 1;
+                }
+            }
 
-  .item {
-    break-inside: avoid; margin-bottom: 18px;
-    border-radius: 12px; overflow: hidden;
-    border: 1px solid var(--line);
-    display: block; position: relative;
-    transition: transform .28s ease, box-shadow .28s ease;
-  }
-  .item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px -22px rgba(56,60,82,.45);
-  }
-  .item img, .item video { display: block; width: 100%; height: auto; }
+            .item {
+                break-inside: avoid;
+                margin-bottom: 18px;
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid var(--line);
+                display: block;
+                position: relative;
+                transition:
+                    transform 0.28s ease,
+                    box-shadow 0.28s ease;
+            }
+            .item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 40px -22px rgba(56, 60, 82, 0.45);
+            }
+            .item img,
+            .item video {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
 
-  /* placeholder shown until a real image file exists */
-  .item .ph {
-    width: 100%;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 6px; padding: 22px; text-align: center;
-  }
-  .item .ph .t { font-size: .9rem; color: var(--ink); }
-  .item .ph .s { font-size: .76rem; color: var(--ink-soft); }
-  .ph.tint-mauve { background: linear-gradient(155deg,#E7C9CF,#F1EEE4); }
-  .ph.tint-blue  { background: linear-gradient(155deg,#C9D3DE,#F1EEE4); }
-  .ph.tint-peach { background: linear-gradient(155deg,#EBD8C0,#F1EEE4); }
-  .ph.tint-green { background: linear-gradient(155deg,#C9DBD3,#F1EEE4); }
-  .ph.tint-lilac { background: linear-gradient(155deg,#D8C9DD,#F1EEE4); }
+            /* placeholder shown until a real image file exists */
+            .item .ph {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                padding: 22px;
+                text-align: center;
+            }
+            .item .ph .t {
+                font-size: 0.9rem;
+                color: var(--ink);
+            }
+            .item .ph .s {
+                font-size: 0.76rem;
+                color: var(--ink-soft);
+            }
+            .ph.tint-mauve {
+                background: linear-gradient(155deg, #e7c9cf, #f1eee4);
+            }
+            .ph.tint-blue {
+                background: linear-gradient(155deg, #c9d3de, #f1eee4);
+            }
+            .ph.tint-peach {
+                background: linear-gradient(155deg, #ebd8c0, #f1eee4);
+            }
+            .ph.tint-green {
+                background: linear-gradient(155deg, #c9dbd3, #f1eee4);
+            }
+            .ph.tint-lilac {
+                background: linear-gradient(155deg, #d8c9dd, #f1eee4);
+            }
 
-  /* ---- footer ---- */
-  footer { border-top: 1px solid var(--line); padding: 48px 0 32px; }
-  .colophon {
-    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 18px;
-  }
-  .colophon .links { display: flex; gap: 24px; flex-wrap: wrap; }
-  .colophon a {
-    text-decoration: none; color: var(--ink);
-    font-size: .8rem; transition: color .2s ease;
-  }
-  .colophon a:hover { color: var(--mauve-deep); }
-  .colophon .set { font-size: .72rem; color: var(--stone); }
-  .sign { margin-top: 30px; }
-  .sign-mark { display: inline-block; font-size: 1.6rem; line-height: 1; color: var(--mauve-deep); }
+            /* ---- footer ---- */
+            footer {
+                border-top: 1px solid var(--line);
+                padding: 48px 0 32px;
+            }
+            .colophon {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 18px;
+            }
+            .colophon .links {
+                display: flex;
+                gap: 24px;
+                flex-wrap: wrap;
+            }
+            .colophon a {
+                text-decoration: none;
+                color: var(--ink);
+                font-size: 0.8rem;
+                transition: color 0.2s ease;
+            }
+            .colophon a:hover {
+                color: var(--mauve-deep);
+            }
+            .colophon .set {
+                font-size: 0.72rem;
+                color: var(--stone);
+            }
+            .sign {
+                margin-top: 30px;
+            }
+            .sign-mark {
+                display: inline-block;
+                font-size: 1.6rem;
+                line-height: 1;
+                color: var(--mauve-deep);
+            }
 
-  .proto-note {
-    position: fixed; bottom: 16px; right: 16px; z-index: 200;
-    background: var(--ink); color: var(--paper);
-    font-size: .72rem; letter-spacing: .04em;
-    padding: 8px 14px; border-radius: 999px; opacity: .85;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .item, .cursor { transition: none !important; }
-  }
-  @media (max-width: 720px) {
-    .shell { padding: 0 24px; }
-    .nav { gap: 16px; }
-    .nav a { font-size: .66rem; letter-spacing: .08em; }
-  }
-</style>
-</head>
-<body>
+            .proto-note {
+                position: fixed;
+                bottom: 16px;
+                right: 16px;
+                z-index: 200;
+                background: var(--ink);
+                color: var(--paper);
+                font-size: 0.72rem;
+                letter-spacing: 0.04em;
+                padding: 8px 14px;
+                border-radius: 999px;
+                opacity: 0.85;
+            }
+            @media (prefers-reduced-motion: reduce) {
+                html {
+                    scroll-behavior: auto;
+                }
+                .item,
+                .cursor {
+                    transition: none !important;
+                }
+            }
+            @media (max-width: 720px) {
+                .shell {
+                    padding: 0 24px;
+                }
+                .nav {
+                    gap: 16px;
+                }
+                .nav a {
+                    font-size: 0.66rem;
+                    letter-spacing: 0.08em;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="cursor" id="cursor" aria-hidden="true"></div>
+        <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+        <div class="tip" id="tip" aria-hidden="true"></div>
 
-<div class="cursor" id="cursor" aria-hidden="true"></div>
-<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
-<div class="tip" id="tip" aria-hidden="true"></div>
+        <header>
+            <div class="shell">
+                <div class="masthead">
+                    <a href="index.html" class="wordmark"
+                        >Almira Hanafiah &#10051;</a
+                    >
+                    <nav class="nav">
+                        <a href="index.html">Work</a>
+                        <a href="play.html" class="here">Play</a>
+                        <a href="about.html">About</a>
+                        <a
+                            href="assets/cv/Almira-Hanafiah-CV.pdf"
+                            target="_blank"
+                            rel="noopener"
+                            >CV</a
+                        >
+                    </nav>
+                </div>
+            </div>
+        </header>
 
-<header>
-  <div class="shell">
-    <div class="masthead">
-      <a href="index.html" class="wordmark">Almira Hanafiah &#10051;</a>
-      <nav class="nav">
-        <a href="index.html">Work</a>
-        <a href="play.html" class="here">Play</a>
-        <a href="about.html">About</a>
-        <a href="assets/cv/Almira-Hanafiah-CV.pdf" target="_blank" rel="noopener">CV</a>
-      </nav>
-    </div>
-  </div>
-</header>
+        <header class="play-head shell">
+            <div class="eyebrow">⋆✴︎˚｡⋆</div>
+            <p>
+                Design sharpens how I solve problems. Art reminds me to slow
+                down and observe.
+            </p>
+            <p>
+                Portraits are my favourite to do. I've dabbled in different
+                medias, oil paints being my current favourite.
+            </p>
+        </header>
 
-<header class="play-head shell">
-  <div class="eyebrow">Play</div>
-  <p>Design sharpens how I solve problems. Art reminds me to slow down and observe.</p>
-</header>
+        <main class="shell">
+            <div class="gallery" id="gallery"><!-- filled by script --></div>
+        </main>
 
-<main class="shell">
-  <div class="gallery" id="gallery"><!-- filled by script --></div>
-</main>
+        <footer>
+            <div class="shell">
+                <div class="colophon">
+                    <div class="links">
+                        <a href="mailto:almirahanafiah@gmail.com"
+                            >almirahanafiah@gmail.com</a
+                        >
+                        <a
+                            href="https://linkedin.com/in/almira-hanafiah"
+                            target="_blank"
+                            rel="noopener"
+                            >LinkedIn</a
+                        >
+                        <a
+                            href="https://github.com/almirahanafiah"
+                            target="_blank"
+                            rel="noopener"
+                            >GitHub</a
+                        >
+                        <a
+                            href="assets/cv/Almira-Hanafiah-CV.pdf"
+                            target="_blank"
+                            rel="noopener"
+                            >CV</a
+                        >
+                    </div>
+                    <div class="set">
+                        Designed and built with &hearts;, 2026
+                    </div>
+                </div>
+                <div class="sign">
+                    <span class="sign-mark" aria-hidden="true">&#10051;</span>
+                </div>
+            </div>
+        </footer>
 
-<footer>
-  <div class="shell">
-    <div class="colophon">
-      <div class="links">
-        <a href="mailto:almirahanafiah@gmail.com">almirahanafiah@gmail.com</a>
-        <a href="https://linkedin.com/in/almira-hanafiah" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/almirahanafiah" target="_blank" rel="noopener">GitHub</a>
-        <a href="assets/cv/Almira-Hanafiah-CV.pdf" target="_blank" rel="noopener">CV</a>
-      </div>
-      <div class="set">Designed and built with &hearts;, 2026</div>
-    </div>
-    <div class="sign">
-      <span class="sign-mark" aria-hidden="true">&#10051;</span>
-    </div>
-  </div>
-</footer>
+        <div class="proto-note">Prototype, Play gallery</div>
 
-<div class="proto-note">Prototype, Play gallery</div>
-
-<script>
-/* =====================================================================
+        <script>
+            /* =====================================================================
    YOUR GALLERY, this is the only thing you edit to add artwork.
 
    TO ADD A NEW PIECE:
@@ -245,108 +482,175 @@
    "tint" is just the placeholder colour shown before a real image
    loads, you can ignore it once every piece has a real file.
    ===================================================================== */
-var gallery = [
-  { src: "assets/play/IMG_2328.jpeg",        title: "Portrait in oils",          tint: "green" },
-  { src: "assets/play/IMG_9118.jpeg",        title: "Graphite portrait",         tint: "blue"  },
-  { src: "assets/play/720p.mp4",             title: "Colour pencil portrait",    tint: "peach", poster: "assets/play/720p-poster.jpg" },
-  { src: "assets/play/LANC4331.JPG",         title: "Pencil portrait",           tint: "peach" },
-  { src: "assets/play/IMG_7612.JPG",         title: "Graphite study",            tint: "lilac" },
-  { src: "assets/play/IMG_1001-crop.png",    title: "Digital portrait",          tint: "blue"  },
-  { src: "assets/play/FE03351C-6B51-4B99-8CD7-CF695D5D0A91.jpg", title: "Sketchbook portrait study", tint: "mauve" },
-  { src: "assets/play/IMG_6159-upright.jpeg", title: "Oil portrait, in progress", tint: "peach" },
-  { src: "assets/play/IMG_3264-upright.jpeg", title: "Colour pencil study",       tint: "green" }
-  /*  <-- add your next line here. for a video, add a poster: line too.  */
-];
+            var gallery = [
+                {
+                    src: "assets/play/IMG_2328.jpeg",
+                    title: "Commissioned portrait, 2024",
+                    tint: "green",
+                },
+                {
+                    src: "assets/play/720p.mp4",
+                    title: "Digital colouring, 2020",
+                    tint: "peach",
+                    poster: "assets/play/720p-poster.jpg",
+                },
+                {
+                    src: "assets/play/IMG_7612.JPG",
+                    title: "Self-portrait doodle",
+                    tint: "lilac",
+                },
+                {
+                    src: "assets/play/IMG_9118.jpeg",
+                    title: "My favourite, Olivia Dean, 2025",
+                    tint: "blue",
+                },
+                {
+                    src: "assets/play/IMG_1001-crop.png",
+                    title: "Trying out Procreate, 2020",
+                    tint: "blue",
+                },
+                {
+                    src: "assets/play/IMG_6159-upright.jpeg",
+                    title: "Oil portrait, in progress",
+                    tint: "peach",
+                },
+                {
+                    src: "assets/play/FE03351C-6B51-4B99-8CD7-CF695D5D0A91.jpg",
+                    title: "Drawing from magazine portrait, 2023",
+                    tint: "mauve",
+                },
+                {
+                    src: "assets/play/IMG_3264-upright.jpeg",
+                    title: "Colour pencil study",
+                    tint: "green",
+                },
+                {
+                    src: "assets/play/LANC4331.JPG",
+                    title: "Pencil sketch, 2018",
+                    tint: "peach",
+                },
+                /*  <-- add your next line here. for a video, add a poster: line too.  */
+            ];
 
-/* ---- renderer: builds the grid + a circle cursor. You won't touch this. ---- */
-(function () {
-  var grid = document.getElementById("gallery");
+            /* ---- renderer: builds the grid + a circle cursor. You won't touch this. ---- */
+            (function () {
+                var grid = document.getElementById("gallery");
 
-  var tip = document.getElementById("tip");
+                var tip = document.getElementById("tip");
 
-  gallery.forEach(function (piece) {
-    var fig = document.createElement("a");
-    fig.className = "item";
-    fig.href = piece.src;          /* click opens the full image */
-    fig.setAttribute("data-cap", piece.title);
+                gallery.forEach(function (piece) {
+                    var fig = document.createElement("a");
+                    fig.className = "item";
+                    fig.href = piece.src; /* click opens the full image */
+                    fig.setAttribute("data-cap", piece.title);
 
-    if (/\.(mp4|webm|mov)$/i.test(piece.src)) {
-      /* video piece: autoplay, muted, looped, plays inline (no fullscreen takeover) */
-      var vid = document.createElement("video");
-      vid.src = piece.src;
-      if (piece.poster) vid.poster = piece.poster;
-      vid.muted = true;
-      vid.loop = true;
-      vid.autoplay = true;
-      vid.playsInline = true;
-      vid.setAttribute("playsinline", "");   /* iOS Safari */
-      vid.setAttribute("aria-label", piece.title);
-      vid.preload = "metadata";
-      fig.appendChild(vid);
-    } else {
-      var img = document.createElement("img");
-      img.alt = piece.title;
-      img.loading = "lazy";
-      img.src = piece.src;
+                    if (/\.(mp4|webm|mov)$/i.test(piece.src)) {
+                        /* video piece: autoplay, muted, looped, plays inline (no fullscreen takeover) */
+                        var vid = document.createElement("video");
+                        vid.src = piece.src;
+                        if (piece.poster) vid.poster = piece.poster;
+                        vid.muted = true;
+                        vid.loop = true;
+                        vid.autoplay = true;
+                        vid.playsInline = true;
+                        vid.setAttribute("playsinline", ""); /* iOS Safari */
+                        vid.setAttribute("aria-label", piece.title);
+                        vid.preload = "metadata";
+                        fig.appendChild(vid);
+                    } else {
+                        var img = document.createElement("img");
+                        img.alt = piece.title;
+                        img.loading = "lazy";
+                        img.src = piece.src;
 
-      /* if the real image file isn't there yet, show a tidy placeholder */
-      img.onerror = function () {
-        var ph = document.createElement("div");
-        ph.className = "ph tint-" + (piece.tint || "mauve");
-        /* varied placeholder heights so the masonry looks real */
-        var heights = [150, 200, 240, 290, 340];
-        ph.style.minHeight = heights[Math.floor(Math.random() * heights.length)] + "px";
-        ph.innerHTML = '<div class="t">' + piece.title + '</div>' +
-                       '<div class="s">drop the image into assets/play/</div>';
-        fig.removeChild(img);
-        fig.appendChild(ph);
-      };
+                        /* if the real image file isn't there yet, show a tidy placeholder */
+                        img.onerror = function () {
+                            var ph = document.createElement("div");
+                            ph.className = "ph tint-" + (piece.tint || "mauve");
+                            /* varied placeholder heights so the masonry looks real */
+                            var heights = [150, 200, 240, 290, 340];
+                            ph.style.minHeight =
+                                heights[
+                                    Math.floor(Math.random() * heights.length)
+                                ] + "px";
+                            ph.innerHTML =
+                                '<div class="t">' +
+                                piece.title +
+                                "</div>" +
+                                '<div class="s">drop the image into assets/play/</div>';
+                            fig.removeChild(img);
+                            fig.appendChild(ph);
+                        };
 
-      fig.appendChild(img);
-    }
+                        fig.appendChild(img);
+                    }
 
-    /* caption tooltip on hover, same pattern as About */
-    fig.addEventListener("mouseenter", function () {
-      tip.textContent = piece.title;
-      tip.classList.add("show");
-    });
-    fig.addEventListener("mouseleave", function () {
-      tip.classList.remove("show");
-    });
+                    /* caption tooltip on hover, same pattern as About */
+                    fig.addEventListener("mouseenter", function () {
+                        tip.textContent = piece.title;
+                        tip.classList.add("show");
+                    });
+                    fig.addEventListener("mouseleave", function () {
+                        tip.classList.remove("show");
+                    });
 
-    grid.appendChild(fig);
-  });
+                    grid.appendChild(fig);
+                });
 
-  /* position the tooltip near the cursor; flip to the left when it would overflow */
-  addEventListener("mousemove", function (e) {
-    var x = e.clientX + 22, y = e.clientY + 20;
-    if (x + tip.offsetWidth + 14 > innerWidth) x = e.clientX - tip.offsetWidth - 22;
-    tip.style.left = x + "px";
-    tip.style.top = y + "px";
-  });
+                /* position the tooltip near the cursor; flip to the left when it would overflow */
+                addEventListener("mousemove", function (e) {
+                    var x = e.clientX + 22,
+                        y = e.clientY + 20;
+                    if (x + tip.offsetWidth + 14 > innerWidth)
+                        x = e.clientX - tip.offsetWidth - 22;
+                    tip.style.left = x + "px";
+                    tip.style.top = y + "px";
+                });
 
-  /* ---- circle cursor ---- */
-  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (fine) {
-    var cur = document.getElementById("cursor"), dot = document.getElementById("cursorDot");
-    var mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my;
-    document.addEventListener("mousemove", function (e) {
-      mx = e.clientX; my = e.clientY;
-      dot.style.left = mx+"px"; dot.style.top = my+"px";
-      if (reduced) { cur.style.left = mx+"px"; cur.style.top = my+"px"; }
-    });
-    if (!reduced) (function loop(){
-      cx += (mx-cx)*.16; cy += (my-cy)*.16;
-      cur.style.left = cx+"px"; cur.style.top = cy+"px";
-      requestAnimationFrame(loop);
-    })();
-    document.querySelectorAll("a, button").forEach(function (el) {
-      el.addEventListener("mouseenter", function(){ cur.classList.add("is-hover"); });
-      el.addEventListener("mouseleave", function(){ cur.classList.remove("is-hover"); });
-    });
-  }
-})();
-</script>
-</body>
+                /* ---- circle cursor ---- */
+                var reduced = matchMedia(
+                    "(prefers-reduced-motion: reduce)",
+                ).matches;
+                var fine = matchMedia(
+                    "(hover: hover) and (pointer: fine)",
+                ).matches;
+                if (fine) {
+                    var cur = document.getElementById("cursor"),
+                        dot = document.getElementById("cursorDot");
+                    var mx = innerWidth / 2,
+                        my = innerHeight / 2,
+                        cx = mx,
+                        cy = my;
+                    document.addEventListener("mousemove", function (e) {
+                        mx = e.clientX;
+                        my = e.clientY;
+                        dot.style.left = mx + "px";
+                        dot.style.top = my + "px";
+                        if (reduced) {
+                            cur.style.left = mx + "px";
+                            cur.style.top = my + "px";
+                        }
+                    });
+                    if (!reduced)
+                        (function loop() {
+                            cx += (mx - cx) * 0.16;
+                            cy += (my - cy) * 0.16;
+                            cur.style.left = cx + "px";
+                            cur.style.top = cy + "px";
+                            requestAnimationFrame(loop);
+                        })();
+                    document
+                        .querySelectorAll("a, button")
+                        .forEach(function (el) {
+                            el.addEventListener("mouseenter", function () {
+                                cur.classList.add("is-hover");
+                            });
+                            el.addEventListener("mouseleave", function () {
+                                cur.classList.remove("is-hover");
+                            });
+                        });
+                }
+            })();
+        </script>
+    </body>
 </html>
