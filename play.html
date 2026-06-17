@@ -136,7 +136,7 @@
     transform: translateY(-5px);
     box-shadow: 0 20px 40px -22px rgba(56,60,82,.45);
   }
-  .item img { display: block; width: 100%; height: auto; }
+  .item img, .item video { display: block; width: 100%; height: auto; }
 
   /* placeholder shown until a real image file exists */
   .item .ph {
@@ -246,16 +246,17 @@
    loads, you can ignore it once every piece has a real file.
    ===================================================================== */
 var gallery = [
-  { src: "assets/play/IMG_6377.jpeg", title: "Pencil portrait, freckles", tint: "mauve" },
-  { src: "assets/play/IMG_2328.jpeg", title: "Portrait in oils",          tint: "green" },
-  { src: "assets/play/IMG_9118.jpeg", title: "Graphite portrait",         tint: "blue"  },
-  { src: "assets/play/LANC4331.JPG",  title: "Pencil portrait",           tint: "peach" },
-  { src: "assets/play/IMG_7612.JPG",  title: "Graphite study",            tint: "lilac" },
-  { src: "assets/play/IMG_1001.PNG",  title: "Digital portrait",          tint: "blue"  },
+  { src: "assets/play/IMG_6377.jpeg",        title: "Pencil portrait, freckles", tint: "mauve" },
+  { src: "assets/play/IMG_2328.jpeg",        title: "Portrait in oils",          tint: "green" },
+  { src: "assets/play/IMG_9118.jpeg",        title: "Graphite portrait",         tint: "blue"  },
+  { src: "assets/play/720p.mp4",             title: "Colour pencil portrait",    tint: "peach", poster: "assets/play/720p-poster.jpg" },
+  { src: "assets/play/LANC4331.JPG",         title: "Pencil portrait",           tint: "peach" },
+  { src: "assets/play/IMG_7612.JPG",         title: "Graphite study",            tint: "lilac" },
+  { src: "assets/play/IMG_1001-crop.png",    title: "Digital portrait",          tint: "blue"  },
   { src: "assets/play/FE03351C-6B51-4B99-8CD7-CF695D5D0A91.jpg", title: "Sketchbook portrait study", tint: "mauve" },
-  { src: "assets/play/IMG_6159.jpeg", title: "Oil portrait, in progress", tint: "peach" },
-  { src: "assets/play/IMG_3264.jpeg", title: "Colour pencil study",       tint: "green" }
-  /*  <-- add your next line here  */
+  { src: "assets/play/IMG_6159-upright.jpeg", title: "Oil portrait, in progress", tint: "peach" },
+  { src: "assets/play/IMG_3264-upright.jpeg", title: "Colour pencil study",       tint: "green" }
+  /*  <-- add your next line here. for a video, add a poster: line too.  */
 ];
 
 /* ---- renderer: builds the grid + a circle cursor. You won't touch this. ---- */
@@ -270,25 +271,40 @@ var gallery = [
     fig.href = piece.src;          /* click opens the full image */
     fig.setAttribute("data-cap", piece.title);
 
-    var img = document.createElement("img");
-    img.alt = piece.title;
-    img.loading = "lazy";
-    img.src = piece.src;
+    if (/\.(mp4|webm|mov)$/i.test(piece.src)) {
+      /* video piece: autoplay, muted, looped, plays inline (no fullscreen takeover) */
+      var vid = document.createElement("video");
+      vid.src = piece.src;
+      if (piece.poster) vid.poster = piece.poster;
+      vid.muted = true;
+      vid.loop = true;
+      vid.autoplay = true;
+      vid.playsInline = true;
+      vid.setAttribute("playsinline", "");   /* iOS Safari */
+      vid.setAttribute("aria-label", piece.title);
+      vid.preload = "metadata";
+      fig.appendChild(vid);
+    } else {
+      var img = document.createElement("img");
+      img.alt = piece.title;
+      img.loading = "lazy";
+      img.src = piece.src;
 
-    /* if the real image file isn't there yet, show a tidy placeholder */
-    img.onerror = function () {
-      var ph = document.createElement("div");
-      ph.className = "ph tint-" + (piece.tint || "mauve");
-      /* varied placeholder heights so the masonry looks real */
-      var heights = [150, 200, 240, 290, 340];
-      ph.style.minHeight = heights[Math.floor(Math.random() * heights.length)] + "px";
-      ph.innerHTML = '<div class="t">' + piece.title + '</div>' +
-                     '<div class="s">drop the image into assets/play/</div>';
-      fig.removeChild(img);
-      fig.appendChild(ph);
-    };
+      /* if the real image file isn't there yet, show a tidy placeholder */
+      img.onerror = function () {
+        var ph = document.createElement("div");
+        ph.className = "ph tint-" + (piece.tint || "mauve");
+        /* varied placeholder heights so the masonry looks real */
+        var heights = [150, 200, 240, 290, 340];
+        ph.style.minHeight = heights[Math.floor(Math.random() * heights.length)] + "px";
+        ph.innerHTML = '<div class="t">' + piece.title + '</div>' +
+                       '<div class="s">drop the image into assets/play/</div>';
+        fig.removeChild(img);
+        fig.appendChild(ph);
+      };
 
-    fig.appendChild(img);
+      fig.appendChild(img);
+    }
 
     /* caption tooltip on hover, same pattern as About */
     fig.addEventListener("mouseenter", function () {
