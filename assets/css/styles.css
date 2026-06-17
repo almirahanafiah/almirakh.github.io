@@ -42,8 +42,10 @@ html {
   animation-duration: 0.32s;
   animation-timing-function: ease;
 }
-/* lift the masthead out of the cross-fade so it stays put while only the body content swaps */
-header:has(.masthead) {
+/* lift the header out of the cross-fade so it stays put while only the body content swaps.
+   applies to every page's header (both the .masthead nav and the .bar case-study top bar)
+   so switching between page types doesn't flicker the header. */
+header {
   view-transition-name: site-header;
 }
 ::view-transition-old(site-header),
