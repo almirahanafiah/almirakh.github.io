@@ -113,7 +113,7 @@
 
   /* ============ LAYOUT: sticky TOC + article ============ */
   .layout {
-    display: grid; grid-template-columns: 200px 1fr; gap: 72px;
+    display: block;
     padding-top: 64px; padding-bottom: 96px;
   }
 
@@ -177,6 +177,32 @@
     max-width: 24ch; margin: 6px 0 8px;
   }
   .callout em { font-style: normal; color: var(--pink-deep); }
+
+  /* ---- work-in-progress placeholder ---- */
+  .wip {
+    margin: 8px auto 0; max-width: 620px;
+    border: 1px solid var(--rule); border-radius: 4px;
+    background: var(--paper-2);
+    padding: 56px 44px; text-align: center;
+  }
+  .wip-mark {
+    display: block; font-size: 1.8rem; line-height: 1;
+    color: var(--pink-deep); margin-bottom: 22px;
+  }
+  .wip-lead {
+    font-size: 1.18rem; letter-spacing: -.01em;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .wip-sub {
+    font-size: .95rem; color: var(--ink-soft);
+    max-width: 44ch; margin: 0 auto;
+  }
+  .wip-sub a {
+    color: var(--pink-deep);
+    border-bottom: 1px solid rgba(192,57,92,.4);
+    transition: border-color .2s var(--ease);
+  }
+  .wip-sub a:hover { border-color: var(--pink-deep); }
 
   /* TL;DR three-part */
   .tldr { border-top: 1px solid var(--rule); }
@@ -328,22 +354,6 @@
 <div class="shell">
   <div class="layout">
 
-    <!-- ===== STICKY TABLE OF CONTENTS ===== -->
-    <aside class="toc">
-      <div class="label">Contents</div>
-      <nav>
-        <ol>
-          <li><a href="#overview" data-toc><span class="n">01</span><span class="tick"></span>Overview</a></li>
-          <li><a href="#tldr" data-toc><span class="n">02</span><span class="tick"></span>TL;DR</a></li>
-          <li><a href="#problem" data-toc><span class="n">03</span><span class="tick"></span>Problem</a></li>
-          <li><a href="#research" data-toc><span class="n">04</span><span class="tick"></span>Research</a></li>
-          <li><a href="#ideation" data-toc><span class="n">05</span><span class="tick"></span>Ideation</a></li>
-          <li><a href="#solution" data-toc><span class="n">06</span><span class="tick"></span>Solution</a></li>
-          <li><a href="#learnings" data-toc><span class="n">07</span><span class="tick"></span>Learnings</a></li>
-        </ol>
-      </nav>
-    </aside>
-
     <!-- ===== ARTICLE ===== -->
     <article class="article">
 
@@ -362,115 +372,12 @@
         <div class="callout rv">What started as a social inspiration feed ended up as GAIA, a prototype for AI-curated outfits built from <em>the clothes someone already owns</em>.</div>
       </section>
 
-      <section class="cs-sec" id="tldr">
-        <div class="sec-tag label rv">02 &middot; TL;DR</div>
-        <h2 class="rv">TL;DR</h2>
-        <p class="muted rv">For the recruiter who skims, the whole story in three lines.</p>
-        <div class="tldr rv">
-          <div class="part">
-            <div class="k label">The challenge</div>
-            <p>Many people aspire to a personal style that reflects who they are, but the way style is sold to them, through fast fashion, micro-trends, and a noisy social feed, often gets in the way of figuring out what they actually like.</p>
-          </div>
-          <div class="part">
-            <div class="k label">What I did</div>
-            <p>Ran user interviews on personal style, designed a social inspiration feed as the MVP, tested it across two rounds, then redesigned around an idea that came out of testing, an AI curator that builds outfits from the clothes someone already owns.</p>
-          </div>
-          <div class="part">
-            <div class="k label">The outcome</div>
-            <p>A full design from interviews to a high-fidelity prototype, the GAIA brand, and a clear sense of where the project wanted to go next, toward AI-curated outfits drawn from a person's own wardrobe and linked out to the brands they already love.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="cs-sec" id="problem">
-        <div class="sec-tag label rv">03 &middot; Problem</div>
-        <h2 class="rv">The problem</h2>
-        <div class="callout rv" style="max-width:30ch;">Personal style is hard to hear when so much of what surrounds you is built to sell you a <em>trend</em>.</div>
-        <p class="muted rv">For me, this was something I felt personally. I had spent a lot of time buying things I didn't wear and scrolling through outfits without feeling much closer to my own. The question I wanted the project to sit with was whether a digital tool could help someone find their own taste, rather than push them further from it.</p>
-      </section>
-
-      <section class="cs-sec" id="research">
-        <div class="sec-tag label rv">04 &middot; Research</div>
-        <h2 class="rv">Research</h2>
-        <p class="rv">I ran six user interviews with women aged 22 to 31, who all shopped online and used social media for style. I kept the questions open, around how they described their style, what frustrated them about shopping, and what they wanted a tool to help with.</p>
-
-        <div class="insight rv">
-          <div class="k label">Key insight, from the interviews</div>
-          <p>All six interviewees said the same thing: it's much easier to figure out whether a piece of clothing will work for you when you see it on someone who looks <em>like you</em>, in skin tone, body shape, and the way they hold themselves. That finding shaped the first version of the app.</p>
-        </div>
-
-        <figure class="rv">
-          <div class="plate wide"><div class="g" aria-hidden="true"></div></div>
-          <figcaption class="cap">Affinity map of interview answers, grouped into behaviours, motivations, and pain points. The largest cluster was about wanting to see style on people who looked similar.</figcaption>
-        </figure>
-
-        <p class="rv">After two rounds of usability testing with five users each, the design was working. What I hadn't expected was the kind of question that came up in round two, which kept circling back to the same gap and pointed somewhere I hadn't planned for.</p>
-
-        <div class="insight rv">
-          <div class="k label">Key insight, from the testing</div>
-          <p>Two of the five testers asked variations of the same question: could you shop from this, and could it suggest outfits made from clothes you already own. Neither was on the build list, but both echoed what I had heard in the interviews. That gap was where the project shifted from a social feed to a personal <em>curator</em>.</p>
-        </div>
-
-        <figure class="rv">
-          <div class="plate wide"><div class="g" aria-hidden="true"></div></div>
-          <figcaption class="cap">Usability testing summary. The questions that opened the second direction both came from round two.</figcaption>
-        </figure>
-      </section>
-
-      <section class="cs-sec" id="ideation">
-        <div class="sec-tag label rv">05 &middot; Ideation</div>
-        <h2 class="rv">Ideation</h2>
-        <p class="rv">With the interview findings in hand, I worked through about forty user stories across three epics: wardrobe organisation, personalised style ideas, and social style discovery. Tara's biggest frustration was how long it took to find plus-size influencers who dressed the way she wanted, so the home feed had to filter by physical traits before she scrolled. A competitive scan pointed me toward a gap, somewhere on the socially-oriented and visually simple end. The interviews told me social media was already where most people found style inspiration, and the friction was mostly about how cluttered the feed felt. So a Pinterest-style feed, with a cleaner shape and a style quiz at onboarding, felt like the right MVP.</p>
-        <figure class="rv">
-          <div class="pair">
-            <div class="plate screen"><div class="g" aria-hidden="true"></div></div>
-            <div class="plate screen"><div class="g" aria-hidden="true"></div></div>
-          </div>
-          <figcaption class="cap">Early sketches and grayscale wireframes for the two task flows: the style quiz, and styling around an owned item.</figcaption>
-        </figure>
-      </section>
-
-      <section class="cs-sec" id="solution">
-        <div class="sec-tag label rv">06 &middot; Solution</div>
-        <h2 class="rv">The solution</h2>
-        <p class="rv">Two moments, the MVP and the iteration that came out of testing.</p>
-
-        <h3 class="rv">01 &middot; The first version, GAIA as a social feed</h3>
-        <p class="muted rv">The first version of GAIA was a fashion inspiration feed built as four surfaces that fed each other: a home page filtered by the user's physical traits and brand preferences from the style quiz, a personal wardrobe they could upload their own clothes into, item and outfit detail pages, and collections to organise outfits by mood and occasion. Underneath, I built a small UI library so the prototype shipped consistently, with a 3:1 contrast minimum on interactive elements.</p>
-        <figure class="rv">
-          <div class="plate screen" style="max-width:340px;"><div class="g" aria-hidden="true"></div></div>
-          <figcaption class="cap">Home feed, personal wardrobe, item and outfit pages, and the style quiz at onboarding. The GAIA palette kept user-uploaded photos at the centre.</figcaption>
-        </figure>
-
-        <h3 class="rv">02 &middot; The personal curator</h3>
-        <p class="muted rv">The second direction came out of those testing questions and reframed the wardrobe. What had been a side feature became the starting point, with an AI styling assistant that built outfits from the user's wardrobe, suggested items from high-street and small brands, and explained itself by referencing the user's onboarding answers. Each suggestion came with a short note underneath, like <em>built from your navy blazer and styled around the looks you saved from your favourite influencer</em>, so it read as a recommendation rather than a verdict.</p>
-        <figure class="rv">
-          <div class="proto">
-            <div class="label">Interactive prototype</div>
-            <div class="proto-phone">
-              <iframe title="GAIA AI Style Assistant, interactive prototype"
-                      src="https://embed.figma.com/proto/fl5MbLMukciS5EXgmFhzsN/Untitled?node-id=1-13315&starting-point-node-id=1-13379&scaling=scale-down-width&content-scaling=fixed&page-id=0-1&hide-ui=1&embed-host=share"
-                      allowfullscreen loading="lazy"></iframe>
-            </div>
-          </div>
-          <figcaption class="cap">The personal-curator iteration, with outfit suggestions built from the user's wardrobe and a note explaining where each came from.</figcaption>
-        </figure>
-      </section>
-
-      <section class="cs-sec" id="learnings" style="padding-bottom:24px;">
-        <div class="sec-tag label rv">07 &middot; Learnings</div>
-        <h2 class="rv">Learnings</h2>
-        <div class="cols2 rv">
-          <div>
-            <h3>What worked</h3>
-            <p class="muted">Staying close to testing was the most useful thing I did. The second round was meant to validate the design and ended up reshaping it, and the work was better for letting that happen.</p>
-          </div>
-          <div>
-            <h3>What I'd do differently</h3>
-            <p class="muted">I'd test earlier, on paper or with a rough prototype. The questions in round two were close enough to interview signal that earlier testing could have caught the direction sooner.</p>
-          </div>
-        </div>
-      </section>
+      <!-- ===== WORK IN PROGRESS ===== -->
+      <div class="wip rv">
+        <span class="wip-mark" aria-hidden="true">&#10051;</span>
+        <p class="wip-lead">The full case study is still a work in progress.</p>
+        <p class="wip-sub">For a more detailed walkthrough beyond this preview, <a href="mailto:almirahanafiah@gmail.com">reach out directly</a>!</p>
+      </div>
 
     </article>
   </div>
@@ -497,7 +404,7 @@
   </div>
 </footer>
 
-<div class="proto-note">Prototype, case study 03</div>
+<div class="proto-note">Preview, case study 03</div>
 
 <script>
 (function () {
