@@ -42,16 +42,10 @@ html {
   animation-duration: 0.32s;
   animation-timing-function: ease;
 }
-/* lift the header out of the cross-fade so it stays put while only the body content swaps.
-   applies to every page's header (both the .masthead nav and the .bar case-study top bar)
-   so switching between page types doesn't flicker the header. */
-header {
-  view-transition-name: site-header;
-}
-::view-transition-old(site-header),
-::view-transition-new(site-header) {
-  animation: none;
-}
+/* The whole page (header included) cross-fades as one opaque snapshot.
+   We deliberately do NOT give the header its own view-transition-name:
+   the header has a transparent background, so pinning it as a separate
+   snapshot left the old and new headers visibly overlaid mid-transition. */
 
 body {
   background: var(--paper);
