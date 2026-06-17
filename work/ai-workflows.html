@@ -6,7 +6,7 @@
         <title>Designing the unit of work for agentic AI, Almira</title>
         <meta
             name="description"
-            content="Designing how work gets defined, run, and handed back in an AI platform where the system is non-deterministic and the user needs to be able to trust it."
+            content="Led the design of how work gets defined, run, and logged in an AI business platform, designing for trust and control.
         />
         <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -681,6 +681,34 @@
                 margin-top: 10px;
             }
 
+            /* an early-exploration screenshot, framed deliberately as lower-fidelity process */
+            .cs-shot {
+                display: block;
+                width: 100%;
+                height: auto;
+                border: 1px solid var(--rule);
+                border-radius: 10px;
+                background: var(--paper-2);
+            }
+            .cs-shot-ph {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 300px;
+                padding: 40px;
+                text-align: center;
+                font-size: 0.78rem;
+                line-height: 1.7;
+                color: var(--ink-soft);
+            }
+            .cs-shot-ph code {
+                font-family: ui-monospace, "SF Mono", Menlo, monospace;
+                font-size: 0.92em;
+                background: rgba(44, 42, 40, 0.06);
+                padding: 1px 5px;
+                border-radius: 4px;
+            }
+
             /* learnings two-col */
             .cols2 {
                 display: grid;
@@ -737,6 +765,11 @@
                 --bu-neutral-300: #f7f3ea;
                 --bu-border: #f0efec;
                 --bu-border-strong: #d9d9d9;
+                /* moment-4 surfaces, mapped onto the warm Brim canvas so they
+                   read like the other moment frames rather than the cooler
+                   portfolio paper */
+                --bu-paper: var(--bu-card);
+                --bu-paper-2: var(--bu-neutral-300);
                 --bu-t1: #1e1e1e;
                 --bu-t2: #484848;
                 --bu-t3: #757575;
@@ -3483,9 +3516,12 @@
                 display: grid;
                 grid-template-columns: 1.5fr 1fr;
                 gap: 0;
-                background: var(--bu-paper, var(--paper));
-                border: 1px solid var(--bu-border, var(--rule));
+                background: var(--bu-canvas);
+                border: 1px solid var(--bu-border-strong);
                 border-radius: 14px;
+                box-shadow:
+                    0 4px 6px -1px rgba(72, 72, 72, 0.08),
+                    0 2px 4px -2px rgba(72, 72, 72, 0.08);
                 overflow: hidden;
             }
             .bu-stage4 .bu-frame.bu-pa {
@@ -3908,10 +3944,6 @@
                 gap: 6px;
                 justify-content: center;
             }
-            .bu-btn.bu-run-again:hover {
-                background: var(--pink-deep);
-                border-color: var(--pink-deep);
-            }
 
             @media (max-width: 720px) {
                 .bu-stage4 {
@@ -3944,9 +3976,6 @@
 
         <div class="shell">
             <div class="cs-header">
-                <div class="eyebrow label rv">
-                    Case study 01, Brim, 2025 onwards
-                </div>
                 <h1 class="cs-title rv">
                     Designing the unit of work for <em>agentic</em> AI.
                 </h1>
@@ -4898,6 +4927,21 @@
                                 a plan it has worked out from their connected
                                 tools, which they can approve or edit. (Mock;
                                 Zapier interface abstracted.)
+                            </figcaption>
+                        </figure>
+                        <figure class="rv">
+                            <img
+                                class="cs-shot"
+                                src="../assets/case-01/early-workflow-builder.png"
+                                alt="An early wireframe of a node-based workflow builder, an abandoned direction for assignments."
+                                loading="lazy"
+                                onerror="this.outerHTML='&lt;div class=&quot;cs-shot cs-shot-ph&quot;&gt;Add &lt;code&gt;early-workflow-builder.png&lt;/code&gt; to &lt;code&gt;assets/case-01/&lt;/code&gt;&lt;/div&gt;'"
+                            />
+                            <figcaption class="cap">
+                                An early wireframe of mine, from before AI was
+                                part of how I designed. I had the traditional
+                                workflow builder fully drawn out before deciding
+                                to move away from it.
                             </figcaption>
                         </figure>
                         <p class="rv">
@@ -6459,7 +6503,7 @@
                                                         <div
                                                             class="bu-flag-row-title"
                                                         >
-                                                            Pitkin &amp; Ruddock
+                                                            Marlow &amp; Finch
                                                             &mdash; Invoice 3351
                                                         </div>
                                                         <div
@@ -6523,8 +6567,8 @@
                                                             action:</span
                                                         >
                                                         Request corrected
-                                                        invoice from Pitkin
-                                                        &amp; Ruddock with VAT
+                                                        invoice from Marlow
+                                                        &amp; Finch with VAT
                                                         removed from total.
                                                     </p>
                                                     <div
@@ -6563,8 +6607,9 @@
                                                         <div
                                                             class="bu-flag-row-title"
                                                         >
-                                                            Buildbase &mdash;
-                                                            Invoice BB-9921
+                                                            Northgate Supplies
+                                                            &mdash; Invoice
+                                                            NS-9921
                                                         </div>
                                                         <div
                                                             class="bu-flag-row-sub"
@@ -6599,9 +6644,9 @@
                                                         <div
                                                             class="bu-flag-row-title"
                                                         >
-                                                            Travis Perkins
+                                                            Brookfield Trade
                                                             &mdash; Invoice
-                                                            TP-8812
+                                                            BT-8812
                                                         </div>
                                                         <div
                                                             class="bu-flag-row-sub"
@@ -6642,8 +6687,8 @@
                                                 <dt>Created by</dt>
                                                 <dd>
                                                     <span class="av-mini"
-                                                        >TH</span
-                                                    >Tyler Holden
+                                                        >MB</span
+                                                    >Marcus Boyd
                                                 </dd>
                                             </div>
                                             <div>
@@ -6815,7 +6860,7 @@
                                                     ></span>
                                                     <div class="step-label">
                                                         Confirm emails with
-                                                        Tyler<span
+                                                        Marcus<span
                                                             class="step-meta"
                                                             >09:14 &middot;
                                                             8s</span
