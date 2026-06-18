@@ -23,7 +23,7 @@
         <style>
             /* blue accent scoped to the visual blocks only; text and lines keep the site's pink */
             .fj,
-            .family,
+            .kit,
             .md-snip,
             .evo {
                 --pink: #377cc6;
@@ -1165,177 +1165,207 @@
                 }
             }
 
-            /* "one family" wall — coherence across varied pieces (guardrails outcome) */
-            .family {
+            /* "one kit, many composites" — same primitives, different composites per user */
+            .kit {
                 background: var(--paper-2);
                 border: 1px solid var(--rule);
                 border-radius: 12px;
-                padding: 20px;
+                padding: 22px;
             }
-            .family-grid {
+            .kit-row {
                 display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 12px;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 14px;
             }
-            .ft {
+            .kitc {
                 background: var(--paper);
                 border: 1px solid var(--rule);
-                border-radius: 8px;
-                padding: 12px 13px;
+                border-radius: 9px;
+                padding: 13px;
                 box-shadow: 2px 3px 0 rgba(44, 42, 40, 0.05);
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .kitc .who {
+                font-size: 0.56rem;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: var(--pink-deep);
+            }
+            .kit-surface {
+                border: 1px solid var(--rule);
+                border-radius: 7px;
+                background: var(--paper-2);
+                padding: 11px;
                 display: flex;
                 flex-direction: column;
                 gap: 7px;
                 min-height: 96px;
             }
-            .ft .lab {
-                font-size: 0.52rem;
-                text-transform: uppercase;
-                letter-spacing: 0.13em;
-                color: var(--ink-soft);
-            }
-            .ft .big {
-                font-size: 1.45rem;
-                letter-spacing: -0.02em;
-                color: var(--ink);
-                line-height: 1;
-            }
-            .ft .pos {
-                font-size: 0.58rem;
-                color: var(--pink-deep);
-            }
-            .ft .row {
+            .kit-surface .krow {
                 display: flex;
                 align-items: center;
-                gap: 7px;
+                justify-content: space-between;
+                gap: 8px;
             }
-            .ft .dot {
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: var(--pink);
-                flex-shrink: 0;
-            }
-            .ft .ln {
+            .kit-surface .kln {
                 height: 6px;
                 border-radius: 3px;
                 background: var(--rule);
                 flex: 1;
             }
-            .ft .ln.s {
-                flex: 0 0 55%;
+            .kit-surface .kln.s {
+                flex: none;
+                width: 55%;
             }
-            .ft .pillrow {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 5px;
-            }
-            .ft .pill {
-                font-size: 0.54rem;
-                color: var(--ink);
-                border: 1px solid var(--rule);
-                border-radius: 999px;
-                padding: 3px 8px;
-            }
-            .ft .pill.on {
+            .kit-surface .kval {
+                font-size: 0.66rem;
                 color: var(--pink-deep);
-                background: rgba(55, 124, 198, 0.07);
-                border-color: rgba(55, 124, 198, 0.34);
+                white-space: nowrap;
             }
-            .ft .btn {
+            .kit-surface .kbtn {
                 align-self: flex-start;
-                font-size: 0.62rem;
+                font-size: 0.56rem;
                 color: var(--paper);
                 background: var(--pink-deep);
-                border-radius: 6px;
-                padding: 6px 12px;
+                border-radius: 5px;
+                padding: 5px 11px;
             }
-            .ft .ghost {
-                font-size: 0.58rem;
+            .kit-surface .klab {
+                font-size: 0.5rem;
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
                 color: var(--ink-soft);
             }
-            .ft .av {
-                width: 26px;
-                height: 26px;
-                border-radius: 50%;
-                background: var(--paper-2);
+            .kit-surface .kfield {
+                height: 15px;
                 border: 1px solid var(--rule);
-                flex-shrink: 0;
-            }
-            .ft .field {
-                height: 22px;
-                border: 1px solid var(--rule);
-                border-radius: 6px;
+                border-radius: 5px;
                 background: var(--paper);
             }
-            .ft .toggle {
-                width: 30px;
-                height: 17px;
-                border-radius: 999px;
-                background: rgba(55, 124, 198, 0.28);
-                position: relative;
-                flex-shrink: 0;
+            .kit-surface .kbig {
+                font-size: 1.3rem;
+                letter-spacing: -0.02em;
+                color: var(--ink);
+                line-height: 1;
             }
-            .ft .toggle::after {
-                content: "";
-                position: absolute;
-                top: 2px;
-                right: 2px;
-                width: 13px;
-                height: 13px;
-                border-radius: 50%;
-                background: var(--pink-deep);
-            }
-            .ft-chart {
+            .kit-chart {
                 width: 100%;
-                height: 34px;
+                height: 26px;
                 display: block;
             }
-            .ft-chart path {
+            .kit-chart path {
                 fill: none;
                 stroke: var(--pink-deep);
                 stroke-width: 2;
                 stroke-linecap: round;
                 stroke-linejoin: round;
             }
-            .family-key {
+            .kit-from {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 18px;
-                margin-top: 16px;
-                padding-top: 14px;
-                border-top: 1px solid var(--rule);
-            }
-            .family-key .fk {
-                display: flex;
                 align-items: center;
-                gap: 8px;
-                font-size: 0.62rem;
-                color: var(--ink-soft);
+                gap: 5px;
             }
-            .family-key .fk b {
-                font-weight: var(--w);
-                color: var(--ink);
+            .kit-from .fl {
+                font-size: 0.48rem;
                 text-transform: uppercase;
                 letter-spacing: 0.1em;
-                font-size: 0.54rem;
+                color: var(--ink-soft);
+                margin-right: 2px;
             }
-            .family-key .sw {
-                width: 10px;
-                height: 10px;
-                border-radius: 3px;
-                flex-shrink: 0;
-            }
-            .family-key .held .sw {
-                background: var(--pink);
-            }
-            .family-key .free .sw {
+            .kit-chip {
+                font-size: 0.52rem;
+                color: var(--ink);
+                border: 1px solid var(--rule);
+                border-radius: 999px;
+                padding: 2px 7px;
                 background: var(--paper);
-                border: 1px dashed var(--ink-soft);
+            }
+            .kit-base {
+                text-align: center;
+                margin-bottom: 2px;
+            }
+            .kit-baselab {
+                display: block;
+                font-size: 0.56rem;
+                text-transform: uppercase;
+                letter-spacing: 0.12em;
+                color: var(--ink-soft);
+                margin-bottom: 10px;
+            }
+            .kit-baselab b {
+                font-weight: var(--w);
+                color: var(--ink);
+            }
+            .kit-prims {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 7px;
+            }
+            .kit-branch {
+                position: relative;
+                height: 42px;
+                margin: 2px 0 0;
+            }
+            .kit-branch span {
+                position: absolute;
+                background: var(--ink-soft);
+            }
+            .kit-branch .stem {
+                left: 50%;
+                top: 0;
+                width: 1px;
+                height: 15px;
+                transform: translateX(-50%);
+            }
+            .kit-branch .rail {
+                left: 16.666%;
+                right: 16.666%;
+                top: 15px;
+                height: 1px;
+            }
+            .kit-branch .drop {
+                top: 15px;
+                width: 1px;
+                height: 21px;
+            }
+            .kit-branch .drop.a {
+                left: 16.666%;
+            }
+            .kit-branch .drop.b {
+                left: 50%;
+            }
+            .kit-branch .drop.c {
+                left: 83.334%;
+            }
+            .kit-branch .drop::after {
+                content: "";
+                position: absolute;
+                bottom: -1px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 6px solid var(--ink-soft);
+            }
+            .kit-prim {
+                font-size: 0.6rem;
+                color: var(--ink);
+                border: 1px solid var(--rule);
+                border-radius: 999px;
+                padding: 5px 12px;
+                background: var(--paper);
+                box-shadow: 2px 3px 0 rgba(44, 42, 40, 0.05);
             }
             @media (max-width: 720px) {
-                .family-grid {
-                    grid-template-columns: repeat(2, 1fr);
+                .kit-row {
+                    grid-template-columns: 1fr;
+                }
+                .kit-branch {
+                    display: none;
                 }
             }
 
@@ -1739,6 +1769,25 @@
                             build new things from it without breaking how Brim
                             feels.
                         </p>
+                        <div class="insight rv">
+                            <div class="k label">Where the field is going</div>
+                            <p>
+                                &ldquo;In the AI-driven enterprise, experiences
+                                are no longer designed once and reused
+                                repeatedly; they are composed
+                                continuously.&rdquo; Design teams like
+                                <a
+                                    href="https://www.sap.com/design/stories-resources/evolving-design-systems-for-ai-driven-ux"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >SAP</a
+                                >
+                                are writing about the same move toward a
+                                <em>compositional design system</em>. The concept
+                                is shared across the industry, and what differs is
+                                how each team builds it.
+                            </p>
+                        </div>
 
                         <figure class="rv">
                             <div class="fj">
@@ -1972,123 +2021,113 @@
                                 rest coherent.
                             </p>
                             <figure class="rv">
-                                <div class="family">
-                                    <div class="family-grid">
-                                        <!-- stat -->
-                                        <div class="ft">
-                                            <span class="lab">Revenue</span>
-                                            <span class="big">&pound;128k</span>
-                                            <span class="pos"
-                                                >&#9650; 12% this month</span
-                                            >
-                                        </div>
-                                        <!-- list -->
-                                        <div class="ft">
-                                            <span class="lab">Open items</span>
-                                            <div class="row">
-                                                <span class="dot"></span
-                                                ><span class="ln"></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="dot"></span
-                                                ><span class="ln s"></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="dot"></span
-                                                ><span class="ln"></span>
-                                            </div>
-                                        </div>
-                                        <!-- tags -->
-                                        <div class="ft">
-                                            <span class="lab">Status</span>
-                                            <div class="pillrow">
-                                                <span class="pill on"
-                                                    >Active</span
-                                                ><span class="pill">Draft</span
-                                                ><span class="pill">Done</span>
-                                            </div>
-                                        </div>
-                                        <!-- chart -->
-                                        <div class="ft">
-                                            <span class="lab">Trend</span>
-                                            <svg
-                                                class="ft-chart"
-                                                viewBox="0 0 120 34"
-                                                preserveAspectRatio="none"
-                                                aria-hidden="true"
-                                            >
-                                                <path
-                                                    d="M2 28 L20 22 L38 25 L56 14 L74 18 L92 9 L118 4"
-                                                />
-                                            </svg>
-                                        </div>
-                                        <!-- button -->
-                                        <div class="ft">
-                                            <span class="lab">Action</span>
-                                            <span class="ghost"
-                                                >One primary action</span
-                                            >
-                                            <span class="btn">Approve</span>
-                                        </div>
-                                        <!-- person -->
-                                        <div class="ft">
-                                            <span class="lab">Owner</span>
-                                            <div class="row">
-                                                <span class="av"></span>
-                                                <div
-                                                    style="
-                                                        display: flex;
-                                                        flex-direction: column;
-                                                        gap: 5px;
-                                                        flex: 1;
-                                                    "
-                                                >
-                                                    <span class="ln"></span
-                                                    ><span class="ln s"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- toggle -->
-                                        <div class="ft">
-                                            <span class="lab">Setting</span>
-                                            <div
-                                                class="row"
-                                                style="
-                                                    justify-content: space-between;
-                                                "
-                                            >
-                                                <span
-                                                    class="ln"
-                                                    style="flex: 0 0 50%"
-                                                ></span
-                                                ><span class="toggle"></span>
-                                            </div>
-                                        </div>
-                                        <!-- field -->
-                                        <div class="ft">
-                                            <span class="lab">Vendor</span>
-                                            <div class="field"></div>
+                                <div class="kit">
+                                    <div class="kit-base">
+                                        <span class="kit-baselab"
+                                            ><b>The same primitives</b>, designed
+                                            once, by hand</span
+                                        >
+                                        <div class="kit-prims">
+                                            <span class="kit-prim">Card</span>
+                                            <span class="kit-prim">Field</span>
+                                            <span class="kit-prim">Pill</span>
+                                            <span class="kit-prim">Button</span>
+                                            <span class="kit-prim">List</span>
+                                            <span class="kit-prim">Chart</span>
+                                            <span class="kit-prim">Toggle</span>
                                         </div>
                                     </div>
-                                    <div class="family-key">
-                                        <span class="fk held"
-                                            ><span class="sw"></span
-                                            ><b>Held</b> spacing · type · colour ·
-                                            radius</span
-                                        >
-                                        <span class="fk free"
-                                            ><span class="sw"></span
-                                            ><b>Left open</b> content · density ·
-                                            data</span
-                                        >
+                                    <div class="kit-branch" aria-hidden="true">
+                                        <span class="stem"></span>
+                                        <span class="rail"></span>
+                                        <span class="drop a"></span>
+                                        <span class="drop b"></span>
+                                        <span class="drop c"></span>
+                                    </div>
+                                    <div class="kit-row">
+                                        <!-- finance operator: approval card -->
+                                        <div class="kitc">
+                                            <span class="who"
+                                                >Finance operator</span
+                                            >
+                                            <div class="kit-surface">
+                                                <div class="krow">
+                                                    <span class="kln"></span
+                                                    ><span class="kval"
+                                                        >&pound;4,820</span
+                                                    >
+                                                </div>
+                                                <span class="kln s"></span>
+                                                <span class="kbtn">Approve</span>
+                                            </div>
+                                            <div class="kit-from">
+                                                <span class="fl">Built from</span
+                                                ><span class="kit-chip"
+                                                    >Card</span
+                                                ><span class="kit-chip"
+                                                    >Pill</span
+                                                ><span class="kit-chip"
+                                                    >Button</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <!-- ops lead: vendor form -->
+                                        <div class="kitc">
+                                            <span class="who">Ops lead</span>
+                                            <div class="kit-surface">
+                                                <span class="klab">Vendor</span>
+                                                <div class="kfield"></div>
+                                                <span class="klab">Amount</span>
+                                                <div class="kfield"></div>
+                                            </div>
+                                            <div class="kit-from">
+                                                <span class="fl">Built from</span
+                                                ><span class="kit-chip"
+                                                    >Card</span
+                                                ><span class="kit-chip"
+                                                    >Field</span
+                                                ><span class="kit-chip"
+                                                    >Button</span
+                                                >
+                                            </div>
+                                        </div>
+                                        <!-- founder: metrics summary -->
+                                        <div class="kitc">
+                                            <span class="who">Founder</span>
+                                            <div class="kit-surface">
+                                                <span class="kbig"
+                                                    >&pound;128k</span
+                                                >
+                                                <svg
+                                                    class="kit-chart"
+                                                    viewBox="0 0 120 26"
+                                                    preserveAspectRatio="none"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path
+                                                        d="M2 22 L22 17 L42 19 L62 10 L82 13 L102 5 L118 3"
+                                                    />
+                                                </svg>
+                                            </div>
+                                            <div class="kit-from">
+                                                <span class="fl">Built from</span
+                                                ><span class="kit-chip"
+                                                    >Card</span
+                                                ><span class="kit-chip"
+                                                    >Chart</span
+                                                ><span class="kit-chip"
+                                                    >List</span
+                                                >
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <figcaption class="cap">
-                                    Different pieces, one system. I hold a few
-                                    things constant, the spacing, the type, the
-                                    colour, the shapes a thing can take, and leave
-                                    the rest open, so anything built from the
-                                    system still reads as one family.
+                                    Same primitives, different composites. Each
+                                    person gets a surface composed for them, but
+                                    every one is built from the same small set of
+                                    parts, which is what keeps them all feeling
+                                    like one system.
                                 </figcaption>
                             </figure>
                         </div>
