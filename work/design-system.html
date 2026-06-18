@@ -3,7 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Building a compositional design system for AI, Almira</title>
+        <title>
+            Defining a compositional design system for AI | Almira Hanafiah
+        </title>
         <meta
             name="description"
             content="Moving a design system from a library drawn component by component to a system an AI agent can read and build new screens from."
@@ -1441,9 +1443,9 @@
                     Defining a <em>compositional</em> design system for AI.
                 </h1>
                 <p class="dek rv">
-                    Co-led with founder to move away from the screens of a
-                    traditional design system on Figma to a system an AI agent
-                    can read and build more dynamic experiences from.
+                    Co-led with founder to define a system for more dynamic and
+                    personalised AI experiences, moving away from the screens of
+                    a traditional Figma design system.
                 </p>
                 <span class="nda rv"
                     >Specific product surfaces are abstracted under NDA. What
@@ -1531,7 +1533,8 @@
                             <div class="form-top">
                                 <div class="form-title">New expense</div>
                                 <span class="form-tool"
-                                    ><span class="ic"></span>Accounting tool</span
+                                    ><span class="ic"></span>Accounting
+                                    tool</span
                                 >
                             </div>
                             <div class="ff">
@@ -1551,8 +1554,8 @@
                     </div>
                 </div>
                 <figcaption class="cap">
-                    How the system flows: the design system in Figma, captured as
-                    a set of structured design docs, and composed into a form
+                    How the system flows: the design system in Figma, captured
+                    as a set of structured design docs, and composed into a form
                     built for the account, with just the fields it needs and a
                     connection to the accounting tool it writes into.
                 </figcaption>
@@ -1619,11 +1622,11 @@
                             is built from, which means the visual language, the
                             component library, and increasingly the
                             documentation that tells both people and AI agents
-                            how to build new parts of the product. Brim itself is
-                            an AI system that helps mid-sized businesses own their
-                            specific intelligence, by which I mean the way their
-                            company actually works and the patterns and
-                            decisions that make it good at what it does.
+                            how to build new parts of the product. Brim itself
+                            is an AI system that helps small to mid-sized
+                            businesses own their specific intelligence, meaning
+                            the agent will continuously learn and run real tasks
+                            accordingly to the way their company works.
                         </p>
                         <p class="rv">
                             This was a close collaboration with Brim's founder.
@@ -1634,8 +1637,7 @@
                             it. As AI evolved and new frameworks became
                             available, rendering components dynamically went
                             from an idea into something we could actually build,
-                            and that shift is what this case study is really
-                            about.
+                            and that shift is what this case study is about.
                         </p>
                         <div class="facts rv">
                             <div>
@@ -1674,8 +1676,8 @@
                         <div class="sec-tag label rv">02 &middot; TL;DR</div>
                         <h2 class="rv">
                             I rebuilt the design system so an AI agent could
-                            <em>compose</em> from it, and implementation went
-                            from months to weeks.
+                            <em>compose</em> from it, enabling more personalised
+                            experiences.
                         </h2>
                         <div class="tldr rv">
                             <div class="part">
@@ -1685,29 +1687,28 @@
                                     so every time we needed a new component it
                                     had to be designed by me first, which made
                                     me the bottleneck on how fast the product
-                                    could move. At the same time Brim was
+                                    could move. At the same time, Brim was
                                     heading toward a more dynamic kind of
                                     interface, where parts of the experience are
-                                    composed on the fly rather than drawn ahead
-                                    of time, and designing that manually, a
-                                    screen at a time, was never going to keep
-                                    up.
+                                    composed on the fly rather than static. So
+                                    designing that manually, a screen at a time,
+                                    was never going to keep up.
                                 </p>
                             </div>
                             <div class="part">
                                 <div class="k label">What I did</div>
                                 <p>
-                                    I had built the design system in Figma, and
-                                    the engineers had moved it into Storybook
-                                    with my contributions to docs and variants.
-                                    My first attempt at unbottlenecking was
-                                    connecting Figma MCP so our agents could
-                                    read the system, but reading turned out to
-                                    be different from being able to build from
-                                    it. So I rewrote the system into a set of
-                                    structured design docs the team builds from,
-                                    written to carry the thinking I would have
-                                    brought to each new screen myself.
+                                    I had historically built a design system
+                                    library on Figma, and the engineers moved it
+                                    into Storybook with my contributions to docs
+                                    and variants. My first attempt at
+                                    unbottlenecking was connecting Figma MCP so
+                                    AI could read the system, but this was not
+                                    enough to build from it. So I rewrote the
+                                    system into a set of structured design docs
+                                    the team builds from, written to carry the
+                                    thinking I would have brought to each new
+                                    screen myself.
                                 </p>
                             </div>
                             <div class="part">
@@ -1730,23 +1731,21 @@
                     <section class="cs-sec" id="problem">
                         <div class="sec-tag label rv">03 &middot; Problem</div>
                         <h2 class="rv">
-                            As the only designer, I became a
-                            <em>bottleneck</em> for how fast Brim could be
-                            built.
+                            How can we build an <em>AI product</em> with AI?
                         </h2>
                         <div class="callout tight rv">
-                            As the only designer on a small team, every new
+                            As the only designer in a small team, every new
                             component still had to be checked against me, which
                             limited how fast even the <em>engineers</em> could
                             build.
                         </div>
                         <p class="muted rv">
-                            And because Brim is an AI product a user can ask
-                            almost anything of, the set of components and flows
-                            the interface might need is effectively infinite.
-                            The more I sat with it, the clearer it became that
-                            this needed a different way of working rather than
-                            more of me.
+                            Brim had to work for any business user of any
+                            industry, so the set of components and flows the
+                            interface might need is effectively infinite. The
+                            more I sat with it, the clearer it became that this
+                            needed a different way of working rather than more
+                            of me.
                         </p>
                     </section>
 
@@ -1853,17 +1852,17 @@
                             <div class="step">
                                 <div class="sn">01</div>
                                 <div>
-                                    <h3>The Figma system, mostly mine</h3>
+                                    <h3>The Figma system</h3>
                                     <p>
                                         I started in the second half of 2025
                                         with a fairly standard design system in
                                         Figma, organised the way atomic design
                                         lays it out, from tokens to primitives
                                         to composites to layouts and templates.
-                                        That part was mostly mine, and it gave
-                                        Brim a consistent visual language to
-                                        build from while the product was still
-                                        moving quickly and changing shape.
+                                        This part I did myself, and it gave Brim
+                                        a consistent visual language to build
+                                        from while the product was still moving
+                                        quickly and changing shape.
                                     </p>
                                 </div>
                             </div>
@@ -1875,13 +1874,12 @@
                                         My first attempt at getting out of the
                                         bottleneck was connecting Figma through
                                         Claude MCP, so our agents could read the
-                                        design system directly instead of
-                                        waiting on me. It made the system
-                                        legible to an agent for the first time,
-                                        but I kept hitting the same limit, the
-                                        agent could read what already existed
-                                        without being able to compose something
-                                        new that still felt like Brim.
+                                        design system directly and make new
+                                        components. It made the system legible
+                                        to an agent for the first time, but we
+                                        kept hitting the same limit, the design
+                                        was still handed over to an engineer to
+                                        build.
                                     </p>
                                 </div>
                             </div>
@@ -1893,10 +1891,10 @@
                                         As Brim moved toward a much more dynamic
                                         experience, the real change was
                                         rewriting the system into a set of
-                                        structured design docs the team could
-                                        build from, written to carry the
-                                        thinking I would have brought to each new
-                                        screen myself.
+                                        structured design docs the agent itself
+                                        could build from, written to carry the
+                                        thinking I would have brought to each
+                                        new screen myself.
                                     </p>
                                 </div>
                             </div>
@@ -1905,10 +1903,10 @@
                         <p class="rv" style="margin-top: 30px">
                             Each step handed a little more of the design
                             thinking to the system itself, until the question I
-                            was really answering stopped being how do I draw
-                            this faster and became what do I need to write down
-                            so that anything built from it still feels like
-                            Brim.
+                            was really answering stopped being how do I design
+                            this faster, and became what principle is this
+                            component based on so that anything built from it
+                            still feels like Brim.
                         </p>
                     </section>
 
@@ -1930,17 +1928,15 @@
                         <div class="moment">
                             <h3 class="rv">Leading with principles</h3>
                             <p class="muted rv">
-                                Because we were moving toward a more dynamic
-                                system, I could not keep designing incrementally
-                                and fixing one page at a time. So I led with the
-                                principles that govern Brim's design and
-                                experience, then went back to the primitives I
-                                already had and set them out in the design docs.
-                                With the primitives, the styles, and the spacing
-                                already covered, creating new components was not
-                                the hard part. The real work was making sure
-                                anything built from it stayed true to the system
-                                already in place.
+                                I led with the principles that govern Brim's
+                                design and experience, like motion or
+                                accessibility, then went back to the primitives
+                                I already had and set them out in the design
+                                docs. With the primitives, the styles, and the
+                                spacing already covered, creating new components
+                                was not the hard part. The real work was making
+                                sure anything built from it stayed true to the
+                                system already in place.
                             </p>
                         </div>
 
@@ -1949,11 +1945,11 @@
                             <p class="muted rv">
                                 Read together, a set of structured design docs
                                 gives the system enough to build something new
-                                that still feels like Brim, rather than something
-                                assembled from the right parts that does not
-                                quite hold together. The example below is an
-                                invented, generic illustration of the kind of
-                                thing they capture.
+                                that had Brim's design and language, rather than
+                                something assembled from the right parts that
+                                does not quite hold together. The example below
+                                is an invented, generic illustration of the kind
+                                of thing they capture.
                             </p>
                             <figure class="rv">
                                 <div class="md-snip">
@@ -1979,9 +1975,9 @@
   - <span class="c">never a full roster, that is a list</span></pre>
                                 </div>
                                 <figcaption class="cap">
-                                    A made-up, generic example of the kind of
-                                    structured design doc the team builds from,
-                                    not the real system.
+                                    A generic example of the kind of structured
+                                    design doc the team builds from, not the
+                                    real system.
                                 </figcaption>
                             </figure>
                         </div>
@@ -1989,24 +1985,24 @@
                         <div class="moment">
                             <h3 class="rv">From guidelines to guardrails</h3>
                             <p class="muted rv">
-                                The part I am most proud of is that these are not
-                                guidelines that get read once and then forgotten.
-                                The rules are what keep the system coherent as it
-                                grows, so anything new built from it still shares
-                                the same primitives, the same spacing, and the
-                                same sense of what each part is for. That is the
-                                heart of the systems thinking here. My job became
-                                less about deciding what every screen looks like
-                                and more about deciding what to specify and what
-                                to leave open, and trusting the system to keep the
-                                rest coherent.
+                                These are not guidelines that get read once and
+                                then forgotten, because it's meant to compound
+                                over time. The rules are what keep the system
+                                coherent as it grows, so anything new built from
+                                it still shares the same primitives, the same
+                                spacing, and the same sense of what each part is
+                                for. That is the heart of the systems thinking
+                                here. My job became less about deciding what
+                                every screen looks like and more about deciding
+                                what to specify and what to leave open, and
+                                trusting the system to keep the rest coherent.
                             </p>
                             <figure class="rv">
                                 <div class="kit">
                                     <div class="kit-base">
                                         <span class="kit-baselab"
-                                            ><b>The same primitives</b>, designed
-                                            once, by hand</span
+                                            ><b>The same primitives</b>,
+                                            designed once, by hand</span
                                         >
                                         <div class="kit-prims">
                                             <span class="kit-prim">Card</span>
@@ -2039,10 +2035,13 @@
                                                     >
                                                 </div>
                                                 <span class="kln s"></span>
-                                                <span class="kbtn">Approve</span>
+                                                <span class="kbtn"
+                                                    >Approve</span
+                                                >
                                             </div>
                                             <div class="kit-from">
-                                                <span class="fl">Built from</span
+                                                <span class="fl"
+                                                    >Built from</span
                                                 ><span class="kit-chip"
                                                     >Card</span
                                                 ><span class="kit-chip"
@@ -2062,7 +2061,8 @@
                                                 <div class="kfield"></div>
                                             </div>
                                             <div class="kit-from">
-                                                <span class="fl">Built from</span
+                                                <span class="fl"
+                                                    >Built from</span
                                                 ><span class="kit-chip"
                                                     >Card</span
                                                 ><span class="kit-chip"
@@ -2091,7 +2091,8 @@
                                                 </svg>
                                             </div>
                                             <div class="kit-from">
-                                                <span class="fl">Built from</span
+                                                <span class="fl"
+                                                    >Built from</span
                                                 ><span class="kit-chip"
                                                     >Card</span
                                                 ><span class="kit-chip"
@@ -2106,9 +2107,9 @@
                                 <figcaption class="cap">
                                     Same primitives, different composites. Each
                                     person gets a surface composed for them, but
-                                    every one is built from the same small set of
-                                    parts, which is what keeps them all feeling
-                                    like one system.
+                                    every one is built from the same small set
+                                    of parts, which is what keeps them all
+                                    feeling like one system.
                                 </figcaption>
                             </figure>
                         </div>
@@ -2121,14 +2122,14 @@
                                 Not everything should be composed by an agent,
                                 and a big part of the work was being clear about
                                 what stays a human decision. The primitives
-                                themselves stay human-designed, so the agent
-                                only ever composes from the parts that already
-                                exist and never invents a new one. The overall
-                                layout sits with the human too, including where
-                                a component belongs on the page and how the page
-                                is divided. The agent composes within that
-                                structure, it does not get to rearrange the
-                                page.
+                                themselves stay based on my initial designs, so
+                                the agent only ever composes from the parts that
+                                already exist and never invents a new one. The
+                                overall layout sits with the human too,
+                                including where a component belongs on the page
+                                and how the page is divided. The agent composes
+                                within that structure, it does not get to
+                                rearrange the page.
                             </p>
                         </div>
 
@@ -2158,17 +2159,17 @@
                         <div class="insight rv">
                             <div class="k label">The hard part</div>
                             <p>
-                                Writing the design docs was not as straightforward
-                                as I expected. It is not a straight path, and
-                                you cannot just take all of your Figma tokens
-                                and pour them into a markdown file, especially
-                                when the product is moving toward something
-                                dynamic rather than a regular SaaS layout. Every
-                                principle has to be tested, you write one, you
-                                put it on a prototype, you watch what the agent
-                                does with it, and you iterate. The system holds
-                                up after several rounds of that, rather than on
-                                the first pass.
+                                Writing the design docs was not as
+                                straightforward as I expected. It is not a
+                                straight path, and you cannot just take all of
+                                your Figma tokens and pour them into a markdown
+                                file, especially when the product is moving
+                                toward something dynamic rather than a regular
+                                SaaS layout. Every principle has to be tested,
+                                you write one, you put it on a prototype, you
+                                watch what the agent does with it, and you
+                                iterate. The system holds up after several
+                                rounds of that, rather than on the first pass.
                             </p>
                         </div>
                         <div class="cols2 rv">
