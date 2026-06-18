@@ -6,7 +6,7 @@
         <title>Building a compositional design system for AI, Almira</title>
         <meta
             name="description"
-            content="Moving a design system from a library drawn component by component to a system an AI agent can read and compose new surfaces from."
+            content="Moving a design system from a library drawn component by component to a system an AI agent can read and build new screens from."
         />
         <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,6 +21,15 @@
         />
         <link rel="stylesheet" href="../assets/css/styles.css" />
         <style>
+            /* blue accent scoped to the visual blocks only; text and lines keep the site's pink */
+            .fj,
+            .family,
+            .md-snip,
+            .evo {
+                --pink: #377cc6;
+                --pink-deep: #2b63a0;
+            }
+
             /* ============ CASE HEADER ============ */
             .cs-header {
                 padding: 76px 0 48px;
@@ -382,8 +391,8 @@
                 transform: rotate(1deg);
             }
             .fj-card.tint {
-                background: rgba(234, 95, 130, 0.07);
-                border-color: rgba(234, 95, 130, 0.34);
+                background: rgba(55, 124, 198, 0.07);
+                border-color: rgba(55, 124, 198, 0.34);
             }
             .fj-card.me {
                 font-size: 0.56rem;
@@ -391,8 +400,8 @@
                 text-transform: uppercase;
                 color: var(--pink-deep);
                 padding: 6px 10px;
-                background: rgba(234, 95, 130, 0.07);
-                border-color: rgba(234, 95, 130, 0.34);
+                background: rgba(55, 124, 198, 0.07);
+                border-color: rgba(55, 124, 198, 0.34);
             }
             .fj-card.core {
                 background: var(--ink);
@@ -480,8 +489,8 @@
             }
             .fj-chip.pink {
                 color: var(--pink-deep);
-                background: rgba(234, 95, 130, 0.07);
-                border-color: rgba(234, 95, 130, 0.34);
+                background: rgba(55, 124, 198, 0.07);
+                border-color: rgba(55, 124, 198, 0.34);
             }
             .fj-fan {
                 width: 100%;
@@ -619,8 +628,8 @@
                 box-shadow: 2px 3px 0 rgba(44, 42, 40, 0.06);
             }
             .evo .node.end {
-                background: rgba(234, 95, 130, 0.07);
-                border-color: rgba(234, 95, 130, 0.34);
+                background: rgba(55, 124, 198, 0.07);
+                border-color: rgba(55, 124, 198, 0.34);
                 color: var(--pink-deep);
             }
             .evo .ar {
@@ -641,7 +650,7 @@
                 }
             }
 
-            /* hero: design system -> design MD -> a composed (A2UI) component */
+            /* hero: design system -> design docs -> a composed component */
             .ds-hero {
                 display: grid;
                 grid-template-columns: 1fr 38px 1fr 38px 1fr;
@@ -768,7 +777,7 @@
                 font-size: 0.5rem;
             }
 
-            /* panel 2 - design.md */
+            /* panel 2 - structured design docs */
             .mdp-body {
                 flex: 1;
                 padding: 14px 16px;
@@ -800,7 +809,7 @@
                 width: 73%;
             }
 
-            /* panel 3 - composed component (A2UI) */
+            /* panel 3 - composed component */
             .cmp-body {
                 flex: 1;
                 padding: 14px;
@@ -900,7 +909,7 @@
                 background: radial-gradient(#1b5855 38%, #fff 42%);
             }
 
-            /* panel 3 - composed form (A2UI) */
+            /* panel 3 - composed form */
             .form-top {
                 display: flex;
                 align-items: center;
@@ -1156,6 +1165,180 @@
                 }
             }
 
+            /* "one family" wall — coherence across varied pieces (guardrails outcome) */
+            .family {
+                background: var(--paper-2);
+                border: 1px solid var(--rule);
+                border-radius: 12px;
+                padding: 20px;
+            }
+            .family-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+            }
+            .ft {
+                background: var(--paper);
+                border: 1px solid var(--rule);
+                border-radius: 8px;
+                padding: 12px 13px;
+                box-shadow: 2px 3px 0 rgba(44, 42, 40, 0.05);
+                display: flex;
+                flex-direction: column;
+                gap: 7px;
+                min-height: 96px;
+            }
+            .ft .lab {
+                font-size: 0.52rem;
+                text-transform: uppercase;
+                letter-spacing: 0.13em;
+                color: var(--ink-soft);
+            }
+            .ft .big {
+                font-size: 1.45rem;
+                letter-spacing: -0.02em;
+                color: var(--ink);
+                line-height: 1;
+            }
+            .ft .pos {
+                font-size: 0.58rem;
+                color: var(--pink-deep);
+            }
+            .ft .row {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+            }
+            .ft .dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--pink);
+                flex-shrink: 0;
+            }
+            .ft .ln {
+                height: 6px;
+                border-radius: 3px;
+                background: var(--rule);
+                flex: 1;
+            }
+            .ft .ln.s {
+                flex: 0 0 55%;
+            }
+            .ft .pillrow {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+            .ft .pill {
+                font-size: 0.54rem;
+                color: var(--ink);
+                border: 1px solid var(--rule);
+                border-radius: 999px;
+                padding: 3px 8px;
+            }
+            .ft .pill.on {
+                color: var(--pink-deep);
+                background: rgba(55, 124, 198, 0.07);
+                border-color: rgba(55, 124, 198, 0.34);
+            }
+            .ft .btn {
+                align-self: flex-start;
+                font-size: 0.62rem;
+                color: var(--paper);
+                background: var(--pink-deep);
+                border-radius: 6px;
+                padding: 6px 12px;
+            }
+            .ft .ghost {
+                font-size: 0.58rem;
+                color: var(--ink-soft);
+            }
+            .ft .av {
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                background: var(--paper-2);
+                border: 1px solid var(--rule);
+                flex-shrink: 0;
+            }
+            .ft .field {
+                height: 22px;
+                border: 1px solid var(--rule);
+                border-radius: 6px;
+                background: var(--paper);
+            }
+            .ft .toggle {
+                width: 30px;
+                height: 17px;
+                border-radius: 999px;
+                background: rgba(55, 124, 198, 0.28);
+                position: relative;
+                flex-shrink: 0;
+            }
+            .ft .toggle::after {
+                content: "";
+                position: absolute;
+                top: 2px;
+                right: 2px;
+                width: 13px;
+                height: 13px;
+                border-radius: 50%;
+                background: var(--pink-deep);
+            }
+            .ft-chart {
+                width: 100%;
+                height: 34px;
+                display: block;
+            }
+            .ft-chart path {
+                fill: none;
+                stroke: var(--pink-deep);
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+            }
+            .family-key {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 18px;
+                margin-top: 16px;
+                padding-top: 14px;
+                border-top: 1px solid var(--rule);
+            }
+            .family-key .fk {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.62rem;
+                color: var(--ink-soft);
+            }
+            .family-key .fk b {
+                font-weight: var(--w);
+                color: var(--ink);
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                font-size: 0.54rem;
+            }
+            .family-key .sw {
+                width: 10px;
+                height: 10px;
+                border-radius: 3px;
+                flex-shrink: 0;
+            }
+            .family-key .held .sw {
+                background: var(--pink);
+            }
+            .family-key .free .sw {
+                background: var(--paper);
+                border: 1px dashed var(--ink-soft);
+            }
+            @media (max-width: 720px) {
+                .family-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
             /* learnings two-col */
             .cols2 {
                 display: grid;
@@ -1286,12 +1469,12 @@
 
                     <div class="ds-arrow"><span class="a">&rarr;</span></div>
 
-                    <!-- 2. design.md -->
+                    <!-- 2. structured design docs -->
                     <div class="dsf">
                         <div class="dsf-bar">
                             <span class="d"></span><span class="d"></span
                             ><span class="d"></span
-                            ><span class="nm">design.md</span>
+                            ><span class="nm">Structured design docs</span>
                         </div>
                         <div class="mdp-body">
                             <span class="h"># Forms</span>
@@ -1312,13 +1495,13 @@
                         <div class="dsf-bar">
                             <span class="d"></span><span class="d"></span
                             ><span class="d"></span
-                            ><span class="nm">Composed at runtime</span>
+                            ><span class="nm">Composed automatically</span>
                         </div>
                         <div class="cmp-body">
                             <div class="form-top">
-                                <div class="form-title">New vendor invoice</div>
+                                <div class="form-title">New expense</div>
                                 <span class="form-tool"
-                                    ><span class="ic"></span>QuickBooks</span
+                                    ><span class="ic"></span>Accounting tool</span
                                 >
                             </div>
                             <div class="ff">
@@ -1333,15 +1516,15 @@
                                 <span class="ff-lab">Due date</span>
                                 <div class="ff-in">14 Jun 2026</div>
                             </div>
-                            <span class="form-btn">Add to QuickBooks</span>
+                            <span class="form-btn">Add to accounting tool</span>
                         </div>
                     </div>
                 </div>
                 <figcaption class="cap">
-                    How the system flows: the design system in Figma, written up
-                    in the design MD, and composed by an AI agent into a form
-                    built for the account, with the fields it needs and a
-                    connection to the tool it writes into.
+                    How the system flows: the design system in Figma, captured as
+                    a set of structured design docs, and composed into a form
+                    built for the account, with just the fields it needs and a
+                    connection to the accounting tool it writes into.
                 </figcaption>
             </figure>
         </div>
@@ -1406,8 +1589,8 @@
                             is built from, which means the visual language, the
                             component library, and increasingly the
                             documentation that tells both people and AI agents
-                            how to build new surfaces. Brim itself is an AI
-                            system that helps mid-sized businesses own their
+                            how to build new parts of the product. Brim itself is
+                            an AI system that helps mid-sized businesses own their
                             specific intelligence, by which I mean the way their
                             company actually works and the patterns and
                             decisions that make it good at what it does.
@@ -1452,8 +1635,8 @@
                         <p class="rv" style="margin-top: 26px">Outcome</p>
                         <div class="callout rv">
                             A design system an AI agent can read and build from,
-                            which took implementation cycles from over three
-                            months to <em>under two weeks</em>.
+                            which took implementation cycles
+                            <em>from months to weeks</em>.
                         </div>
                     </section>
 
@@ -1462,7 +1645,7 @@
                         <h2 class="rv">
                             I rebuilt the design system so an AI agent could
                             <em>compose</em> from it, and implementation went
-                            from months to under two weeks.
+                            from months to weeks.
                         </h2>
                         <div class="tldr rv">
                             <div class="part">
@@ -1492,10 +1675,9 @@
                                     read the system, but reading turned out to
                                     be different from being able to build from
                                     it. So I rewrote the system into a set of
-                                    documents that both people and AI agents
-                                    could read, covering how things look, how
-                                    the experience should behave, and what each
-                                    part is allowed to do.
+                                    structured design docs the team builds from,
+                                    written to carry the thinking I would have
+                                    brought to each new screen myself.
                                 </p>
                             </div>
                             <div class="part">
@@ -1506,10 +1688,10 @@
                                     primitives and the rules for composing them
                                     were already written down in a form an agent
                                     could follow. Implementation cycles went
-                                    from over three months to under two weeks,
-                                    and the way we extend the system moved from
-                                    drawing screens toward deciding what to
-                                    specify and what to leave open.
+                                    from months to weeks, and the way we extend
+                                    the system moved from drawing screens toward
+                                    deciding what to specify and what to leave
+                                    open.
                                 </p>
                             </div>
                         </div>
@@ -1609,64 +1791,25 @@
                                             <b>designing in systems</b>
                                         </div>
                                         <div class="fj-card r1">
-                                            A designer or engineer needs a
-                                            feature
+                                            A need comes up
                                         </div>
                                         <div class="fj-down"></div>
                                         <div class="fj-card tint r2">
-                                            An AI agent picks it up
-                                        </div>
-                                        <div class="fj-down"></div>
-                                        <div class="fj-group">
-                                            <div class="fj-group-cards">
-                                                <div class="fj-doc">
-                                                    <span class="dn"
-                                                        >Design MD</span
-                                                    ><span class="dr"
-                                                        >how it looks</span
-                                                    >
-                                                </div>
-                                                <div class="fj-doc">
-                                                    <span class="dn"
-                                                        >Experience MD</span
-                                                    ><span class="dr"
-                                                        >how it behaves</span
-                                                    >
-                                                </div>
-                                                <div class="fj-doc">
-                                                    <span class="dn"
-                                                        >Product MD</span
-                                                    ><span class="dr"
-                                                        >what it's for</span
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="fj-brace">
-                                                <span class="fj-brace-label"
-                                                    >one governing design
-                                                    framework<span class="sub"
-                                                        >primitives, rules,
-                                                        principles,
-                                                        experience</span
-                                                    ></span
-                                                >
-                                            </div>
+                                            Built from structured documentation
                                         </div>
                                         <div class="fj-down"></div>
                                         <div class="fj-card tint r1">
-                                            A surface, a component, an
-                                            experience
+                                            A finished screen
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <figcaption class="cap">
-                                The same path as before, but composed instead of
-                                drawn: a designer or engineer needs a feature,
-                                an AI agent picks it up and reads the design,
-                                experience, and product MDs, grouped into one
-                                governing design framework, and composes the
-                                surface, component, or experience from it.
+                                The same path as before, but built from a shared
+                                system instead of drawn screen by screen: a need
+                                comes up, it is built from a set of structured
+                                design docs, and what comes out is a finished
+                                screen that already fits the system.
                             </figcaption>
                         </figure>
 
@@ -1719,15 +1862,11 @@
                                     <p>
                                         As Brim moved toward a much more dynamic
                                         experience, the real change was
-                                        rewriting the system into documentation
-                                        that both people and agents could read.
-                                        A design MD on its own was never going
-                                        to be enough, because composing a new
-                                        part of the experience needs more than a
-                                        description of how things look, so it
-                                        grew into a set of documents that carry
-                                        the thinking I would have brought
-                                        myself.
+                                        rewriting the system into a set of
+                                        structured design docs the team could
+                                        build from, written to carry the
+                                        thinking I would have brought to each new
+                                        screen myself.
                                     </p>
                                 </div>
                             </div>
@@ -1766,24 +1905,25 @@
                                 and fixing one page at a time. So I led with the
                                 principles that govern Brim's design and
                                 experience, then went back to the primitives I
-                                already had and set them out in the design MD.
+                                already had and set them out in the design docs.
                                 With the primitives, the styles, and the spacing
                                 already covered, creating new components was not
-                                the hard part. The real work was governing how
-                                an AI could build those components in a way that
-                                stayed true to the system already in place.
+                                the hard part. The real work was making sure
+                                anything built from it stayed true to the system
+                                already in place.
                             </p>
                         </div>
 
                         <div class="moment">
-                            <h3 class="rv">What the documents actually say</h3>
+                            <h3 class="rv">What the docs capture</h3>
                             <p class="muted rv">
-                                Read together, the design, experience, and
-                                product MDs give an agent enough to compose
-                                something new that feels like Brim, rather than
-                                something assembled from the right parts that
-                                does not quite hold together. Here is one
-                                primitive as the documents describe it.
+                                Read together, a set of structured design docs
+                                gives the system enough to build something new
+                                that still feels like Brim, rather than something
+                                assembled from the right parts that does not
+                                quite hold together. The example below is an
+                                invented, generic illustration of the kind of
+                                thing they capture.
                             </p>
                             <figure class="rv">
                                 <div class="md-snip">
@@ -1791,27 +1931,27 @@
                                         <span class="d"></span
                                         ><span class="d"></span
                                         ><span class="d"></span
-                                        ><span class="nm">design.md</span>
+                                        ><span class="nm">example.md</span>
                                     </div>
-                                    <pre><span class="h"># Card · primitive</span>
+                                    <pre><span class="h"># Card · example</span>
 
 <span class="k">tokens:</span>   surface · border · radius-md · space-16
 <span class="k">type:</span>     title 14·500   body 14·400
 <span class="k">states:</span>   rest · hover (lift 1px) · focus ring
 
 <span class="k">rules:</span>
-  - compose only from primitives that already exist
-  - one primary action per card, never two
-  - a display-only card cannot perform an action
+  - build only from primitives that already exist
+  - one primary action per card
+  - a display-only card does not perform an action
 
 <span class="k">use when:</span>
   - a single object, one figure, one owner
   - <span class="c">never a full roster, that is a list</span></pre>
                                 </div>
                                 <figcaption class="cap">
-                                    An anonymised snippet from one of the
-                                    governing documents, written to be read by a
-                                    person and an AI agent alike.
+                                    A made-up, generic example of the kind of
+                                    structured design doc the team builds from,
+                                    not the real system.
                                 </figcaption>
                             </figure>
                         </div>
@@ -1819,50 +1959,136 @@
                         <div class="moment">
                             <h3 class="rv">From guidelines to guardrails</h3>
                             <p class="muted rv">
-                                The part I am most proud of is that these
-                                documents are not guidelines that get read once
-                                and then forgotten. They are written so the
-                                rules hold while a surface is being built, so an
-                                agent composing a new component works within the
-                                same primitives, the same spacing, and the same
-                                sense of what each part is allowed to do. That
-                                is the heart of the systems thinking here. My
-                                job became less about deciding what every screen
-                                looks like and more about deciding what to
-                                specify and what to leave open, and trusting the
-                                system to keep the rest coherent.
+                                The part I am most proud of is that these are not
+                                guidelines that get read once and then forgotten.
+                                The rules are what keep the system coherent as it
+                                grows, so anything new built from it still shares
+                                the same primitives, the same spacing, and the
+                                same sense of what each part is for. That is the
+                                heart of the systems thinking here. My job became
+                                less about deciding what every screen looks like
+                                and more about deciding what to specify and what
+                                to leave open, and trusting the system to keep the
+                                rest coherent.
                             </p>
-                            <figure class="rv compose-demo">
-                                <div class="cd-frame">
-                                    <div class="cd-left">
-                                        <span class="k">rules:</span
-                                        ><br />&nbsp;&nbsp;existing primitives
-                                        only<br />&nbsp;&nbsp;one primary
-                                        action<br />&nbsp;&nbsp;display-only
-                                        cannot act<br /><br /><span class="k"
-                                            >compose:</span
-                                        ><br />&nbsp;&nbsp;card + pill + action
-                                    </div>
-                                    <div class="cd-right">
-                                        <div class="cd-card">
-                                            <div class="cd-top">
-                                                <span class="t"
-                                                    >Composed component</span
-                                                ><span class="p"
-                                                    ><i></i>ready</span
-                                                >
-                                            </div>
-                                            <div class="cd-l1"></div>
-                                            <div class="cd-l2"></div>
-                                            <span class="cd-act">Approve</span>
+                            <figure class="rv">
+                                <div class="family">
+                                    <div class="family-grid">
+                                        <!-- stat -->
+                                        <div class="ft">
+                                            <span class="lab">Revenue</span>
+                                            <span class="big">&pound;128k</span>
+                                            <span class="pos"
+                                                >&#9650; 12% this month</span
+                                            >
                                         </div>
+                                        <!-- list -->
+                                        <div class="ft">
+                                            <span class="lab">Open items</span>
+                                            <div class="row">
+                                                <span class="dot"></span
+                                                ><span class="ln"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="dot"></span
+                                                ><span class="ln s"></span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="dot"></span
+                                                ><span class="ln"></span>
+                                            </div>
+                                        </div>
+                                        <!-- tags -->
+                                        <div class="ft">
+                                            <span class="lab">Status</span>
+                                            <div class="pillrow">
+                                                <span class="pill on"
+                                                    >Active</span
+                                                ><span class="pill">Draft</span
+                                                ><span class="pill">Done</span>
+                                            </div>
+                                        </div>
+                                        <!-- chart -->
+                                        <div class="ft">
+                                            <span class="lab">Trend</span>
+                                            <svg
+                                                class="ft-chart"
+                                                viewBox="0 0 120 34"
+                                                preserveAspectRatio="none"
+                                                aria-hidden="true"
+                                            >
+                                                <path
+                                                    d="M2 28 L20 22 L38 25 L56 14 L74 18 L92 9 L118 4"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <!-- button -->
+                                        <div class="ft">
+                                            <span class="lab">Action</span>
+                                            <span class="ghost"
+                                                >One primary action</span
+                                            >
+                                            <span class="btn">Approve</span>
+                                        </div>
+                                        <!-- person -->
+                                        <div class="ft">
+                                            <span class="lab">Owner</span>
+                                            <div class="row">
+                                                <span class="av"></span>
+                                                <div
+                                                    style="
+                                                        display: flex;
+                                                        flex-direction: column;
+                                                        gap: 5px;
+                                                        flex: 1;
+                                                    "
+                                                >
+                                                    <span class="ln"></span
+                                                    ><span class="ln s"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- toggle -->
+                                        <div class="ft">
+                                            <span class="lab">Setting</span>
+                                            <div
+                                                class="row"
+                                                style="
+                                                    justify-content: space-between;
+                                                "
+                                            >
+                                                <span
+                                                    class="ln"
+                                                    style="flex: 0 0 50%"
+                                                ></span
+                                                ><span class="toggle"></span>
+                                            </div>
+                                        </div>
+                                        <!-- field -->
+                                        <div class="ft">
+                                            <span class="lab">Vendor</span>
+                                            <div class="field"></div>
+                                        </div>
+                                    </div>
+                                    <div class="family-key">
+                                        <span class="fk held"
+                                            ><span class="sw"></span
+                                            ><b>Held</b> spacing · type · colour ·
+                                            radius</span
+                                        >
+                                        <span class="fk free"
+                                            ><span class="sw"></span
+                                            ><b>Left open</b> content · density ·
+                                            data</span
+                                        >
                                     </div>
                                 </div>
                                 <figcaption class="cap">
-                                    A snippet from the documents resolving into
-                                    a component, composed within the rules
-                                    rather than drawn by hand. (Animated mock;
-                                    reduced motion shows the final state.)
+                                    Different pieces, one system. I hold a few
+                                    things constant, the spacing, the type, the
+                                    colour, the shapes a thing can take, and leave
+                                    the rest open, so anything built from the
+                                    system still reads as one family.
                                 </figcaption>
                             </figure>
                         </div>
@@ -1912,7 +2138,7 @@
                         <div class="insight rv">
                             <div class="k label">The hard part</div>
                             <p>
-                                Writing the design MD was not as straightforward
+                                Writing the design docs was not as straightforward
                                 as I expected. It is not a straight path, and
                                 you cannot just take all of your Figma tokens
                                 and pour them into a markdown file, especially
