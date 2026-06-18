@@ -20,6 +20,7 @@ Icon
 *.swo
 *~
 .cursor/
+.claude/
 
 # Logs and dependency dirs (no build step yet, but here just in case)
 node_modules/
