@@ -1,3 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <text x="16" y="16" font-size="26" text-anchor="middle" dominant-baseline="central" fill="#C0395C" font-family="system-ui, -apple-system, 'Segoe UI Symbol', 'Apple Symbols', sans-serif">&#10051;</text>
+  <g stroke="#C0395C" stroke-width="3.4" stroke-linecap="round">
+    <line x1="16" y1="5" x2="16" y2="27" />
+    <line x1="5" y1="16" x2="27" y2="16" />
+    <line x1="8.25" y1="8.25" x2="23.75" y2="23.75" />
+    <line x1="23.75" y1="8.25" x2="8.25" y2="23.75" />
+  </g>
 </svg>

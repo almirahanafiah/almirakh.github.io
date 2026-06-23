@@ -93,6 +93,7 @@
             /* ============ WORK INDEX ============ */
             .index {
                 padding: 8px 0 40px;
+                scroll-margin-top: 32px;
             }
             .index-head {
                 display: flex;
@@ -190,661 +191,18 @@
                 height: 22px;
                 border: 1px solid var(--ink-soft);
             }
-            .r-thumb img {
+            .r-thumb img,
+            .r-thumb video {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                display: block;
             }
             .r-glyph {
                 transition: transform 0.4s var(--ease);
             }
             .row:hover .r-glyph {
                 transform: scale(1.06);
-            }
-
-            /* ============ CASE 01 THUMB: hero-style assignment run, top-left peek ============ */
-            .r-thumb.thumb-cs01 {
-                display: block;
-                padding: 0;
-                background: linear-gradient(135deg, #dce7e0 0%, #ccdad4 100%);
-                position: relative;
-                overflow: hidden;
-            }
-            .cs01-window {
-                position: absolute;
-                top: 10%;
-                left: 6%;
-                width: 122%;
-                height: 124%;
-                background: #fffdf8;
-                border: 1px solid #d9d9d9;
-                border-radius: 10px;
-                box-shadow: 0 14px 30px rgba(30, 60, 57, 0.18);
-                padding: 11px 13px;
-                display: flex;
-                gap: 10px;
-                overflow: hidden;
-                pointer-events: none;
-                font-family: "Instrument Sans", var(--font);
-            }
-            .cs01-main {
-                flex: 1;
-                min-width: 0;
-                display: flex;
-                flex-direction: column;
-            }
-            .cs01-topline {
-                display: flex;
-                align-items: center;
-                gap: 4px;
-                padding-bottom: 7px;
-                border-bottom: 1px solid #f0efec;
-                margin-bottom: 8px;
-                white-space: nowrap;
-                overflow: hidden;
-            }
-            .cs01-crumb {
-                font-size: 0.44rem;
-                color: #757575;
-            }
-            .cs01-crumb.is-last {
-                color: #1e1e1e;
-                font-weight: 500;
-            }
-            .cs01-crumb-sep {
-                color: #9f9c99;
-                font-size: 0.48rem;
-            }
-            .cs01-pill {
-                margin-left: auto;
-                font-size: 0.4rem;
-                font-weight: 500;
-                padding: 2px 6px 2px 5px;
-                border-radius: 999px;
-                background: #b1d4d0;
-                color: #184c49;
-                display: inline-flex;
-                align-items: center;
-                gap: 3px;
-                flex-shrink: 0;
-                line-height: 1;
-            }
-            .cs01-pill::before {
-                content: "";
-                width: 4px;
-                height: 4px;
-                border-radius: 50%;
-                background: #1b5855;
-                animation: cs01-pulse 1.8s ease-in-out infinite;
-            }
-            @keyframes cs01-pulse {
-                0%,
-                100% {
-                    opacity: 1;
-                }
-                50% {
-                    opacity: 0.45;
-                }
-            }
-            .cs01-head {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                margin-bottom: 7px;
-            }
-            .cs01-av {
-                width: 14px;
-                height: 14px;
-                border-radius: 50%;
-                background: #1b5855;
-                color: #fff;
-                font-size: 0.42rem;
-                font-weight: 500;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .cs01-name {
-                font-size: 0.55rem;
-                color: #1e1e1e;
-                font-weight: 500;
-            }
-            .cs01-time {
-                font-size: 0.46rem;
-                color: #9f9c99;
-            }
-            /* rail with vertical connector line */
-            .cs01-rail {
-                position: relative;
-                padding-left: 11px;
-                display: flex;
-                flex-direction: column;
-            }
-            .cs01-rail::before {
-                content: "";
-                position: absolute;
-                left: 10px;
-                top: 8px;
-                bottom: 8px;
-                width: 1px;
-                background: #e5e2dc;
-            }
-            .cs01-step {
-                position: relative;
-                padding-left: 13px;
-                padding-bottom: 4px;
-            }
-            .cs01-dotwrap {
-                position: absolute;
-                left: -8px;
-                top: 1px;
-                width: 14px;
-                height: 14px;
-                background: #fffdf8;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 1;
-            }
-            .cs01-dot {
-                width: 12px;
-                height: 12px;
-                border-radius: 50%;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            }
-            .cs01-dot.done {
-                border: 1px solid #484848;
-                background: #fffdf8;
-                color: #484848;
-            }
-            .cs01-dot.done svg {
-                width: 7px;
-                height: 7px;
-            }
-            .cs01-dot.warn {
-                background: #e9c96d;
-                color: #fff;
-                font-size: 0.46rem;
-                font-weight: 600;
-                line-height: 1;
-            }
-            .cs01-dot.pending {
-                border: 1px dashed #9f9c99;
-                background: #fffdf8;
-            }
-            .cs01-step-head {
-                display: flex;
-                align-items: baseline;
-                flex-wrap: wrap;
-                gap: 0 4px;
-                padding: 1px 0 2px;
-            }
-            .cs01-step-lab {
-                font-size: 0.5rem;
-                color: #484848;
-                font-weight: 500;
-                line-height: 1.4;
-            }
-            .cs01-step.is-pending .cs01-step-lab {
-                color: #757575;
-                font-weight: 400;
-            }
-            .cs01-step.is-warn .cs01-step-lab {
-                color: #e2b020;
-            }
-            .cs01-step-meta {
-                font-size: 0.42rem;
-                color: #9f9c99;
-                line-height: 1.4;
-            }
-            .cs01-step-body {
-                padding: 0 0 5px 0;
-                display: flex;
-                flex-direction: column;
-                gap: 4px;
-                margin-top: 2px;
-            }
-            .cs01-prose {
-                font-size: 0.46rem;
-                line-height: 1.55;
-                color: #484848;
-                margin: 0;
-            }
-            .cs01-tools {
-                display: flex;
-                flex-direction: column;
-                gap: 3px;
-                align-items: flex-start;
-            }
-            .cs01-chip {
-                display: inline-flex;
-                align-items: center;
-                gap: 4px;
-                max-width: 100%;
-                height: 14px;
-                padding: 0 7px 0 6px;
-                background: #fffdfb;
-                border: 1px solid #f0efec;
-                border-radius: 999px;
-                font-size: 0.4rem;
-                color: #757575;
-                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
-                line-height: 1;
-            }
-            .cs01-chip-ic {
-                display: inline-flex;
-                align-items: center;
-                flex-shrink: 0;
-                color: #757575;
-            }
-            .cs01-chip-ic svg {
-                width: 7px;
-                height: 7px;
-            }
-            .cs01-chip-lab {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-            .cs01-chip-check {
-                display: inline-flex;
-                align-items: center;
-                color: #3db17a;
-                flex-shrink: 0;
-            }
-            .cs01-chip-check svg {
-                width: 7px;
-                height: 7px;
-            }
-            .cs01-a2ui {
-                margin-top: 2px;
-                background: #fdf4e1;
-                border: 1px solid #f4de9d;
-                border-radius: 7px;
-                padding: 6px 7px;
-                display: flex;
-                gap: 6px;
-            }
-            .cs01-a2ui-icon {
-                width: 14px;
-                height: 14px;
-                border-radius: 4px;
-                background: #fffdfb;
-                color: #e2b020;
-                border: 1px solid #f4de9d;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-                font-size: 0.48rem;
-                font-weight: 700;
-                line-height: 1;
-            }
-            .cs01-a2ui-content {
-                min-width: 0;
-                flex: 1;
-            }
-            .cs01-a2ui-title {
-                font-size: 0.48rem;
-                color: #1e1e1e;
-                font-weight: 500;
-                line-height: 1.3;
-            }
-            .cs01-a2ui-text {
-                font-size: 0.42rem;
-                color: #484848;
-                margin-top: 2px;
-                line-height: 1.4;
-            }
-            .cs01-a2ui-actions {
-                display: flex;
-                gap: 3px;
-                margin-top: 5px;
-                flex-wrap: wrap;
-            }
-            .cs01-btn {
-                display: inline-flex;
-                align-items: center;
-                gap: 3px;
-                height: 13px;
-                padding: 0 6px;
-                background: #fffdfb;
-                color: #484848;
-                border: 1px solid #f0efec;
-                border-radius: 999px;
-                font-size: 0.4rem;
-                font-weight: 500;
-                white-space: nowrap;
-                line-height: 1;
-            }
-            .cs01-btn.primary {
-                background: #1b5855;
-                color: #fff;
-                border-color: #1b5855;
-            }
-            .cs01-btn.danger {
-                color: #902217;
-            }
-            .cs01-rpanel {
-                width: 26%;
-                border-left: 1px solid #f0efec;
-                padding-left: 8px;
-                flex-shrink: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 6px;
-                padding-top: 1px;
-            }
-            .cs01-skel {
-                background: #f7f3ea;
-                border-radius: 3px;
-            }
-
-            /* ============ CASE 02 THUMB: one card, figma swaps to dynamic form inside ============ */
-            .r-thumb.thumb-cs02 {
-                background: var(--paper-2);
-                position: relative;
-            }
-            .cs02-card {
-                width: 85%;
-                background: #fff;
-                border: 1px solid rgba(44, 42, 40, 0.1);
-                border-radius: 10px;
-                box-shadow: 2px 8px 22px rgba(0, 0, 0, 0.07);
-                overflow: hidden;
-                pointer-events: none;
-            }
-            .cs02-bar {
-                display: flex;
-                align-items: center;
-                gap: 5px;
-                padding: 7px 12px;
-                background: #fafaf8;
-                border-bottom: 1px solid #eeece7;
-                position: relative;
-                height: 22px;
-            }
-            .cs02-dot {
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                background: #dad8d2;
-                flex-shrink: 0;
-            }
-            .cs02-bar-name {
-                position: absolute;
-                left: 48px;
-                top: 50%;
-                transform: translateY(-50%);
-                font-size: 0.6rem;
-                color: #8c8a85;
-                letter-spacing: 0.02em;
-                white-space: nowrap;
-            }
-            .cs02-bar-name.cs02-name-a {
-                animation: cs02-fade-a 7s ease-in-out infinite;
-            }
-            .cs02-bar-name.cs02-name-b {
-                animation: cs02-fade-b 7s ease-in-out infinite;
-                opacity: 0;
-            }
-
-            .cs02-body {
-                position: relative;
-                animation: cs02-grow 7s ease-in-out infinite;
-            }
-            .cs02-state {
-                position: absolute;
-                inset: 0;
-                padding: 12px 14px;
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-            }
-            .cs02-state-a {
-                background: #f4f3f0;
-                animation: cs02-fade-a 7s ease-in-out infinite;
-            }
-            .cs02-state-b {
-                background: #fffdfb;
-            }
-            .cs02-state-b > * {
-                opacity: 0;
-                animation: cs02-slide-in 7s ease-in-out infinite both;
-            }
-            .cs02-state-b > *:nth-child(1) {
-                animation-delay: 0s;
-            }
-            .cs02-state-b > *:nth-child(2) {
-                animation-delay: 0.1s;
-            }
-            .cs02-state-b > *:nth-child(3) {
-                animation-delay: 0.2s;
-            }
-            .cs02-state-b > *:nth-child(4) {
-                animation-delay: 0.3s;
-            }
-
-            .cs02-prim {
-                border: 1.4px dashed #9747ff;
-                border-radius: 4px;
-                padding: 5px 9px;
-                background: #fff;
-            }
-            .cs02-prim-lab {
-                display: block;
-                font-size: 0.52rem;
-                color: #6f6c66;
-                margin-bottom: 3px;
-            }
-            .cs02-prim-in {
-                height: 11px;
-                border: 1px solid #dcdad4;
-                border-radius: 3px;
-                background: #fff;
-            }
-            .cs02-prim-in.cs02-prim-sel {
-                position: relative;
-            }
-            .cs02-prim-in.cs02-prim-sel::after {
-                content: "";
-                position: absolute;
-                right: 5px;
-                top: 50%;
-                width: 5px;
-                height: 5px;
-                border-right: 1px solid #b5b2ac;
-                border-bottom: 1px solid #b5b2ac;
-                transform: translateY(-65%) rotate(45deg);
-            }
-            .cs02-prim-radio {
-                display: flex;
-                gap: 7px;
-                align-items: center;
-                height: 11px;
-            }
-            .cs02-prim-radio-dot {
-                width: 9px;
-                height: 9px;
-                border-radius: 50%;
-                border: 1px solid #b5b2ac;
-                background: #fff;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-            .cs02-prim-radio-dot.is-on::after {
-                content: "";
-                width: 4px;
-                height: 4px;
-                border-radius: 50%;
-                background: #6f6c66;
-            }
-
-            .cs02-form-row {
-                display: flex;
-                flex-direction: column;
-                gap: 3px;
-            }
-            .cs02-form-lab {
-                font-size: 0.52rem;
-                color: #757575;
-            }
-            .cs02-form-in {
-                font-size: 0.62rem;
-                color: #1e1e1e;
-                border: 1px solid #e6e1d8;
-                border-radius: 4px;
-                background: #fff;
-                padding: 4px 8px;
-            }
-            .cs02-form-select {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                font-size: 0.62rem;
-                color: #1e1e1e;
-                border: 1px solid #e6e1d8;
-                border-radius: 4px;
-                background: #fff;
-                padding: 4px 8px;
-            }
-            .cs02-form-chev {
-                width: 5px;
-                height: 5px;
-                border-right: 1.4px solid #757575;
-                border-bottom: 1.4px solid #757575;
-                transform: rotate(45deg) translate(-1px, -2px);
-            }
-            .cs02-form-radio {
-                display: flex;
-                gap: 14px;
-                padding: 2px 0;
-            }
-            .cs02-radio-opt {
-                display: inline-flex;
-                align-items: center;
-                gap: 5px;
-                font-size: 0.6rem;
-                color: #1e1e1e;
-            }
-            .cs02-radio-dot {
-                width: 11px;
-                height: 11px;
-                border-radius: 50%;
-                border: 1.5px solid #b5b2ac;
-                background: #fff;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
-            }
-            .cs02-radio-opt.is-on .cs02-radio-dot {
-                border-color: #1b5855;
-            }
-            .cs02-radio-opt.is-on .cs02-radio-dot::after {
-                content: "";
-                width: 5px;
-                height: 5px;
-                border-radius: 50%;
-                background: #1b5855;
-            }
-            .cs02-form-action {
-                align-self: flex-start;
-                font-size: 0.6rem;
-                color: #fff;
-                background: #1b5855;
-                border-radius: 4px;
-                padding: 5px 11px;
-                margin-top: 2px;
-            }
-
-            @keyframes cs02-grow {
-                0%,
-                38% {
-                    height: 168px;
-                }
-                52%,
-                92% {
-                    height: 208px;
-                }
-                100% {
-                    height: 168px;
-                }
-            }
-            @keyframes cs02-fade-a {
-                0%,
-                45% {
-                    opacity: 1;
-                }
-                55%,
-                92% {
-                    opacity: 0;
-                }
-                100% {
-                    opacity: 1;
-                }
-            }
-            @keyframes cs02-fade-b {
-                0%,
-                45% {
-                    opacity: 0;
-                }
-                55%,
-                92% {
-                    opacity: 1;
-                }
-                100% {
-                    opacity: 0;
-                }
-            }
-            @keyframes cs02-slide-in {
-                0%,
-                45% {
-                    opacity: 0;
-                    transform: translateY(14px);
-                }
-                55%,
-                92% {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-                100% {
-                    opacity: 0;
-                    transform: translateY(14px);
-                }
-            }
-
-            @media (prefers-reduced-motion: reduce) {
-                .cs01-pill::before {
-                    animation: none;
-                }
-                .cs02-body,
-                .cs02-state-a,
-                .cs02-bar-name.cs02-name-a,
-                .cs02-bar-name.cs02-name-b,
-                .cs02-state-b > * {
-                    animation: none;
-                }
-                .cs02-body {
-                    height: 168px;
-                }
-                .cs02-state-a {
-                    opacity: 1;
-                }
-                .cs02-bar-name.cs02-name-a {
-                    opacity: 1;
-                }
-                .cs02-bar-name.cs02-name-b {
-                    opacity: 0;
-                }
-                .cs02-state-b > * {
-                    opacity: 0;
-                    transform: none;
-                }
             }
 
             /* ============ NOTE ============ */
@@ -981,7 +339,7 @@
                         >Almira Hanafiah &#10051;</a
                     >
                     <nav class="nav">
-                        <a href="index.html" class="here">Work</a>
+                        <a href="#work" class="here">Work</a>
                         <a href="play.html">Play</a>
                         <a href="about.html">About</a>
                         <a
@@ -1041,7 +399,7 @@
                             for fun. Experience designing AI products, grounded
                             in
                             <span class="q"
-                                >the way people use them — how they think, what
+                                >the way people use them, how they think, what
                                 they trust, and how technology changes the way
                                 they work.</span
                             >
@@ -1052,7 +410,7 @@
             </section>
 
             <!-- ===== WORK INDEX ===== -->
-            <section class="index">
+            <section class="index" id="work">
                 <div class="shell">
                     <div class="index-head rv">
                         <h2>Selected Work</h2>
@@ -1066,10 +424,8 @@
                             >
                             <p class="r-desc">
                                 Led the design for how work gets defined and run
-                                against real tools in an AI system for small to
-                                mid-sized businesses, enabling user trust and
-                                control using A2UI and human-in-the-loop
-                                approvals.
+                                against real tools in an AI product, enabling
+                                user trust and control.
                             </p>
                             <div class="r-tags">
                                 <span class="r-tag">AI Product Design</span>
@@ -1078,307 +434,12 @@
                                 <span class="r-tag">2025</span>
                             </div>
                         </div>
-                        <div class="r-thumb thumb-cs01">
-                            <div class="cs01-window" aria-hidden="true">
-                                <div class="cs01-main">
-                                    <div class="cs01-topline">
-                                        <span class="cs01-crumb"
-                                            >Assignments</span
-                                        >
-                                        <span class="cs01-crumb-sep"
-                                            >&rsaquo;</span
-                                        >
-                                        <span class="cs01-crumb"
-                                            >Supplier Invoice
-                                            Reconciliation</span
-                                        >
-                                        <span class="cs01-crumb-sep"
-                                            >&rsaquo;</span
-                                        >
-                                        <span class="cs01-crumb is-last"
-                                            >Run #42</span
-                                        >
-                                        <span class="cs01-pill"
-                                            >Held &middot; step 3 of 5</span
-                                        >
-                                    </div>
-                                    <div class="cs01-head">
-                                        <span class="cs01-av">FA</span>
-                                        <span class="cs01-name"
-                                            >Finance Agent</span
-                                        >
-                                        <span class="cs01-time"
-                                            >&middot; 9:00</span
-                                        >
-                                    </div>
-                                    <div class="cs01-rail">
-                                        <div class="cs01-step">
-                                            <div class="cs01-dotwrap">
-                                                <span class="cs01-dot done"
-                                                    ><svg
-                                                        viewBox="0 0 16 16"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        stroke-width="2"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                    >
-                                                        <path
-                                                            d="m3 8 3.5 3.5L13 5"
-                                                        /></svg
-                                                ></span>
-                                            </div>
-                                            <div class="cs01-step-head">
-                                                <span class="cs01-step-lab"
-                                                    >Pulled supplier invoices
-                                                    from Xero</span
-                                                >
-                                                <span class="cs01-step-meta"
-                                                    >&middot; 42 invoices
-                                                    &middot; 14s</span
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="cs01-step">
-                                            <div class="cs01-dotwrap">
-                                                <span class="cs01-dot done"
-                                                    ><svg
-                                                        viewBox="0 0 16 16"
-                                                        fill="none"
-                                                        stroke="currentColor"
-                                                        stroke-width="2"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                    >
-                                                        <path
-                                                            d="m3 8 3.5 3.5L13 5"
-                                                        /></svg
-                                                ></span>
-                                            </div>
-                                            <div class="cs01-step-head">
-                                                <span class="cs01-step-lab"
-                                                    >Grouped by furniture type
-                                                    and matched</span
-                                                >
-                                                <span class="cs01-step-meta"
-                                                    >&middot; 38 matched
-                                                    &middot; 4 held</span
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="cs01-step is-warn">
-                                            <div class="cs01-dotwrap">
-                                                <span class="cs01-dot warn"
-                                                    >!</span
-                                                >
-                                            </div>
-                                            <div class="cs01-step-head">
-                                                <span class="cs01-step-lab"
-                                                    >Resolving mismatches</span
-                                                >
-                                                <span class="cs01-step-meta"
-                                                    >&middot; 3 of 4
-                                                    resolved</span
-                                                >
-                                            </div>
-                                            <div class="cs01-step-body">
-                                                <p class="cs01-prose">
-                                                    Three were zero-rated, so I
-                                                    cleared those. The last is a
-                                                    sofa order from Oakline
-                                                    where the VAT billed is
-                                                    higher than the PO allows.
-                                                </p>
-                                                <div class="cs01-tools">
-                                                    <span class="cs01-chip">
-                                                        <span
-                                                            class="cs01-chip-ic"
-                                                            ><svg
-                                                                viewBox="0 0 16 16"
-                                                                fill="none"
-                                                                stroke="currentColor"
-                                                                stroke-width="1.4"
-                                                                stroke-linejoin="round"
-                                                            >
-                                                                <path
-                                                                    d="M4 2.5h5l3 3V13a.5.5 0 0 1-.5.5h-7A.5.5 0 0 1 4 13V3a.5.5 0 0 1 .5-.5Z"
-                                                                />
-                                                                <path
-                                                                    d="M9 2.5v3h3"
-                                                                /></svg
-                                                        ></span>
-                                                        <span
-                                                            class="cs01-chip-lab"
-                                                            >read &middot;
-                                                            INV-4821 &middot;
-                                                            Oakline</span
-                                                        >
-                                                        <span
-                                                            class="cs01-chip-check"
-                                                            ><svg
-                                                                viewBox="0 0 16 16"
-                                                                fill="none"
-                                                                stroke="currentColor"
-                                                                stroke-width="2"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                            >
-                                                                <path
-                                                                    d="m3 8 3.5 3.5L13 5"
-                                                                /></svg
-                                                        ></span>
-                                                    </span>
-                                                    <span class="cs01-chip">
-                                                        <span
-                                                            class="cs01-chip-ic"
-                                                            ><svg
-                                                                viewBox="0 0 16 16"
-                                                                fill="none"
-                                                                stroke="currentColor"
-                                                                stroke-width="1.4"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                            >
-                                                                <path
-                                                                    d="m5 5-3 3 3 3M11 5l3 3-3 3M9 4l-2 8"
-                                                                /></svg
-                                                        ></span>
-                                                        <span
-                                                            class="cs01-chip-lab"
-                                                            >compute &middot;
-                                                            VAT vs. PO</span
-                                                        >
-                                                        <span
-                                                            class="cs01-chip-check"
-                                                            ><svg
-                                                                viewBox="0 0 16 16"
-                                                                fill="none"
-                                                                stroke="currentColor"
-                                                                stroke-width="2"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                            >
-                                                                <path
-                                                                    d="m3 8 3.5 3.5L13 5"
-                                                                /></svg
-                                                        ></span>
-                                                    </span>
-                                                </div>
-                                                <div class="cs01-a2ui">
-                                                    <span class="cs01-a2ui-icon"
-                                                        >!</span
-                                                    >
-                                                    <div
-                                                        class="cs01-a2ui-content"
-                                                    >
-                                                        <div
-                                                            class="cs01-a2ui-title"
-                                                        >
-                                                            INV-4821 needs your
-                                                            call before I post
-                                                            the batch
-                                                        </div>
-                                                        <div
-                                                            class="cs01-a2ui-text"
-                                                        >
-                                                            Oakline billed VAT
-                                                            at 20%
-                                                            (&pound;206.67), but
-                                                            PO-441 caps it at
-                                                            16.6%
-                                                            (&pound;170.67).
-                                                        </div>
-                                                        <div
-                                                            class="cs01-a2ui-actions"
-                                                        >
-                                                            <button
-                                                                class="cs01-btn primary"
-                                                            >
-                                                                Approve at 16.6%
-                                                            </button>
-                                                            <button
-                                                                class="cs01-btn"
-                                                            >
-                                                                Approve as
-                                                                billed
-                                                            </button>
-                                                            <button
-                                                                class="cs01-btn danger"
-                                                            >
-                                                                Send back
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cs01-step is-pending">
-                                            <div class="cs01-dotwrap">
-                                                <span
-                                                    class="cs01-dot pending"
-                                                ></span>
-                                            </div>
-                                            <div class="cs01-step-head">
-                                                <span class="cs01-step-lab"
-                                                    >Post journal entries to
-                                                    NetSuite</span
-                                                >
-                                            </div>
-                                        </div>
-                                        <div class="cs01-step is-pending">
-                                            <div class="cs01-dotwrap">
-                                                <span
-                                                    class="cs01-dot pending"
-                                                ></span>
-                                            </div>
-                                            <div class="cs01-step-head">
-                                                <span class="cs01-step-lab"
-                                                    >Notify the team in
-                                                    #supplier-ops</span
-                                                >
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <aside class="cs01-rpanel">
-                                    <div
-                                        class="cs01-skel"
-                                        style="height: 7px; width: 60%"
-                                    ></div>
-                                    <div
-                                        class="cs01-skel"
-                                        style="
-                                            height: 12px;
-                                            width: 100%;
-                                            border-radius: 9999px;
-                                        "
-                                    ></div>
-                                    <div
-                                        class="cs01-skel"
-                                        style="height: 6px; width: 82%"
-                                    ></div>
-                                    <div
-                                        class="cs01-skel"
-                                        style="height: 6px; width: 64%"
-                                    ></div>
-                                    <div
-                                        class="cs01-skel"
-                                        style="
-                                            height: 18px;
-                                            width: 100%;
-                                            border-radius: 4px;
-                                        "
-                                    ></div>
-                                    <div
-                                        class="cs01-skel"
-                                        style="
-                                            height: 18px;
-                                            width: 100%;
-                                            border-radius: 4px;
-                                        "
-                                    ></div>
-                                </aside>
-                            </div>
+                        <div class="r-thumb">
+                            <img
+                                src="assets/case-01/cs01-thumb.png"
+                                alt="A preview of the prototype: an invoice-reconciliation run held for a person's approval."
+                                loading="lazy"
+                            />
                         </div>
                     </a>
 
@@ -1386,13 +447,14 @@
                         <div class="r-num">02</div>
                         <div class="r-main">
                             <span class="r-title"
-                                >Defining a compositional design system</span
+                                >Building a design system with primitives and
+                                principles</span
                             >
                             <p class="r-desc">
-                                Co-led with founder to move away from the
-                                screens of a traditional design system on Figma
-                                to a system an AI agent can read and build more
-                                dynamic experiences from.
+                                Created an early-stage AI company's design
+                                system in Figma and Storybook, evolving it to
+                                written documentation so the product and
+                                engineering teams move faster.
                             </p>
                             <div class="r-tags">
                                 <span class="r-tag">AI Product Design</span>
@@ -1401,125 +463,51 @@
                                 <span class="r-tag">2025</span>
                             </div>
                         </div>
-                        <div class="r-thumb thumb-cs02">
-                            <div class="cs02-card" aria-hidden="true">
-                                <div class="cs02-bar">
-                                    <span class="cs02-dot"></span>
-                                    <span class="cs02-dot"></span>
-                                    <span class="cs02-dot"></span>
-                                    <span class="cs02-bar-name cs02-name-a"
-                                        >Form primitives &middot; Figma</span
-                                    >
-                                    <span class="cs02-bar-name cs02-name-b"
-                                        >Composed at runtime</span
-                                    >
-                                </div>
-                                <div class="cs02-body">
-                                    <div class="cs02-state cs02-state-b">
-                                        <div class="cs02-form-row">
-                                            <span class="cs02-form-lab"
-                                                >Vendor</span
-                                            >
-                                            <div class="cs02-form-in">
-                                                Acme Supplies
-                                            </div>
-                                        </div>
-                                        <div class="cs02-form-row">
-                                            <span class="cs02-form-lab"
-                                                >Category</span
-                                            >
-                                            <div class="cs02-form-select">
-                                                <span>Office supplies</span>
-                                                <span
-                                                    class="cs02-form-chev"
-                                                ></span>
-                                            </div>
-                                        </div>
-                                        <div class="cs02-form-row">
-                                            <span class="cs02-form-lab"
-                                                >Frequency</span
-                                            >
-                                            <div class="cs02-form-radio">
-                                                <span
-                                                    class="cs02-radio-opt is-on"
-                                                >
-                                                    <span
-                                                        class="cs02-radio-dot"
-                                                    ></span>
-                                                    Monthly
-                                                </span>
-                                                <span class="cs02-radio-opt">
-                                                    <span
-                                                        class="cs02-radio-dot"
-                                                    ></span>
-                                                    Annually
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="cs02-form-action">
-                                            Add to QuickBooks
-                                        </div>
-                                    </div>
-                                    <div class="cs02-state cs02-state-a">
-                                        <div class="cs02-prim">
-                                            <span class="cs02-prim-lab"
-                                                >Text input</span
-                                            >
-                                            <div class="cs02-prim-in"></div>
-                                        </div>
-                                        <div class="cs02-prim">
-                                            <span class="cs02-prim-lab"
-                                                >Select</span
-                                            >
-                                            <div
-                                                class="cs02-prim-in cs02-prim-sel"
-                                            ></div>
-                                        </div>
-                                        <div class="cs02-prim">
-                                            <span class="cs02-prim-lab"
-                                                >Radio</span
-                                            >
-                                            <div class="cs02-prim-radio">
-                                                <span
-                                                    class="cs02-prim-radio-dot is-on"
-                                                ></span>
-                                                <span
-                                                    class="cs02-prim-radio-dot"
-                                                ></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="r-thumb">
+                            <img
+                                src="assets/case-02/cs02-thumb.png"
+                                alt="A snippet of the design system: colour tokens, Instrument Sans, buttons, and a chart."
+                                loading="lazy"
+                            />
                         </div>
                     </a>
 
-                    <!-- Case study 03 (GAIA) hidden from the index for now. Restore by uncommenting. -->
-                    <!--
                     <a href="work/bootcamp-preview.html" class="row rv">
                         <div class="r-num">03</div>
                         <div class="r-main">
                             <span class="r-title"
-                                >GAIA, a fashion app that learned to
-                                curate</span
+                                >From a social feed to a personal stylist</span
                             >
                             <p class="r-desc">
-                                A 12-week bootcamp project that grew from an
-                                inspiration feed into an AI styling tool built
-                                around the clothes a person already owns.
+                                Redesigned a conceptual personal-style app from
+                                a social inspiration feed into an AI stylist
+                                that builds outfits from the clothes you already
+                                own, solving for personalised styling with the
+                                least possible friction.
                             </p>
                             <div class="r-tags">
                                 <span class="r-tag">UX Design</span>
                                 <span class="r-tag">Research</span>
-                                <span class="r-tag">Visual</span>
+                                <span class="r-tag">Concept</span>
                                 <span class="r-tag">2024</span>
                             </div>
                         </div>
                         <div class="r-thumb">
-                            <div class="g r-glyph" aria-hidden="true"></div>
+                            <video
+                                class="r-cover"
+                                autoplay
+                                muted
+                                loop
+                                playsinline
+                                poster="assets/case-03/gaia-cover.jpg"
+                            >
+                                <source
+                                    src="assets/case-03/gaia-cover.mp4"
+                                    type="video/mp4"
+                                />
+                            </video>
                         </div>
                     </a>
-                    -->
                 </div>
             </section>
         </main>

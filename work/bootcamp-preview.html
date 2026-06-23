@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex,nofollow" />
-<title>GAIA, a fashion app that learned to curate, Almira</title>
-<meta name="description" content="A bootcamp case study, end-to-end UX redesign of a personal-style app that pivoted from social inspiration to AI-curated styling around clothes people already own." />
+<title>From a social feed to a personal stylist, Almira Hanafiah</title>
+<meta name="description" content="Redesigned a conceptual personal-style app from a social inspiration feed into an AI stylist that builds outfits from the clothes you already own, solving for personalised styling with the least possible friction." />
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,6 +14,10 @@
 <style>
 
   /* ===== page-specific: bootcamp preview (work in progress) ===== */
+
+  /* hero cover video */
+  .hero-plate { overflow: hidden; }
+  .hero-video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   /* single column — no sticky TOC on the preview */
   .layout { display: block; padding-top: 64px; padding-bottom: 96px; }
@@ -58,7 +62,7 @@
 <header>
   <div class="shell">
     <div class="bar">
-      <a href="../index.html" class="back"><span class="ar">&larr;</span>Selected Work</a>
+      <a href="../index.html#work" class="back"><span class="ar">&larr;</span>Selected Work</a>
       <a href="../index.html" class="wordmark">Almira Hanafiah &#10051;</a>
     </div>
   </div>
@@ -66,11 +70,15 @@
 
 <div class="shell">
   <div class="cs-header">
-    <h1 class="cs-title rv">From a social feed to a personal <em>curator</em>.</h1>
-    <p class="dek rv">A 12-week project on personal style that began as a Pinterest-style inspiration feed and ended up, after a second round of user testing, as an AI-curated styling tool built around the clothes a person already owns.</p>
+    <h1 class="cs-title rv">From a social feed to a personal <em>stylist</em>.</h1>
+    <p class="dek rv">Redesigned a conceptual personal-style app from a social inspiration feed into an AI stylist that builds outfits from the clothes you already own, solving for personalised styling with the least possible friction.</p>
   </div>
   <figure class="rv">
-    <div class="plate hero-plate"><div class="g" aria-hidden="true"></div></div>
+    <div class="plate hero-plate">
+      <video class="hero-video" autoplay muted loop playsinline poster="../assets/case-03/gaia-cover.jpg">
+        <source src="../assets/case-03/gaia-cover.mp4" type="video/mp4" />
+      </video>
+    </div>
     <figcaption class="cap">GAIA, the final brand and a glimpse of the high-fidelity prototype, after two rounds of user testing and an AI-styling iteration.</figcaption>
   </figure>
 </div>
@@ -84,16 +92,16 @@
       <section class="cs-sec" id="overview">
         <div class="sec-tag label rv">01 &middot; Overview</div>
         <h2 class="rv">Overview</h2>
-        <p class="rv">GAIA is a personal-style app, designed over 12 weeks for my UX bootcamp capstone. The brief was open, find a human-centred problem to design for, and the one I kept coming back to was my own. I loved clothes, and I wanted to figure out whether there was a way to dress more from what I already owned and less from what was being sold to me.</p>
-        <p class="rv">The shape of the work moved twice. A first round of interviews led me to design a social inspiration feed as the MVP, and a second round of usability testing pulled it somewhere different, toward a personal curator built around the user's wardrobe. That second turn is what most of this case study is about.</p>
+        <p class="rv">GAIA is a personal-style app I designed over twelve weeks, first as my UX bootcamp capstone and then through a short iteration once I realised where it really needed to go. The brief was open, find a human-centred problem worth designing for, and the one I kept circling back to was my own. I love clothes, and I wanted to know whether a tool could help someone dress more from what they already owned and a little less from whatever was being sold to them that week.</p>
+        <p class="rv">The interesting part of this project is not the final screens, it is the turn in the middle. Coming from a background in social media marketing, I set out to build a better place to find style inspiration, a feed, and my research seemed to back me up. Presenting the first version, I realised I had built the wrong thing, and that I had been designing for the app I wanted to exist. Most of this case study is about that turn, and what I did with it.</p>
         <div class="facts rv">
           <div><div class="k label">Role</div><div class="v">UX Designer</div></div>
-          <div><div class="k label">Timeline</div><div class="v">12 weeks, 2024</div></div>
-          <div><div class="k label">Team</div><div class="v">Independent, with mentor feedback</div></div>
-          <div><div class="k label">Did</div><div class="v">Research, IxD, visual, branding</div></div>
+          <div><div class="k label">Timeline</div><div class="v">12 weeks, 2024 (10-week capstone + 2-week iteration)</div></div>
+          <div><div class="k label">Team</div><div class="v">Solo, with mentor feedback</div></div>
+          <div><div class="k label">Did</div><div class="v">Research, interaction, visual, branding, AI concept</div></div>
         </div>
         <p class="rv" style="margin-top:26px;">Outcome</p>
-        <div class="callout rv">What started as a social inspiration feed ended up as GAIA, a prototype for AI-curated outfits built from <em>the clothes someone already owns</em>.</div>
+        <div class="callout rv">GAIA went from a social inspiration feed to an AI stylist that builds outfits from <em>the clothes you already own</em>, and suggests the few new pieces that would complete them.</div>
       </section>
 
       <!-- ===== WORK IN PROGRESS ===== -->
@@ -111,7 +119,7 @@
   <div class="shell">
     <a href="ai-workflows.html" class="next">
       <div class="label">Next project</div>
-      <span class="nt">Staying in control of an AI that doesn't stop <span class="ar">&rarr;</span></span>
+      <span class="nt">Innovating agentic AI workflows <span class="ar">&rarr;</span></span>
     </a>
     <div class="colophon">
       <div class="links">

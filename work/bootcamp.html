@@ -1,325 +1,1007 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="robots" content="noindex,nofollow" />
-<title>GAIA, a fashion app that learned to curate, Almira</title>
-<meta name="description" content="A bootcamp case study, end-to-end UX redesign of a personal-style app that pivoted from social inspiration to AI-curated styling around clothes people already own." />
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="../assets/css/styles.css" />
-<style>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex,nofollow" />
+        <title>GAIA, from a social feed to an AI stylist, Almira</title>
+        <meta
+            name="description"
+            content="A 12-week capstone that started as a social style feed and, after catching my own bias, became an AI stylist that builds outfits from the clothes you already own."
+        />
+        <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../assets/css/styles.css" />
+        <style>
+            /* ===== page-specific: GAIA / bootcamp ===== */
 
-  /* ===== page-specific: GAIA / bootcamp ===== */
+            /* hero cover video */
+            .hero-plate {
+                overflow: hidden;
+            }
+            .hero-video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
 
-  /* phone-screen filmstrip (solution moments) */
-  .flow { display: flex; gap: 14px; align-items: flex-start; }
-  .flow img {
-    flex: 1 1 0; min-width: 0; width: 100%; height: auto;
-    border: 1px solid var(--rule); border-radius: 12px;
-    background: var(--paper-2); display: block;
-  }
+            /* phone-aspect screenshots */
+            .plate.phone {
+                aspect-ratio: 390 / 844;
+            }
+            .phone-single {
+                max-width: 290px;
+                margin: 0 auto;
+            }
 
-  /* embedded Figma prototype (curator flow) */
-  .proto { max-width: 300px; margin: 10px auto 0; }
-  .proto .label { text-align: center; margin-bottom: 14px; }
-  .proto-phone {
-    position: relative; width: 100%; aspect-ratio: 390 / 844;
-    background: var(--paper-2); border: 1px solid var(--rule);
-    border-radius: 36px; overflow: hidden;
-    box-shadow: 0 26px 60px -30px rgba(44,42,40,.5), 0 1px 0 rgba(44,42,40,.05);
-  }
-  .proto-phone iframe {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    border: 0; display: block;
-  }
+            /* before / after, labelled */
+            .ba {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            .ba .col {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .ba .lab {
+                font-size: 0.64rem;
+                text-transform: uppercase;
+                letter-spacing: 0.13em;
+                color: var(--ink-soft);
+            }
+            .ba .lab b {
+                color: var(--pink-deep);
+                font-weight: var(--w);
+            }
 
-  /* footer layout (case study) */
-  .colophon { padding: 30px 0 0; }
-  .sign { padding-bottom: 40px; }
+            /* horizontal filmstrip of phone screens */
+            .strip {
+                display: flex;
+                gap: 14px;
+                align-items: flex-start;
+            }
+            .strip > * {
+                flex: 1 1 0;
+                min-width: 0;
+            }
 
-  /* responsive: filmstrip scrolls on mobile */
-  @media (max-width: 900px) {
-    .flow { overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 12px; padding-bottom: 6px; }
-    .flow img { flex: 0 0 62%; }
-  }
-</style>
-</head>
-<body>
+            /* kept / evolved two-column note */
+            .ke {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 28px;
+                border-top: 1px solid var(--rule);
+                margin-top: 30px;
+                padding-top: 24px;
+            }
+            .ke .tag {
+                font-size: 0.6rem;
+                text-transform: uppercase;
+                letter-spacing: 0.14em;
+                color: var(--pink-deep);
+                margin-bottom: 12px;
+            }
+            .ke ul {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 9px;
+            }
+            .ke li {
+                font-size: 0.95rem;
+                color: var(--ink-soft);
+                padding-left: 16px;
+                position: relative;
+            }
+            .ke li::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0.62em;
+                width: 7px;
+                height: 1px;
+                background: var(--pink);
+            }
 
-<div class="cursor" id="cursor" aria-hidden="true"></div>
-<div class="cursor-dot" id="dot" aria-hidden="true"></div>
-<div class="progress" id="progress" aria-hidden="true"></div>
+            /* phone-screen filmstrip (legacy, image-based) */
+            .flow {
+                display: flex;
+                gap: 14px;
+                align-items: flex-start;
+            }
+            .flow img {
+                flex: 1 1 0;
+                min-width: 0;
+                width: 100%;
+                height: auto;
+                border: 1px solid var(--rule);
+                border-radius: 12px;
+                background: var(--paper-2);
+                display: block;
+            }
 
-<header>
-  <div class="shell">
-    <div class="bar">
-      <a href="../index.html" class="back"><span class="ar">&larr;</span>Selected Work</a>
-      <a href="../index.html" class="wordmark">Almira Hanafiah &#10051;</a>
-    </div>
-  </div>
-</header>
+            /* embedded Figma prototype (assistant flow) */
+            .proto {
+                max-width: 300px;
+                margin: 10px auto 0;
+            }
+            .proto .label {
+                text-align: center;
+                margin-bottom: 14px;
+            }
+            .proto-phone {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 390 / 844;
+                background: var(--paper-2);
+                border: 1px solid var(--rule);
+                border-radius: 36px;
+                overflow: hidden;
+                box-shadow:
+                    0 26px 60px -30px rgba(44, 42, 40, 0.5),
+                    0 1px 0 rgba(44, 42, 40, 0.05);
+            }
+            .proto-phone iframe {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+                display: block;
+            }
 
-<div class="shell">
-  <div class="cs-header">
-    <h1 class="cs-title rv">From a social feed to a personal <em>curator</em>.</h1>
-    <p class="dek rv">A 12-week project on personal style that began as a Pinterest-style inspiration feed and ended up, after a second round of user testing, as an AI-curated styling tool built around the clothes a person already owns.</p>
-  </div>
-  <figure class="rv">
-    <div class="plate hero-plate"><div class="g" aria-hidden="true"></div></div>
-    <figcaption class="cap">GAIA, the final brand and a glimpse of the high-fidelity prototype, after two rounds of user testing and an AI-styling iteration.</figcaption>
-  </figure>
-</div>
+            /* footer layout (case study) */
+            .colophon {
+                padding: 30px 0 0;
+            }
+            .sign {
+                padding-bottom: 40px;
+            }
 
-<div class="shell">
-  <div class="layout">
+            /* responsive */
+            @media (max-width: 720px) {
+                .ba,
+                .ke {
+                    grid-template-columns: 1fr;
+                }
+                .strip {
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                    padding-bottom: 6px;
+                }
+                .strip > * {
+                    flex: 0 0 60%;
+                }
+                .flow {
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                    gap: 12px;
+                    padding-bottom: 6px;
+                }
+                .flow img {
+                    flex: 0 0 62%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="cursor" id="cursor" aria-hidden="true"></div>
+        <div class="cursor-dot" id="dot" aria-hidden="true"></div>
+        <div class="progress" id="progress" aria-hidden="true"></div>
 
-    <!-- ===== STICKY TABLE OF CONTENTS ===== -->
-    <aside class="toc">
-      <div class="label">Contents</div>
-      <nav>
-        <ol>
-          <li><a href="#overview" data-toc><span class="n">01</span><span class="tick"></span>Overview</a></li>
-          <li><a href="#tldr" data-toc><span class="n">02</span><span class="tick"></span>TL;DR</a></li>
-          <li><a href="#problem" data-toc><span class="n">03</span><span class="tick"></span>Problem</a></li>
-          <li><a href="#research" data-toc><span class="n">04</span><span class="tick"></span>Research</a></li>
-          <li><a href="#ideation" data-toc><span class="n">05</span><span class="tick"></span>Ideation</a></li>
-          <li><a href="#solution" data-toc><span class="n">06</span><span class="tick"></span>Solution</a></li>
-          <li><a href="#learnings" data-toc><span class="n">07</span><span class="tick"></span>Learnings</a></li>
-        </ol>
-      </nav>
-    </aside>
-
-    <!-- ===== ARTICLE ===== -->
-    <article class="article">
-
-      <section class="cs-sec" id="overview">
-        <div class="sec-tag label rv">01 &middot; Overview</div>
-        <h2 class="rv">Overview</h2>
-        <p class="rv">GAIA is a personal-style app, designed over 12 weeks for my UX bootcamp capstone. The brief was open, find a human-centred problem to design for, and the one I kept coming back to was my own. I loved clothes, and I wanted to figure out whether there was a way to dress more from what I already owned and less from what was being sold to me.</p>
-        <p class="rv">The shape of the work moved twice. A first round of interviews led me to design a social inspiration feed as the MVP, and a second round of usability testing pulled it somewhere different, toward a personal curator built around the user's wardrobe. That second turn is what most of this case study is about.</p>
-        <div class="facts rv">
-          <div><div class="k label">Role</div><div class="v">UX Designer</div></div>
-          <div><div class="k label">Timeline</div><div class="v">12 weeks, 2024</div></div>
-          <div><div class="k label">Team</div><div class="v">Independent, with mentor feedback</div></div>
-          <div><div class="k label">Did</div><div class="v">Research, IxD, visual, branding</div></div>
-        </div>
-        <p class="rv" style="margin-top:26px;">Outcome</p>
-        <div class="callout rv">What started as a social inspiration feed ended up as GAIA, a prototype for AI-curated outfits built from <em>the clothes someone already owns</em>.</div>
-      </section>
-
-      <section class="cs-sec" id="tldr">
-        <div class="sec-tag label rv">02 &middot; TL;DR</div>
-        <h2 class="rv">TL;DR</h2>
-        <p class="muted rv">For the recruiter who skims, the whole story in three lines.</p>
-        <div class="tldr rv">
-          <div class="part">
-            <div class="k label">The challenge</div>
-            <p>Many people aspire to a personal style that reflects who they are, but the way style is sold to them, through fast fashion, micro-trends, and a noisy social feed, often gets in the way of figuring out what they actually like.</p>
-          </div>
-          <div class="part">
-            <div class="k label">What I did</div>
-            <p>Ran user interviews on personal style, designed a social inspiration feed as the MVP, tested it across two rounds, then redesigned around an idea that came out of testing, an AI curator that builds outfits from the clothes someone already owns.</p>
-          </div>
-          <div class="part">
-            <div class="k label">The outcome</div>
-            <p>A full design from interviews to a high-fidelity prototype, the GAIA brand, and a clear sense of where the project wanted to go next, toward AI-curated outfits drawn from a person's own wardrobe and linked out to the brands they already love.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="cs-sec" id="problem">
-        <div class="sec-tag label rv">03 &middot; Problem</div>
-        <h2 class="rv">The problem</h2>
-        <div class="callout rv" style="max-width:30ch;">Personal style is hard to hear when so much of what surrounds you is built to sell you a <em>trend</em>.</div>
-        <p class="muted rv">For me, this was something I felt personally. I had spent a lot of time buying things I didn't wear and scrolling through outfits without feeling much closer to my own. The question I wanted the project to sit with was whether a digital tool could help someone find their own taste, rather than push them further from it.</p>
-      </section>
-
-      <section class="cs-sec" id="research">
-        <div class="sec-tag label rv">04 &middot; Research</div>
-        <h2 class="rv">Research</h2>
-        <p class="rv">I ran six user interviews with women aged 22 to 31, who all shopped online and used social media for style. I kept the questions open, around how they described their style, what frustrated them about shopping, and what they wanted a tool to help with.</p>
-
-        <div class="insight rv">
-          <div class="k label">Key insight, from the interviews</div>
-          <p>All six interviewees said the same thing: it's much easier to figure out whether a piece of clothing will work for you when you see it on someone who looks <em>like you</em>, in skin tone, body shape, and the way they hold themselves. That finding shaped the first version of the app.</p>
-        </div>
-
-        <figure class="rv">
-          <div class="plate wide"><div class="g" aria-hidden="true"></div></div>
-          <figcaption class="cap">Affinity map of interview answers, grouped into behaviours, motivations, and pain points. The largest cluster was about wanting to see style on people who looked similar.</figcaption>
-        </figure>
-
-        <p class="rv">After two rounds of usability testing with five users each, the design was working. What I hadn't expected was the kind of question that came up in round two, which kept circling back to the same gap and pointed somewhere I hadn't planned for.</p>
-
-        <div class="insight rv">
-          <div class="k label">Key insight, from the testing</div>
-          <p>Two of the five testers asked variations of the same question: could you shop from this, and could it suggest outfits made from clothes you already own. Neither was on the build list, but both echoed what I had heard in the interviews. That gap was where the project shifted from a social feed to a personal <em>curator</em>.</p>
-        </div>
-
-        <figure class="rv">
-          <div class="plate wide"><div class="g" aria-hidden="true"></div></div>
-          <figcaption class="cap">Usability testing summary. The questions that opened the second direction both came from round two.</figcaption>
-        </figure>
-      </section>
-
-      <section class="cs-sec" id="ideation">
-        <div class="sec-tag label rv">05 &middot; Ideation</div>
-        <h2 class="rv">Ideation</h2>
-        <p class="rv">With the interview findings in hand, I worked through about forty user stories across three epics: wardrobe organisation, personalised style ideas, and social style discovery. Tara's biggest frustration was how long it took to find plus-size influencers who dressed the way she wanted, so the home feed had to filter by physical traits before she scrolled. A competitive scan pointed me toward a gap, somewhere on the socially-oriented and visually simple end. The interviews told me social media was already where most people found style inspiration, and the friction was mostly about how cluttered the feed felt. So a Pinterest-style feed, with a cleaner shape and a style quiz at onboarding, felt like the right MVP.</p>
-        <figure class="rv">
-          <div class="pair">
-            <div class="plate screen"><div class="g" aria-hidden="true"></div></div>
-            <div class="plate screen"><div class="g" aria-hidden="true"></div></div>
-          </div>
-          <figcaption class="cap">Early sketches and grayscale wireframes for the two task flows: the style quiz, and styling around an owned item.</figcaption>
-        </figure>
-      </section>
-
-      <section class="cs-sec" id="solution">
-        <div class="sec-tag label rv">06 &middot; Solution</div>
-        <h2 class="rv">The solution</h2>
-        <p class="rv">Two moments, the MVP and the iteration that came out of testing.</p>
-
-        <h3 class="rv">01 &middot; The first version, GAIA as a social feed</h3>
-        <p class="muted rv">The first version of GAIA was a fashion inspiration feed built as four surfaces that fed each other: a home page filtered by the user's physical traits and brand preferences from the style quiz, a personal wardrobe they could upload their own clothes into, item and outfit detail pages, and collections to organise outfits by mood and occasion. Underneath, I built a small UI library so the prototype shipped consistently, with a 3:1 contrast minimum on interactive elements.</p>
-        <figure class="rv">
-          <div class="plate screen" style="max-width:340px;"><div class="g" aria-hidden="true"></div></div>
-          <figcaption class="cap">Home feed, personal wardrobe, item and outfit pages, and the style quiz at onboarding. The GAIA palette kept user-uploaded photos at the centre.</figcaption>
-        </figure>
-
-        <h3 class="rv">02 &middot; The personal curator</h3>
-        <p class="muted rv">The second direction came out of those testing questions and reframed the wardrobe. What had been a side feature became the starting point, with an AI styling assistant that built outfits from the user's wardrobe, suggested items from high-street and small brands, and explained itself by referencing the user's onboarding answers. Each suggestion came with a short note underneath, like <em>built from your navy blazer and styled around the looks you saved from your favourite influencer</em>, so it read as a recommendation rather than a verdict.</p>
-        <figure class="rv">
-          <div class="proto">
-            <div class="label">Interactive prototype</div>
-            <div class="proto-phone">
-              <iframe title="GAIA AI Style Assistant, interactive prototype"
-                      src="https://embed.figma.com/proto/fl5MbLMukciS5EXgmFhzsN/Untitled?node-id=1-13315&starting-point-node-id=1-13379&scaling=scale-down-width&content-scaling=fixed&page-id=0-1&hide-ui=1&embed-host=share"
-                      allowfullscreen loading="lazy"></iframe>
+        <header>
+            <div class="shell">
+                <div class="bar">
+                    <a href="../index.html#work" class="back"
+                        ><span class="ar">&larr;</span>Selected Work</a
+                    >
+                    <a href="../index.html" class="wordmark"
+                        >Almira Hanafiah &#10051;</a
+                    >
+                </div>
             </div>
-          </div>
-          <figcaption class="cap">The personal-curator iteration, with outfit suggestions built from the user's wardrobe and a note explaining where each came from.</figcaption>
-        </figure>
-      </section>
+        </header>
 
-      <section class="cs-sec" id="learnings" style="padding-bottom:24px;">
-        <div class="sec-tag label rv">07 &middot; Learnings</div>
-        <h2 class="rv">Learnings</h2>
-        <div class="cols2 rv">
-          <div>
-            <h3>What worked</h3>
-            <p class="muted">Staying close to testing was the most useful thing I did. The second round was meant to validate the design and ended up reshaping it, and the work was better for letting that happen.</p>
-          </div>
-          <div>
-            <h3>What I'd do differently</h3>
-            <p class="muted">I'd test earlier, on paper or with a rough prototype. The questions in round two were close enough to interview signal that earlier testing could have caught the direction sooner.</p>
-          </div>
+        <div class="shell">
+            <div class="cs-header">
+                <h1 class="cs-title rv">
+                    From a social feed to a personal <em>stylist</em>.
+                </h1>
+                <p class="dek rv">
+                    Redesigned a conceptual personal-style app from a social
+                    inspiration feed into an AI stylist that builds outfits from
+                    the clothes you already own, solving for personalised styling
+                    with the least possible friction.
+                </p>
+            </div>
+            <figure class="rv">
+                <div class="plate hero-plate">
+                    <video
+                        class="hero-video"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        poster="../assets/case-03/gaia-cover.jpg"
+                    >
+                        <source
+                            src="../assets/case-03/gaia-cover.mp4"
+                            type="video/mp4"
+                        />
+                    </video>
+                </div>
+                <figcaption class="cap">
+                    GAIA, the brand and a glimpse of the final styling
+                    assistant, built around the clothes you already own.
+                </figcaption>
+            </figure>
         </div>
-      </section>
 
-    </article>
-  </div>
-</div>
+        <div class="shell">
+            <div class="layout">
+                <!-- ===== STICKY TABLE OF CONTENTS ===== -->
+                <aside class="toc">
+                    <div class="label">Contents</div>
+                    <nav>
+                        <ol>
+                            <li>
+                                <a href="#overview" data-toc
+                                    ><span class="n">01</span
+                                    ><span class="tick"></span>Overview</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#tldr" data-toc
+                                    ><span class="n">02</span
+                                    ><span class="tick"></span>TL;DR</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#research" data-toc
+                                    ><span class="n">03</span
+                                    ><span class="tick"></span>Research</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#v1" data-toc
+                                    ><span class="n">04</span
+                                    ><span class="tick"></span>Version one</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#turn" data-toc
+                                    ><span class="n">05</span
+                                    ><span class="tick"></span>The turn</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#v2" data-toc
+                                    ><span class="n">06</span
+                                    ><span class="tick"></span>Version two</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#learnings" data-toc
+                                    ><span class="n">07</span
+                                    ><span class="tick"></span>Learnings</a
+                                >
+                            </li>
+                        </ol>
+                    </nav>
+                </aside>
 
-<footer>
-  <div class="shell">
-    <a href="ai-workflows.html" class="next">
-      <div class="label">Next project</div>
-      <span class="nt">Staying in control of an AI that doesn't stop <span class="ar">&rarr;</span></span>
-    </a>
-    <div class="colophon">
-      <div class="links">
-        <a href="mailto:almirahanafiah@gmail.com">almirahanafiah@gmail.com</a>
-        <a href="https://linkedin.com/in/almira-hanafiah" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/almirahanafiah" target="_blank" rel="noopener">GitHub</a>
-        <a href="../assets/cv/Almira-Hanafiah-CV.pdf" target="_blank" rel="noopener">CV</a>
-      </div>
-      <div class="set">Designed and built with &hearts;, 2026</div>
-    </div>
-    <div class="sign rv">
-      <span class="sign-mark" aria-hidden="true">&#10051;</span>
-    </div>
-  </div>
-</footer>
+                <!-- ===== ARTICLE ===== -->
+                <article class="article">
+                    <section class="cs-sec" id="overview">
+                        <div class="sec-tag label rv">01 &middot; Overview</div>
+                        <h2 class="rv">Overview</h2>
+                        <p class="rv">
+                            GAIA is a personal-style app I designed over twelve
+                            weeks, first as my UX bootcamp capstone and then
+                            through a short iteration once I realised where it
+                            really needed to go. The brief was open, find a
+                            human-centred problem worth designing for, and the
+                            one I kept circling back to was my own. I love
+                            clothes, and I wanted to know whether a tool could
+                            help someone dress more from what they already owned
+                            and a little less from whatever was being sold to
+                            them that week.
+                        </p>
+                        <p class="rv">
+                            The interesting part of this project is not the final
+                            screens, it is the turn in the middle. Coming from a
+                            background in social media marketing, I set out to
+                            build a better place to find style inspiration, a
+                            feed, and my research seemed to back me up.
+                            Presenting the first version, I realised I had built
+                            the wrong thing, and that I had been designing for
+                            the app I wanted to exist. Most of this case study is
+                            about that turn, and what I did with it.
+                        </p>
+                        <div class="facts rv">
+                            <div>
+                                <div class="k label">Role</div>
+                                <div class="v">UX Designer</div>
+                            </div>
+                            <div>
+                                <div class="k label">Timeline</div>
+                                <div class="v">
+                                    12 weeks, 2024 (10-week capstone + 2-week
+                                    iteration)
+                                </div>
+                            </div>
+                            <div>
+                                <div class="k label">Team</div>
+                                <div class="v">Solo, with mentor feedback</div>
+                            </div>
+                            <div>
+                                <div class="k label">Did</div>
+                                <div class="v">
+                                    Research, interaction, visual, branding, AI
+                                    concept
+                                </div>
+                            </div>
+                        </div>
+                        <p class="rv" style="margin-top: 26px">Outcome</p>
+                        <div class="callout rv">
+                            GAIA went from a social inspiration feed to an AI
+                            stylist that builds outfits from
+                            <em>the clothes you already own</em>, and suggests
+                            the few new pieces that would complete them.
+                        </div>
+                    </section>
 
-<div class="proto-note">Prototype, case study 03</div>
+                    <section class="cs-sec" id="tldr">
+                        <div class="sec-tag label rv">02 &middot; TL;DR</div>
+                        <h2 class="rv">TL;DR</h2>
+                        <div class="tldr rv">
+                            <div class="part">
+                                <div class="k label">The challenge</div>
+                                <p>
+                                    People want a personal style that feels like
+                                    theirs, but personalised styling help is
+                                    expensive and out of reach, so they lean on
+                                    social media and impulse-buy trend pieces
+                                    that do not suit them. The real need was an
+                                    affordable, personalised stylist for the
+                                    clothes they already own.
+                                </p>
+                            </div>
+                            <div class="part">
+                                <div class="k label">What I did</div>
+                                <p>
+                                    I ran interviews and built a social
+                                    inspiration feed as the first version.
+                                    Presenting it, I caught that I had leaned
+                                    into my own bias toward a social product,
+                                    and that people were not asking for another
+                                    feed. I reframed the problem around
+                                    personalised outfit ideas with the least
+                                    possible friction, and rebuilt GAIA as an AI
+                                    styling tool, then tested the new direction
+                                    with five users.
+                                </p>
+                            </div>
+                            <div class="part">
+                                <div class="k label">The outcome</div>
+                                <p>
+                                    GAIA became an AI stylist that reads what
+                                    you ask for, matches it to your style
+                                    profile, and builds a full outfit from your
+                                    own wardrobe, suggesting new pieces to buy
+                                    where they would help. In testing it felt
+                                    more useful, and more fun, than another app
+                                    to doomscroll.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
 
-<script>
-(function () {
-  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+                    <section class="cs-sec" id="research">
+                        <div class="sec-tag label rv">03 &middot; Research</div>
+                        <h2 class="rv">
+                            What people told me, and how I read it.
+                        </h2>
+                        <p class="rv">
+                            I ran six interviews with women aged 22 to 31 who
+                            shopped online and used social media for style, kept
+                            the questions open, and pulled secondary research
+                            alongside them. The problem space that came back was
+                            clear, and a little uncomfortable.
+                        </p>
 
-  /* ---- cursor ---- */
-  if (fine) {
-    var cur = document.getElementById("cursor"), dot = document.getElementById("dot");
-    var mx = innerWidth/2, my = innerHeight/2, cx = mx, cy = my;
-    addEventListener("mousemove", function (e) {
-      mx = e.clientX; my = e.clientY;
-      dot.style.left = mx+"px"; dot.style.top = my+"px";
-      if (reduced) { cur.style.left = mx+"px"; cur.style.top = my+"px"; }
-    });
-    if (!reduced) (function loop(){
-      cx += (mx-cx)*.17; cy += (my-cy)*.17;
-      cur.style.left = cx+"px"; cur.style.top = cy+"px";
-      requestAnimationFrame(loop);
-    })();
-    document.querySelectorAll("a, button").forEach(function (el) {
-      el.addEventListener("mouseenter", function(){ cur.classList.add("hot"); });
-      el.addEventListener("mouseleave", function(){ cur.classList.remove("hot"); });
-    });
-    addEventListener("mouseleave", function(){ cur.style.opacity=0; dot.style.opacity=0; });
-    addEventListener("mouseenter", function(){ cur.style.opacity=1; dot.style.opacity=1; });
-  }
+                        <div class="insight rv">
+                            <div class="k label">The problem</div>
+                            <p>
+                                People want a personal style that reflects who
+                                they are, but personalised styling guidance is
+                                expensive and hard to come by. A professional
+                                stylist is a luxury, so people lean on fast
+                                fashion and social media instead, impulse-buying
+                                trend pieces that do not suit them and ending up
+                                with cluttered wardrobes full of clothes they
+                                cannot style.
+                            </p>
+                        </div>
 
-  /* ---- reading progress ---- */
-  var bar = document.getElementById("progress");
-  function onScroll() {
-    var h = document.documentElement;
-    var max = h.scrollHeight - h.clientHeight;
-    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
-  }
-  addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+                        <p class="rv">
+                            My interviews sharpened where the gap really was.
+                            People were not asking to be sold more clothes, they
+                            wanted help styling what they already owned, and a
+                            few said outright they would take a stylist in a
+                            heartbeat if one were affordable.
+                        </p>
 
-  /* ---- scroll-spy: highlight the active TOC item ---- */
-  var links = {};
-  document.querySelectorAll("[data-toc]").forEach(function (a) {
-    links[a.getAttribute("href").slice(1)] = a;
-  });
-  var sections = document.querySelectorAll(".cs-sec");
-  function setActive(id) {
-    for (var k in links) links[k].classList.toggle("active", k === id);
-  }
-  if ("IntersectionObserver" in window) {
-    var spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) setActive(en.target.id);
-      });
-    }, { rootMargin: "-38% 0px -57% 0px" });
-    sections.forEach(function (s) { spy.observe(s); });
-  }
+                        <div class="insight rv">
+                            <div class="k label">From my primary research</div>
+                            <p>
+                                Most people look to social media to find style
+                                inspiration rather than wanting a professional
+                                stylist. But many are frustrated by the lack of
+                                personalisation when they try to style
+                                <em>what they already own</em>.
+                            </p>
+                        </div>
 
-  /* ---- scroll reveal ---- */
-  var rv = document.querySelectorAll(".rv");
-  if (reduced || !("IntersectionObserver" in window)) {
-    rv.forEach(function (el){ el.classList.add("in"); });
-  } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en, i) {
-        if (en.isIntersecting) {
-          var el = en.target;
-          setTimeout(function(){ el.classList.add("in"); }, i * 55);
-          io.unobserve(el);
-        }
-      });
-    }, { threshold: .16 });
-    rv.forEach(function (el){ io.observe(el); });
-  }
-})();
-</script>
-</body>
+                        <p class="rv">
+                            Secondary research backed the stakes: 89% of Gen-Z
+                            shoppers said fashion boosts their confidence, 65%
+                            said choosing an outfit is the most stressful part
+                            of going out, and 46% had wanted a trend but could
+                            not find it in their size. To keep the work grounded
+                            in a person, I built a persona, Tara, around the
+                            frustration I heard most often.
+                        </p>
+
+                        <figure class="rv">
+                            <div class="plate wide">
+                                <div class="g" aria-hidden="true"></div>
+                            </div>
+                            <!-- asset: persona slide (Tara Nelson) -->
+                            <figcaption class="cap">
+                                Persona, Tara Nelson, 24, who rewears the same
+                                combinations, struggles to find people who dress
+                                like her, and wants to make more of the wardrobe
+                                she already has.
+                            </figcaption>
+                        </figure>
+
+                        <p class="muted rv">
+                            Here is where my bias did the work. The research was
+                            pointing at a stylist, just an affordable and
+                            accessible one. I reached for a feed, because a
+                            better inspiration feed was the answer I already
+                            wanted. I heard that people use social media for style
+                            and skipped the harder half, that what they needed
+                            was the styling itself.
+                        </p>
+                        <div class="callout rv">
+                            The research pointed at a stylist. I reached for a
+                            <em>feed</em>.
+                        </div>
+                    </section>
+
+                    <section class="cs-sec" id="v1">
+                        <div class="sec-tag label rv">
+                            04 &middot; Version one
+                        </div>
+                        <h2 class="rv">A cleaner, more personal feed.</h2>
+                        <p class="rv">
+                            The first version of GAIA was a social inspiration
+                            feed. Onboarding was a style quiz, the home was a
+                            feed of looks on people who dressed and looked like
+                            you, you could keep a personal wardrobe of your own
+                            clothes, and you could style around an item you
+                            owned and save the result to a collection.
+                        </p>
+
+                        <h3 class="rv">The style quiz did real work</h3>
+                        <p class="muted rv">
+                            I tried to make the quiz earn its place rather than
+                            just collect taps. It doubled as a colour-palette
+                            test, so someone came away knowing which colours
+                            actually suited them, and it took rough body
+                            measurements to map them to a Kibbe body type, so
+                            the app understood their proportions before it ever
+                            recommended anything.
+                        </p>
+                        <figure class="rv">
+                            <div class="phone-single">
+                                <div class="plate phone">
+                                    <div class="g" aria-hidden="true"></div>
+                                </div>
+                            </div>
+                            <!-- asset: style-quiz walkthrough VIDEO -->
+                            <figcaption class="cap">
+                                A walkthrough of the style-quiz onboarding, the
+                                colour-palette test and the body-type questions.
+                                (Video.)
+                            </figcaption>
+                        </figure>
+
+                        <h3 class="rv">The feed, from wireframe to brand</h3>
+                        <figure class="rv">
+                            <div class="ba">
+                                <div class="col">
+                                    <div class="lab">
+                                        <b>Mid-fi</b> &middot; wireframe
+                                    </div>
+                                    <div class="plate phone">
+                                        <div class="g" aria-hidden="true"></div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="lab">
+                                        <b>Hi-fi</b> &middot; GAIA
+                                    </div>
+                                    <div class="plate phone">
+                                        <div class="g" aria-hidden="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- asset: v1 social feed, mid-fi wireframe beside hi-fi -->
+                            <figcaption class="cap">
+                                The social feed and the style-around-an-item
+                                flow, from grey-box wireframes to the finished
+                                GAIA visual language.
+                            </figcaption>
+                        </figure>
+
+                        <p class="rv">
+                            In usability testing people moved through it easily
+                            and liked how it looked. Nothing was broken on the
+                            surface. What was wrong sat underneath, in what the
+                            app was actually for.
+                        </p>
+                    </section>
+
+                    <section class="cs-sec" id="turn">
+                        <div class="sec-tag label rv">05 &middot; The turn</div>
+                        <h2 class="rv">
+                            Presenting it, I realised I had built the
+                            <em>wrong thing</em>.
+                        </h2>
+                        <p class="rv">
+                            The penny dropped when I started showing the first
+                            version. The questions I kept getting back were not
+                            about the feed at all. People asked whether GAIA
+                            could just tell them what to wear with what they
+                            already had, and whether they could shop the looks
+                            they saw. I had built a beautiful way to find
+                            inspiration, when the thing people actually needed
+                            was the styling itself, the part a stylist does that
+                            a feed never could. I had drifted from my own
+                            research. People already use social media and will
+                            keep using it whether or not I make a gentler
+                            version, so a nicer feed was never going to close
+                            the gap. They needed the affordable, personalised
+                            styling the work had pointed at the whole time.
+                        </p>
+
+                        <h3 class="rv">
+                            The feed needed everyone else to do the work
+                        </h3>
+                        <p class="muted rv">
+                            Seeing style on people who own what you own only
+                            works once thousands of other people have uploaded
+                            and tagged their clothes. That is a mountain of
+                            steps and a cold start, a lot of friction before the
+                            app is useful to anyone.
+                        </p>
+
+                        <h3 class="rv">
+                            The quiz gathered data and gave nothing back
+                        </h3>
+                        <p class="muted rv">
+                            The style quiz was a useful signal, but on its own
+                            it just collected information and handed the styling
+                            work back to the user. The personalisation needed to
+                            resolve into an actual outfit, and quickly.
+                        </p>
+
+                        <div class="callout rv">
+                            The real problem was always an affordable,
+                            personalised <em>stylist</em> for the clothes you
+                            already own.
+                        </div>
+                    </section>
+
+                    <section class="cs-sec" id="v2">
+                        <div class="sec-tag label rv">
+                            06 &middot; Version two
+                        </div>
+                        <h2 class="rv">
+                            Reframing GAIA from a feed into a <em>stylist</em>.
+                        </h2>
+                        <p class="rv">
+                            An affordable, personalised stylist is exactly what
+                            AI made possible, and it is the two-week iteration
+                            that turned GAIA into what it should have been.
+                        </p>
+                        <p class="rv">
+                            With AI, the hard parts got easy. It can build a
+                            full outfit from the clothes you own, whether you
+                            upload them or add them from a database of pieces,
+                            which quietly removes the friction of photographing
+                            your whole wardrobe. It can personalise the look to
+                            your style profile, and it can suggest the new items
+                            that would complete it, each with a link to buy,
+                            which is where the commercial side lives.
+                        </p>
+
+                        <h3 class="rv">A new home, built around what helps</h3>
+                        <p class="muted rv">
+                            The first thing I changed was the home. Instead of a
+                            feed to scroll, it opens on the things that actually
+                            help, the style assistant, your style profile, and a
+                            quick way to add to your wardrobe, then below them,
+                            what to wear today based on your weather and
+                            location, a full fit idea generated from your
+                            wardrobe, and a browse-inspiration section. I did
+                            not throw the social part away, I changed where the
+                            effort sat. Rather than asking people to upload and
+                            tag their outfits, I imagined the inspiration
+                            pulling from the Instagram and social accounts they
+                            already post to, so it costs them nothing to take
+                            part.
+                        </p>
+                        <figure class="rv">
+                            <div class="phone-single">
+                                <div class="plate phone">
+                                    <div class="g" aria-hidden="true"></div>
+                                </div>
+                            </div>
+                            <!-- asset: v2 new home screenshot -->
+                            <figcaption class="cap">
+                                The new GAIA home: an assistant and your style
+                                profile up top, then ready-made ideas based on
+                                your weather and wardrobe, instead of an endless
+                                feed.
+                            </figcaption>
+                        </figure>
+
+                        <h3 class="rv">The styling assistant</h3>
+                        <p class="muted rv">
+                            The heart of v2 is the styling assistant. You can
+                            tap a shortcut, style by occasion, by aesthetic, or
+                            start with a centre piece, or you can just type the
+                            way you would text a friend, something casual and
+                            feminine for brunch tomorrow. The assistant reads
+                            the keywords in what you said and checks them first
+                            against your style profile, your undertones, your
+                            colour palette, your Kibbe body type, even your
+                            personality, before it builds the outfit, a top, a
+                            bottom, outerwear and shoes, and accessories when
+                            the look needs them.
+                        </p>
+                        <figure class="rv">
+                            <div class="strip">
+                                <div class="plate phone">
+                                    <div class="g" aria-hidden="true"></div>
+                                </div>
+                                <div class="plate phone">
+                                    <div class="g" aria-hidden="true"></div>
+                                </div>
+                                <div class="plate phone">
+                                    <div class="g" aria-hidden="true"></div>
+                                </div>
+                                <div class="plate phone">
+                                    <div class="g" aria-hidden="true"></div>
+                                </div>
+                            </div>
+                            <!-- asset: v2 assistant flow, 4 screens (start -> describe -> centre pieces -> outfit) -->
+                            <figcaption class="cap">
+                                The styling assistant, from a typed request to a
+                                full outfit, with each piece marked as something
+                                you own or something new.
+                            </figcaption>
+                        </figure>
+
+                        <h3 class="rv">When it gets it wrong</h3>
+                        <p class="muted rv">
+                            I did not want the assistant to feel like a verdict,
+                            because an outfit is personal and the AI will not
+                            always get it right. So when a suggestion misses,
+                            you can ask it to try again with a note on what to
+                            change, or swap any single piece for something else
+                            in your wardrobe or a quick web search, whichever is
+                            faster. Every item is labelled as something you
+                            already own or something new, so you always know
+                            what a look would really cost you.
+                        </p>
+                        <figure class="rv">
+                            <div class="proto">
+                                <div class="label">Interactive prototype</div>
+                                <div class="proto-phone">
+                                    <iframe
+                                        title="GAIA AI Style Assistant, interactive prototype"
+                                        src="https://embed.figma.com/proto/fl5MbLMukciS5EXgmFhzsN/Untitled?node-id=1-13315&starting-point-node-id=1-13379&scaling=scale-down-width&content-scaling=fixed&page-id=0-1&hide-ui=1&embed-host=share"
+                                        allowfullscreen
+                                        loading="lazy"
+                                    ></iframe>
+                                </div>
+                            </div>
+                            <figcaption class="cap">
+                                The styling assistant, end to end, including the
+                                try-again and swap-a-piece flows for when a
+                                suggestion misses.
+                            </figcaption>
+                        </figure>
+
+                        <h3 class="rv">What I kept, and what I evolved</h3>
+                        <div class="ke rv">
+                            <div>
+                                <div class="tag">Kept</div>
+                                <ul>
+                                    <li>
+                                        A personal wardrobe of your own clothes
+                                    </li>
+                                    <li>
+                                        The style profile built from the quiz
+                                    </li>
+                                    <li>
+                                        A thread of social inspiration to browse
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="tag">Evolved</div>
+                                <ul>
+                                    <li>
+                                        A feed to scroll became a stylist that
+                                        answers
+                                    </li>
+                                    <li>
+                                        Outfits got generated, instead of hunted
+                                        for
+                                    </li>
+                                    <li>
+                                        Photos came from a database and your own
+                                        social, not a manual upload
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h3 class="rv">Testing the new direction</h3>
+                        <p class="muted rv">
+                            I put the new flow in front of five users and asked
+                            each of them to get an outfit for something real in
+                            their week. The difference in effort was the
+                            clearest signal. Version one only became useful once
+                            a user, and everyone else, had uploaded and tagged
+                            their clothes, where version two gets you a full,
+                            wearable outfit from a single sentence. It landed as
+                            far more compelling, and honestly more fun, than
+                            another app to doomscroll, which was the whole
+                            point.
+                        </p>
+                        <div class="insight rv">
+                            <div class="k label">From a tester</div>
+                            <p>
+                                [ Drop one line from your five sessions here.
+                                The more specific the better, ideally something
+                                about effort, confidence, or owning the outfit.
+                                ]
+                            </p>
+                        </div>
+                    </section>
+
+                    <section
+                        class="cs-sec"
+                        id="learnings"
+                        style="padding-bottom: 24px"
+                    >
+                        <div class="sec-tag label rv">
+                            07 &middot; Learnings
+                        </div>
+                        <h2 class="rv">What I took from it.</h2>
+                        <div class="insight rv">
+                            <div class="k label">The big one</div>
+                            <p>
+                                Design for the <em>latent need</em>, the thing
+                                people are circling but not asking for directly.
+                                Bolting a feature onto a product that already
+                                exists, a slightly better feed, is rarely worth
+                                switching for and is easily replaced. Building
+                                something genuinely new is what earns a place in
+                                someone's day.
+                            </p>
+                        </div>
+                        <div class="cols2 rv">
+                            <div>
+                                <h3>What worked</h3>
+                                <p class="muted">
+                                    Listening to the part of my research that
+                                    did not flatter my idea. The turn was
+                                    uncomfortable, and the project was much
+                                    better for letting it happen.
+                                </p>
+                            </div>
+                            <div>
+                                <h3>What I'd do differently</h3>
+                                <p class="muted">
+                                    I would separate what I wanted to build from
+                                    what the research was telling me far
+                                    earlier, and narrow in on the why before I
+                                    let myself fall in love with a what.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            </div>
+        </div>
+
+        <footer>
+            <div class="shell">
+                <a href="ai-workflows.html" class="next">
+                    <div class="label">Next project</div>
+                    <span class="nt"
+                        >Staying in control of an AI that doesn't stop
+                        <span class="ar">&rarr;</span></span
+                    >
+                </a>
+                <div class="colophon">
+                    <div class="links">
+                        <a href="mailto:almirahanafiah@gmail.com"
+                            >almirahanafiah@gmail.com</a
+                        >
+                        <a
+                            href="https://linkedin.com/in/almira-hanafiah"
+                            target="_blank"
+                            rel="noopener"
+                            >LinkedIn</a
+                        >
+                        <a
+                            href="https://github.com/almirahanafiah"
+                            target="_blank"
+                            rel="noopener"
+                            >GitHub</a
+                        >
+                        <a
+                            href="../assets/cv/Almira-Hanafiah-CV.pdf"
+                            target="_blank"
+                            rel="noopener"
+                            >CV</a
+                        >
+                    </div>
+                    <div class="set">
+                        Designed and built with &hearts;, 2026
+                    </div>
+                </div>
+                <div class="sign rv">
+                    <span class="sign-mark" aria-hidden="true">&#10051;</span>
+                </div>
+            </div>
+        </footer>
+
+        <div class="proto-note">Prototype, case study 03</div>
+
+        <script>
+            (function () {
+                var reduced = matchMedia(
+                    "(prefers-reduced-motion: reduce)",
+                ).matches;
+                var fine = matchMedia(
+                    "(hover: hover) and (pointer: fine)",
+                ).matches;
+
+                /* ---- cursor ---- */
+                if (fine) {
+                    var cur = document.getElementById("cursor"),
+                        dot = document.getElementById("dot");
+                    var mx = innerWidth / 2,
+                        my = innerHeight / 2,
+                        cx = mx,
+                        cy = my;
+                    addEventListener("mousemove", function (e) {
+                        mx = e.clientX;
+                        my = e.clientY;
+                        dot.style.left = mx + "px";
+                        dot.style.top = my + "px";
+                        if (reduced) {
+                            cur.style.left = mx + "px";
+                            cur.style.top = my + "px";
+                        }
+                    });
+                    if (!reduced)
+                        (function loop() {
+                            cx += (mx - cx) * 0.17;
+                            cy += (my - cy) * 0.17;
+                            cur.style.left = cx + "px";
+                            cur.style.top = cy + "px";
+                            requestAnimationFrame(loop);
+                        })();
+                    document
+                        .querySelectorAll("a, button")
+                        .forEach(function (el) {
+                            el.addEventListener("mouseenter", function () {
+                                cur.classList.add("hot");
+                            });
+                            el.addEventListener("mouseleave", function () {
+                                cur.classList.remove("hot");
+                            });
+                        });
+                    addEventListener("mouseleave", function () {
+                        cur.style.opacity = 0;
+                        dot.style.opacity = 0;
+                    });
+                    addEventListener("mouseenter", function () {
+                        cur.style.opacity = 1;
+                        dot.style.opacity = 1;
+                    });
+                }
+
+                /* ---- reading progress ---- */
+                var bar = document.getElementById("progress");
+                function onScroll() {
+                    var h = document.documentElement;
+                    var max = h.scrollHeight - h.clientHeight;
+                    bar.style.width =
+                        (max > 0 ? (h.scrollTop / max) * 100 : 0) + "%";
+                }
+                addEventListener("scroll", onScroll, { passive: true });
+                onScroll();
+
+                /* ---- scroll-spy: highlight the active TOC item ---- */
+                var links = {};
+                document.querySelectorAll("[data-toc]").forEach(function (a) {
+                    links[a.getAttribute("href").slice(1)] = a;
+                });
+                var sections = document.querySelectorAll(".cs-sec");
+                function setActive(id) {
+                    for (var k in links)
+                        links[k].classList.toggle("active", k === id);
+                }
+                if ("IntersectionObserver" in window) {
+                    var spy = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (en) {
+                                if (en.isIntersecting) setActive(en.target.id);
+                            });
+                        },
+                        { rootMargin: "-38% 0px -57% 0px" },
+                    );
+                    sections.forEach(function (s) {
+                        spy.observe(s);
+                    });
+                }
+
+                /* ---- scroll reveal ---- */
+                var rv = document.querySelectorAll(".rv");
+                if (reduced || !("IntersectionObserver" in window)) {
+                    rv.forEach(function (el) {
+                        el.classList.add("in");
+                    });
+                } else {
+                    var io = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (en, i) {
+                                if (en.isIntersecting) {
+                                    var el = en.target;
+                                    setTimeout(function () {
+                                        el.classList.add("in");
+                                    }, i * 55);
+                                    io.unobserve(el);
+                                }
+                            });
+                        },
+                        { threshold: 0.16 },
+                    );
+                    rv.forEach(function (el) {
+                        io.observe(el);
+                    });
+                }
+            })();
+        </script>
+    </body>
 </html>

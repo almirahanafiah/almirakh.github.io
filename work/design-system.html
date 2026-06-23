@@ -3,12 +3,14 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex,nofollow" />
         <title>
-            Defining a compositional design system for AI | Almira Hanafiah
+            Building a design system with primitives and principles | Almira
+            Hanafiah
         </title>
         <meta
             name="description"
-            content="Moving a design system from a library drawn component by component to a system an AI agent can read and build new screens from."
+            content="Created an early-stage AI company's design system in Figma and Storybook, evolving it to written documentation so the product and engineering teams move faster."
         />
         <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -417,6 +419,116 @@
                 color: var(--pink);
                 font-weight: var(--w);
             }
+            /* the two old steps, bracketed and collapsed into one */
+            .fj-old {
+                position: relative;
+                padding-left: 16px;
+                margin-top: 8px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .fj-old::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 2px;
+                bottom: 2px;
+                width: 8px;
+                border: 1.5px solid var(--rule);
+                border-right: 0;
+                border-radius: 5px 0 0 5px;
+            }
+            .fj-card.ghost {
+                opacity: 0.55;
+                background: transparent;
+                border-style: dashed;
+                text-decoration: line-through;
+                text-decoration-color: rgba(44, 42, 40, 0.3);
+            }
+            .fj-becomes {
+                font-size: 0.68rem;
+                color: var(--pink-deep);
+                text-align: center;
+                letter-spacing: 0.04em;
+                margin: 12px 0 8px;
+            }
+            .fj-becomes::before {
+                content: "\2193";
+                display: block;
+                color: var(--rule);
+                font-size: 1rem;
+                margin-bottom: 3px;
+            }
+            /* single centered "before" flow with a bracket annotation */
+            .fj-flow {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .fj-card.hot {
+                background: rgba(55, 124, 198, 0.09);
+                border-color: rgba(55, 124, 198, 0.5);
+                box-shadow: 2px 3px 0 rgba(55, 124, 198, 0.12);
+            }
+            .fj-mark {
+                position: relative;
+            }
+            .fj-hotgroup {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+            .fj-annot {
+                position: absolute;
+                left: 100%;
+                top: 0;
+                bottom: 0;
+                margin-left: 12px;
+                display: flex;
+                align-items: center;
+                gap: 9px;
+            }
+            .fj-brace {
+                width: 9px;
+                align-self: stretch;
+                border: 1.6px solid var(--pink-deep);
+                border-left: 0;
+                border-radius: 0 7px 7px 0;
+            }
+            .fj-arrow {
+                color: var(--pink-deep);
+                font-size: 1.05rem;
+                flex: none;
+            }
+            .fj-callout {
+                width: 134px;
+                font-size: 0.74rem;
+                line-height: 1.3;
+                color: var(--ink-soft);
+                background: rgba(55, 124, 198, 0.07);
+                border: 1px solid rgba(55, 124, 198, 0.3);
+                border-radius: 8px;
+                padding: 8px 10px;
+            }
+            .fj-callout b {
+                color: var(--pink-deep);
+                font-weight: var(--w);
+            }
+            @media (max-width: 680px) {
+                .fj-annot {
+                    position: static;
+                    margin: 12px 0 0;
+                    justify-content: center;
+                }
+                .fj-brace {
+                    display: none;
+                }
+                .fj-arrow {
+                    transform: rotate(90deg);
+                }
+            }
             .fj-rowline {
                 display: flex;
                 align-items: center;
@@ -509,13 +621,13 @@
             .fj-fan polygon {
                 fill: var(--ink-soft);
             }
-            .fj-surfaces {
+            .fj-screens {
                 display: flex;
                 gap: 10px;
                 justify-content: center;
                 flex-wrap: wrap;
             }
-            .fj-surfaces .fj-card {
+            .fj-screens .fj-card {
                 max-width: 120px;
                 padding: 9px 11px;
                 font-size: 0.73rem;
@@ -652,7 +764,219 @@
                 }
             }
 
-            /* hero: design system -> design docs -> a composed component */
+            /* foundations: colour + type specimen (hero) */
+            .found {
+                background: #fffdf8; /* warm cream backdrop */
+                border: 1px solid #eee8da;
+                border-radius: 16px;
+                padding: 30px 32px 32px;
+                box-shadow: 0 18px 40px -28px rgba(10, 52, 50, 0.4);
+            }
+            .found-grid {
+                display: grid;
+                grid-template-columns: 1.05fr 1fr;
+                gap: 40px;
+            }
+            .found-h {
+                font-size: 0.7rem;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: #757575;
+                margin: 0 0 16px;
+                font-weight: 600;
+            }
+            .found-h .su {
+                color: #1b5855;
+            } /* teal label accent */
+            .sc {
+                margin-bottom: 18px;
+            }
+            .sc-row {
+                display: grid;
+                grid-auto-flow: column;
+                grid-auto-columns: 1fr;
+                gap: 5px;
+            }
+            .sw {
+                height: 36px;
+                border-radius: 6px;
+                border: 1px solid rgba(0, 0, 0, 0.05);
+                position: relative;
+            }
+            .sw.star::after {
+                content: "★";
+                position: absolute;
+                top: 3px;
+                left: 5px;
+                font-size: 9px;
+                color: rgba(255, 255, 255, 0.92);
+            }
+            .sc-meta {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.64rem;
+                color: #9f9c99;
+                font-family: ui-monospace, monospace;
+                margin-top: 8px;
+            }
+            .spec {
+                font-family: "Instrument Sans", sans-serif;
+                color: #1e1e1e;
+            }
+            .spec-row {
+                display: flex;
+                align-items: baseline;
+                gap: 16px;
+                padding: 9px 0;
+                border-top: 1px solid #eee8da;
+            }
+            .spec-row:first-child {
+                border-top: 0;
+                padding-top: 0;
+            }
+            .spec-tag {
+                font-family: ui-monospace, monospace;
+                font-size: 0.58rem;
+                color: #9f9c99;
+                width: 96px;
+                flex: none;
+            }
+            .spec-txt {
+                line-height: 1.04;
+            }
+            .s-h1 {
+                font-size: 36px;
+                font-weight: 600;
+                letter-spacing: -0.02em;
+            }
+            .s-h2 {
+                font-size: 28px;
+                font-weight: 500;
+                letter-spacing: -0.01em;
+            }
+            .s-h3 {
+                font-size: 22px;
+                font-weight: 500;
+            }
+            .s-body {
+                font-size: 16px;
+                font-weight: 400;
+            }
+            .s-micro {
+                font-size: 11px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                color: #757575;
+            }
+            @media (max-width: 760px) {
+                .found-grid {
+                    grid-template-columns: 1fr;
+                    gap: 28px;
+                }
+            }
+
+            /* tokens-carry-rules: a colour (or button, primitive) as a principle */
+            .prin {
+                border: 1px solid var(--rule);
+                border-radius: 14px;
+                overflow: hidden;
+                background: var(--paper);
+            }
+            .prin-row {
+                display: grid;
+                grid-template-columns: 150px 1fr;
+                gap: 26px;
+                align-items: center;
+                padding: 18px 22px;
+                border-top: 1px solid var(--rule);
+            }
+            .prin-row:first-child {
+                border-top: 0;
+            }
+            .prin-vis {
+                display: flex;
+                align-items: center;
+                gap: 11px;
+            }
+            .prin-sw {
+                width: 34px;
+                height: 34px;
+                border-radius: 8px;
+                flex: none;
+                border: 1px solid rgba(0, 0, 0, 0.06);
+            }
+            .prin-tk {
+                font-size: 0.7rem;
+                line-height: 1.35;
+                color: var(--ink-soft);
+            }
+            .prin-tk b {
+                display: block;
+                color: var(--ink);
+                font-weight: var(--w);
+                font-size: 0.78rem;
+            }
+            .prin-tk .hex {
+                font-family: ui-monospace, monospace;
+                font-size: 0.64rem;
+                color: #9f9c99;
+            }
+            .prin-pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 4px 11px;
+                border-radius: 9999px;
+                background: rgba(66, 154, 150, 0.16);
+                color: #2c6c69;
+                font-size: 0.72rem;
+                font-weight: 600;
+            }
+            .prin-pill .dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: currentColor;
+            }
+            .prin-btns {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+            .prin-b {
+                font-size: 0.72rem;
+                font-weight: 600;
+                border-radius: 8px;
+                padding: 6px 12px;
+            }
+            .prin-b.pri {
+                background: #1b5855;
+                color: #fff;
+            }
+            .prin-b.gho {
+                color: var(--ink-soft);
+            }
+            .prin-rule {
+                font-size: 0.92rem;
+                color: var(--ink-soft);
+                line-height: 1.45;
+            }
+            .prin-rule b {
+                color: var(--ink);
+                font-weight: var(--w);
+            }
+            .prin-rule .never {
+                color: #b1372a;
+            }
+            @media (max-width: 600px) {
+                .prin-row {
+                    grid-template-columns: 1fr;
+                    gap: 12px;
+                }
+            }
+
+            /* hero: design system -> design docs -> a built component */
             .ds-hero {
                 display: grid;
                 grid-template-columns: 1fr 38px 1fr 38px 1fr;
@@ -811,7 +1135,7 @@
                 width: 73%;
             }
 
-            /* panel 3 - composed component */
+            /* panel 3 - built component */
             .cmp-body {
                 flex: 1;
                 padding: 14px;
@@ -911,7 +1235,7 @@
                 background: radial-gradient(#1b5855 38%, #fff 42%);
             }
 
-            /* panel 3 - composed form */
+            /* panel 3 - built form */
             .form-top {
                 display: flex;
                 align-items: center;
@@ -1034,8 +1358,8 @@
                 color: var(--ink-soft);
             }
 
-            /* compose animation (snippet -> component) */
-            .compose-demo .cd-frame {
+            /* build animation (snippet -> component) */
+            .build-demo .cd-frame {
                 aspect-ratio: 16 / 7;
                 background: var(--paper);
                 border: 1px solid var(--rule);
@@ -1167,7 +1491,7 @@
                 }
             }
 
-            /* "one kit, many composites" — same primitives, different composites per user */
+            /* one kit, many screens: same primitives, different screens per role */
             .kit {
                 background: var(--paper-2);
                 border: 1px solid var(--rule);
@@ -1195,7 +1519,7 @@
                 letter-spacing: 0.12em;
                 color: var(--pink-deep);
             }
-            .kit-surface {
+            .kit-screen {
                 border: 1px solid var(--rule);
                 border-radius: 7px;
                 background: var(--paper-2);
@@ -1205,28 +1529,28 @@
                 gap: 7px;
                 min-height: 96px;
             }
-            .kit-surface .krow {
+            .kit-screen .krow {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 gap: 8px;
             }
-            .kit-surface .kln {
+            .kit-screen .kln {
                 height: 6px;
                 border-radius: 3px;
                 background: var(--rule);
                 flex: 1;
             }
-            .kit-surface .kln.s {
+            .kit-screen .kln.s {
                 flex: none;
                 width: 55%;
             }
-            .kit-surface .kval {
+            .kit-screen .kval {
                 font-size: 0.66rem;
                 color: var(--pink-deep);
                 white-space: nowrap;
             }
-            .kit-surface .kbtn {
+            .kit-screen .kbtn {
                 align-self: flex-start;
                 font-size: 0.56rem;
                 color: var(--paper);
@@ -1234,19 +1558,19 @@
                 border-radius: 5px;
                 padding: 5px 11px;
             }
-            .kit-surface .klab {
+            .kit-screen .klab {
                 font-size: 0.5rem;
                 text-transform: uppercase;
                 letter-spacing: 0.1em;
                 color: var(--ink-soft);
             }
-            .kit-surface .kfield {
+            .kit-screen .kfield {
                 height: 15px;
                 border: 1px solid var(--rule);
                 border-radius: 5px;
                 background: var(--paper);
             }
-            .kit-surface .kbig {
+            .kit-screen .kbig {
                 font-size: 1.3rem;
                 letter-spacing: -0.02em;
                 color: var(--ink);
@@ -1427,7 +1751,7 @@
         <header>
             <div class="shell">
                 <div class="bar">
-                    <a href="../index.html" class="back"
+                    <a href="../index.html#work" class="back"
                         ><span class="ar">&larr;</span>Selected Work</a
                     >
                     <a href="../index.html" class="wordmark"
@@ -1440,124 +1764,161 @@
         <div class="shell">
             <div class="cs-header" style="padding-bottom: 22px">
                 <h1 class="cs-title rv">
-                    Defining a <em>compositional</em> design system for AI.
+                    Building a design system with primitives and
+                    <em>principles</em>.
                 </h1>
                 <p class="dek rv">
-                    Co-led with founder to define a system for more dynamic and
-                    personalised AI experiences, moving away from the screens of
-                    a traditional Figma design system.
+                    Created an early-stage AI company's design system in Figma
+                    and Storybook, evolving it to written documentation so the
+                    product team moves faster.
                 </p>
                 <span class="nda rv"
-                    >Specific product surfaces are abstracted under NDA. What
-                    follows is the thinking and the patterns rather than the
-                    product itself.</span
+                    >Specific product details are kept under NDA. What follows
+                    is the design thinking and the system, not the product
+                    itself.</span
                 >
             </div>
             <figure class="rv" style="margin-top: 0">
-                <div class="ds-hero">
-                    <!-- 1. Figma design system -->
-                    <div class="dsf">
-                        <div class="dsf-bar">
-                            <span class="d"></span><span class="d"></span
-                            ><span class="d"></span
-                            ><span class="nm"
-                                >Brim Design System &middot; Figma</span
-                            >
-                        </div>
-                        <div class="fig-body">
-                            <div class="fig-rail">
-                                <div class="ph">Pages</div>
-                                <div class="pg">Charts</div>
-                                <div class="pg">Checkboxes</div>
-                                <div class="pg on">Fields</div>
-                                <div class="pg">Inputs</div>
-                                <div class="pg">Items</div>
-                            </div>
-                            <div class="fig-canvas">
-                                <div class="fig-frame">
-                                    <div class="fig-lab">Text value</div>
-                                    <div class="fig-input"></div>
-                                </div>
-                                <div class="fig-frame">
-                                    <div class="fig-lab">Select</div>
-                                    <div class="fig-select">&#9662;</div>
-                                </div>
-                                <div class="fig-frame">
-                                    <div class="fig-lab">Radio</div>
-                                    <div class="fig-radio">
-                                        <span class="opt"
-                                            ><span class="rd on"></span>Option
-                                            1</span
-                                        >
-                                        <span class="opt"
-                                            ><span class="rd"></span>Option
-                                            2</span
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="ds-arrow"><span class="a">&rarr;</span></div>
-
-                    <!-- 2. structured design docs -->
-                    <div class="dsf">
-                        <div class="dsf-bar">
-                            <span class="d"></span><span class="d"></span
-                            ><span class="d"></span
-                            ><span class="nm">Structured design docs</span>
-                        </div>
-                        <div class="mdp-body">
-                            <span class="h"># Forms</span>
-                            <div class="mdp-line w1"></div>
-                            <span class="k">fields:</span> text &middot; select
-                            &middot; radio
-                            <div class="mdp-line w3"></div>
-                            <span class="k">rules:</span>
-                            <div class="mdp-line w2"></div>
-                            <div class="mdp-line w1"></div>
-                        </div>
-                    </div>
-
-                    <div class="ds-arrow"><span class="a">&rarr;</span></div>
-
-                    <!-- 3. composed component -->
-                    <div class="dsf">
-                        <div class="dsf-bar">
-                            <span class="d"></span><span class="d"></span
-                            ><span class="d"></span
-                            ><span class="nm">Composed automatically</span>
-                        </div>
-                        <div class="cmp-body">
-                            <div class="form-top">
-                                <div class="form-title">New expense</div>
-                                <span class="form-tool"
-                                    ><span class="ic"></span>Accounting
-                                    tool</span
+                <div class="found">
+                    <div class="found-grid">
+                        <div>
+                            <div class="found-h">
+                                Colour
+                                <span class="su"
+                                    >&middot; backdrop &amp; accent</span
                                 >
                             </div>
-                            <div class="ff">
-                                <span class="ff-lab">Vendor</span>
-                                <div class="ff-in">Acme Supplies</div>
+                            <div class="sc">
+                                <div class="sc-row">
+                                    <div
+                                        class="sw"
+                                        style="background: #b1d4d0"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #a0c3be"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #7bc5c1"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #71b3b0"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #429a96"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #3c8784"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #497977"
+                                    ></div>
+                                    <div
+                                        class="sw star"
+                                        style="background: #1b5855"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #184c49"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #0a3432"
+                                    ></div>
+                                </div>
+                                <div class="sc-meta">
+                                    <span>Brand &middot; teal</span
+                                    ><span>#1B5855</span>
+                                </div>
                             </div>
-                            <div class="ff">
-                                <span class="ff-lab">Amount</span>
-                                <div class="ff-in">&pound;4,820.00</div>
+                            <div class="sc">
+                                <div class="sc-row">
+                                    <div
+                                        class="sw"
+                                        style="background: #ffffff"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #fffdfb"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #fffdf8"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #f7f3ea"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #eee8da"
+                                    ></div>
+                                    <div
+                                        class="sw"
+                                        style="background: #e6dcc4"
+                                    ></div>
+                                </div>
+                                <div class="sc-meta">
+                                    <span>Backdrop &middot; warm cream</span
+                                    ><span>#FFFDF8</span>
+                                </div>
                             </div>
-                            <div class="ff">
-                                <span class="ff-lab">Due date</span>
-                                <div class="ff-in">14 Jun 2026</div>
+                        </div>
+                        <div>
+                            <div class="found-h">
+                                Type
+                                <span class="su">&middot; Instrument Sans</span>
                             </div>
-                            <span class="form-btn">Add to accounting tool</span>
+                            <div class="spec">
+                                <div class="spec-row">
+                                    <span class="spec-tag"
+                                        >H1 &middot; 36/500</span
+                                    ><span class="spec-txt s-h1"
+                                        >Clean and calm</span
+                                    >
+                                </div>
+                                <div class="spec-row">
+                                    <span class="spec-tag"
+                                        >H2 &middot; 30/500</span
+                                    ><span class="spec-txt s-h2"
+                                        >A product you can trust</span
+                                    >
+                                </div>
+                                <div class="spec-row">
+                                    <span class="spec-tag"
+                                        >H3 &middot; 24/500</span
+                                    ><span class="spec-txt s-h3"
+                                        >Built from a small set of parts</span
+                                    >
+                                </div>
+                                <div class="spec-row">
+                                    <span class="spec-tag"
+                                        >Body &middot; 16/400</span
+                                    ><span class="spec-txt s-body"
+                                        >Authoritative, with a little
+                                        warmth.</span
+                                    >
+                                </div>
+                                <div class="spec-row">
+                                    <span class="spec-tag"
+                                        >Micro &middot; 11/500</span
+                                    ><span class="spec-txt s-micro"
+                                        >Recent activity</span
+                                    >
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <figcaption class="cap">
-                    How the system flows: the design system in Figma, captured
-                    as a set of structured design docs, and composed into a form
-                    built for the account, with just the fields it needs and a
-                    connection to the accounting tool it writes into.
+                    The foundations the rest of the system is built on: a warm
+                    cream backdrop, a teal brand scale, and Instrument Sans.
+                    (Generic example of the tokens.)
                 </figcaption>
             </figure>
         </div>
@@ -1614,30 +1975,28 @@
                     <section class="cs-sec" id="overview">
                         <div class="sec-tag label rv">01 &middot; Overview</div>
                         <h2 class="rv">
-                            What if an AI agent could read our design system and
-                            <em>build</em> from it?
+                            Designing the system the rest of the product is
+                            <em>built from</em>.
                         </h2>
                         <p class="rv">
-                            At Brim I design the system the rest of the product
-                            is built from, which means the visual language, the
-                            component library, and increasingly the
-                            documentation that tells both people and AI agents
-                            how to build new parts of the product. Brim itself
-                            is an AI system that helps small to mid-sized
-                            businesses own their specific intelligence, meaning
-                            the agent will continuously learn and run real tasks
-                            accordingly to the way their company works.
+                            At an early-stage AI company, I designed the system
+                            the rest of the product is built from, which means
+                            the visual language, the component library, and the
+                            documentation that lets the team build new things
+                            consistently. I was the only product designer, so
+                            for a while every new component had to come through
+                            me, and I started looking for a way of working that
+                            did not depend on me drawing each one by hand.
                         </p>
                         <p class="rv">
-                            This was a close collaboration with Brim's founder.
                             The visual design system in Figma was mostly mine to
-                            build, but the move toward a more compositional,
-                            dynamic system was something he initiated, and a lot
-                            of his direction shaped how I came to think about
-                            it. As AI evolved and new frameworks became
-                            available, rendering components dynamically went
-                            from an idea into something we could actually build,
-                            and that shift is what this case study is about.
+                            build, with help adding these components into
+                            Storybook with the engineers. A lot of how I came to
+                            think about the system underneath it came from
+                            working closely with the founder, who had been
+                            thinking this way for a while and walked me through
+                            how to step back from the screen to the structure
+                            beneath it.
                         </p>
                         <div class="facts rv">
                             <div>
@@ -1659,70 +2018,55 @@
                                 <div class="k label">Skills</div>
                                 <div class="v">
                                     Design systems, systems thinking, visual
-                                    identity, documentation, frontend,
-                                    prototyping, Figma, Claude Code
+                                    identity, documentation, prototyping, Figma
                                 </div>
                             </div>
                         </div>
                         <p class="rv" style="margin-top: 26px">Outcome</p>
                         <div class="callout rv">
-                            A design system an AI agent can read and build from,
-                            which took implementation cycles
-                            <em>from months to weeks</em>.
+                            A design system, and the documentation underneath
+                            it, that let the team build new screens consistently
+                            and move a lot <em>faster</em>.
                         </div>
                     </section>
 
                     <section class="cs-sec" id="tldr">
                         <div class="sec-tag label rv">02 &middot; TL;DR</div>
                         <h2 class="rv">
-                            I rebuilt the design system so an AI agent could
-                            <em>compose</em> from it, enabling more personalised
-                            experiences.
+                            I built the system, then wrote it down so the team
+                            could <em>build from it</em>.
                         </h2>
                         <div class="tldr rv">
                             <div class="part">
                                 <div class="k label">The challenge</div>
                                 <p>
-                                    I was the only product designer on the team,
-                                    so every time we needed a new component it
-                                    had to be designed by me first, which made
-                                    me the bottleneck on how fast the product
-                                    could move. At the same time, Brim was
-                                    heading toward a more dynamic kind of
-                                    interface, where parts of the experience are
-                                    composed on the fly rather than static. So
-                                    designing that manually, a screen at a time,
-                                    was never going to keep up.
+                                    I was the only product designer on a small
+                                    team, so every new component had to be
+                                    designed by me first, which made me the
+                                    bottleneck on how fast the product could
+                                    move.
                                 </p>
                             </div>
                             <div class="part">
                                 <div class="k label">What I did</div>
                                 <p>
-                                    I had historically built a design system
-                                    library on Figma, and the engineers moved it
-                                    into Storybook with my contributions to docs
-                                    and variants. My first attempt at
-                                    unbottlenecking was connecting Figma MCP so
-                                    AI could read the system, but this was not
-                                    enough to build from it. So I rewrote the
-                                    system into a set of structured design docs
-                                    the team builds from, written to carry the
-                                    thinking I would have brought to each new
-                                    screen myself.
+                                    I built the design system in Figma the way
+                                    atomic design lays it out, from tokens to
+                                    primitives to components, moved it into
+                                    Storybook with the engineers, and
+                                    increasingly wrote it down as documentation
+                                    so the rest of the team could build from it
+                                    consistently.
                                 </p>
                             </div>
                             <div class="part">
                                 <div class="k label">The outcome</div>
                                 <p>
                                     New components stopped being something the
-                                    team had to wait on me for, because the
-                                    primitives and the rules for composing them
-                                    were already written down in a form an agent
-                                    could follow. Implementation cycles went
-                                    from months to weeks, and the way we extend
-                                    the system moved from drawing screens toward
-                                    deciding what to specify and what to leave
-                                    open.
+                                    team had to wait on me for. The engineers
+                                    could style and build them without checking
+                                    against me, which cut weeks off our
+                                    development cycle.
                                 </p>
                             </div>
                         </div>
@@ -1741,12 +2085,10 @@
                             build.
                         </div>
                         <p class="muted rv">
-                            Brim had to work for any business user of any
-                            industry, so the set of components and flows the
-                            interface might need is effectively infinite. The
-                            more I sat with it, the clearer it became that this
-                            needed a different way of working rather than more
-                            of me.
+                            Everything design touched had a single path through
+                            it, mine. The more I sat with it, the clearer it
+                            became that this needed a different way of working
+                            rather than more of me.
                         </p>
                     </section>
 
@@ -1760,86 +2102,70 @@
                         </h2>
                         <p class="rv">
                             This is where the way I think about design changed.
-                            Building a compositional design system means
-                            stepping away from individual screens and designing
-                            the system underneath them, the primitives, the
+                            Designing a system means stepping back from
+                            individual screens to the primitives, the
                             relationships between them, and the principles that
                             decide how they fit. The goal became a system clear
-                            enough that a person and an AI agent could both
-                            build new things from it without breaking how Brim
-                            feels.
+                            enough that anyone on the team could build new
+                            things from it without breaking how the product
+                            feels. At an AI company this mattered more than it
+                            would elsewhere, because more of the product gets
+                            built from the system than drawn by hand, so the
+                            system has to carry the design judgment that used to
+                            live in each screen I made.
                         </p>
 
                         <figure class="rv">
-                            <div class="fj">
-                                <div class="fj-grid">
-                                    <!-- BEFORE -->
-                                    <div class="fj-col">
-                                        <div class="fj-head">
-                                            Before &middot;
-                                            <b>designing incrementally</b>
-                                        </div>
-                                        <div class="fj-card r1">
-                                            A new need comes up
-                                        </div>
-                                        <div class="fj-down"></div>
-                                        <div class="fj-card r2">
-                                            I research and work it out with
-                                            engineers
-                                        </div>
-                                        <div class="fj-down"></div>
-                                        <div class="fj-rowline">
-                                            <div class="fj-card r1">
+                            <div class="fj fj-single">
+                                <div class="fj-flow">
+                                    <div class="fj-head">
+                                        The old way &middot;
+                                        <b>a new screen, every time</b>
+                                    </div>
+                                    <div class="fj-card r1">
+                                        A new need comes up
+                                    </div>
+                                    <div class="fj-down"></div>
+                                    <div class="fj-mark">
+                                        <div class="fj-hotgroup">
+                                            <div class="fj-card hot">
+                                                I research and work it out with
+                                                engineers
+                                            </div>
+                                            <div class="fj-down"></div>
+                                            <div class="fj-card hot">
                                                 I design the screen in Figma
                                             </div>
-                                            <div class="fj-card me">
-                                                checked against me
-                                            </div>
                                         </div>
-                                        <div class="fj-down"></div>
-                                        <div class="fj-card r2">
-                                            Engineering builds it
-                                        </div>
-                                        <div class="fj-down"></div>
-                                        <div class="fj-card r1">Start over</div>
-                                        <div class="fj-loop">
-                                            <span class="lc">&#8634;</span>
-                                            every new screen repeats the chain
+                                        <div class="fj-annot">
+                                            <span class="fj-brace"></span>
+                                            <span class="fj-arrow">&rarr;</span>
+                                            <span class="fj-callout"
+                                                >this is now replaced with
+                                                <b
+                                                    >defining the principle</b
+                                                ></span
+                                            >
                                         </div>
                                     </div>
-
-                                    <!-- THE SHIFT -->
-                                    <div class="fj-mid">
-                                        <span class="ar">&rarr;</span>
-                                        <span class="ml">the shift</span>
+                                    <div class="fj-down"></div>
+                                    <div class="fj-card r2">
+                                        Engineering builds it
                                     </div>
-
-                                    <!-- AFTER -->
-                                    <div class="fj-col">
-                                        <div class="fj-head">
-                                            After &middot;
-                                            <b>designing in systems</b>
-                                        </div>
-                                        <div class="fj-card r1">
-                                            A need comes up
-                                        </div>
-                                        <div class="fj-down"></div>
-                                        <div class="fj-card tint r2">
-                                            Built from structured documentation
-                                        </div>
-                                        <div class="fj-down"></div>
-                                        <div class="fj-card tint r1">
-                                            A finished screen
-                                        </div>
+                                    <div class="fj-down"></div>
+                                    <div class="fj-card r1">Start over</div>
+                                    <div class="fj-loop">
+                                        <span class="lc">&#8634;</span>
+                                        every new screen repeats the chain
                                     </div>
                                 </div>
                             </div>
                             <figcaption class="cap">
-                                The same path as before, but built from a shared
-                                system instead of drawn screen by screen: a need
-                                comes up, it is built from a set of structured
-                                design docs, and what comes out is a finished
-                                screen that already fits the system.
+                                The old way: every new screen meant researching
+                                it and drawing it in Figma, over and over. The
+                                shift was to replace those two repeated steps
+                                with defining the principle once, so the system
+                                could carry the rest.
                             </figcaption>
                         </figure>
 
@@ -1858,29 +2184,36 @@
                                         I started in the second half of 2025
                                         with a fairly standard design system in
                                         Figma, organised the way atomic design
-                                        lays it out, from tokens to primitives
-                                        to composites to layouts and templates.
-                                        This part I did myself, and it gave Brim
-                                        a consistent visual language to build
-                                        from while the product was still moving
-                                        quickly and changing shape.
+                                        lays it out: colour and type tokens,
+                                        spacing and radii, then primitives,
+                                        components and their states, and finally
+                                        layouts and templates. This part I did
+                                        myself, and it gave the product a
+                                        consistent visual language to build from
+                                        while it was still moving quickly and
+                                        changing shape.
                                     </p>
                                 </div>
                             </div>
                             <div class="step">
                                 <div class="sn">02</div>
                                 <div>
-                                    <h3>Where reading fell short</h3>
+                                    <h3>Where the tooling alone fell short</h3>
                                     <p>
-                                        My first attempt at getting out of the
-                                        bottleneck was connecting Figma through
-                                        Claude MCP, so our agents could read the
-                                        design system directly and make new
-                                        components. It made the system legible
-                                        to an agent for the first time, but we
-                                        kept hitting the same limit, the design
-                                        was still handed over to an engineer to
-                                        build.
+                                        My first attempts to get out of the
+                                        bottleneck leaned on the tooling. The
+                                        primitives lived in code in Storybook,
+                                        where I helped add them along with their
+                                        docs and variants, and I connected the
+                                        tokens through Figma's MCP so they
+                                        stayed in sync between design and code.
+                                        All of that helped, but I kept hitting
+                                        the same limit: the tooling could carry
+                                        what already existed, yet turning it
+                                        into new screens that still fit the
+                                        system routed through me and the
+                                        engineers, so it did not actually
+                                        unblock the team.
                                     </p>
                                 </div>
                             </div>
@@ -1889,13 +2222,11 @@
                                 <div>
                                     <h3>Rewriting it into documents</h3>
                                     <p>
-                                        As Brim moved toward a much more dynamic
-                                        experience, the real change was
-                                        rewriting the system into a set of
-                                        structured design docs the agent itself
-                                        could build from, written to carry the
-                                        thinking I would have brought to each
-                                        new screen myself.
+                                        The real change was rewriting the system
+                                        into a set of structured design docs the
+                                        team could build from, written to carry
+                                        the thinking I would have brought to
+                                        each new screen myself.
                                     </p>
                                 </div>
                             </div>
@@ -1907,7 +2238,7 @@
                             was really answering stopped being how do I design
                             this faster, and became what principle is this
                             component based on so that anything built from it
-                            still feels like Brim.
+                            still feels like the product.
                         </p>
                     </section>
 
@@ -1921,64 +2252,166 @@
                             The solution was less a document and more a way of
                             organising the system so the thinking came first.
                             Rather than fixing the product a page at a time, I
-                            started from the principles that govern how Brim's
-                            design and experience should work, and let the rest
-                            follow from there.
+                            started from the principles that govern how the
+                            product's design and experience should work, and let
+                            the rest follow from there.
                         </p>
 
                         <div class="moment">
-                            <h3 class="rv">Leading with principles</h3>
+                            <h3 class="rv">
+                                Building it in Figma, and how it should feel
+                            </h3>
                             <p class="muted rv">
-                                I led with the principles that govern Brim's
-                                design and experience, like motion or
-                                accessibility, then went back to the primitives
-                                I already had and set them out in the design
-                                docs. With the primitives, the styles, and the
-                                spacing already covered, creating new components
-                                was not the hard part. The real work was making
-                                sure anything built from it stayed true to the
-                                system already in place.
+                                Before the documentation, a lot of the work in
+                                Figma went on branding, on how this AI platform
+                                should actually feel. I wanted a clean, calm
+                                backdrop, so I built it on a warm cream rather
+                                than a stark white, which keeps everything
+                                softer and less clinical. For the accent I went
+                                with shades of green and teal, because teal
+                                reads as trustworthy and calm, which is exactly
+                                the feeling you want from a tool people are
+                                handing real work to. For type I chose
+                                Instrument Sans, since a sans-serif carries a
+                                sense of authority while Instrument Sans keeps a
+                                slight playfulness that stops the whole thing
+                                from feeling cold. With the primitives, the
+                                styles, and the spacing set, the product had a
+                                consistent visual language to grow from.
                             </p>
+                            <figure class="rv">
+                                <img
+                                    src="../assets/case-02/design-system.png"
+                                    alt="A slice of the component library: buttons, inputs, cards, and status pills, all built on the same tokens in Instrument Sans."
+                                    loading="lazy"
+                                    style="
+                                        width: 100%;
+                                        height: auto;
+                                        display: block;
+                                        border: 1px solid var(--rule);
+                                        border-radius: 12px;
+                                    "
+                                />
+                                <figcaption class="cap">
+                                    A slice of the component library, the
+                                    primitives and components the rest of the
+                                    product is built from. (Generic example, no
+                                    real product screens.)
+                                </figcaption>
+                            </figure>
                         </div>
 
                         <div class="moment">
                             <h3 class="rv">What the docs capture</h3>
                             <p class="muted rv">
-                                Read together, a set of structured design docs
-                                gives the system enough to build something new
-                                that had Brim's design and language, rather than
-                                something assembled from the right parts that
-                                does not quite hold together. The example below
-                                is an invented, generic illustration of the kind
-                                of thing they capture.
+                                Once the look was there, the real work was
+                                writing it down so the rest of the team could
+                                build from it without routing through me. I led
+                                with the principles that govern how the design
+                                and experience behave, like motion and
+                                accessibility, and the shift I cared about most
+                                was that a colour stopped being just a hex. It
+                                became a principle, with a rule for where it
+                                belongs and where it must not go, so anything
+                                added later follows the same logic instead of
+                                being decided fresh each time. The same is true
+                                of a button, a pill, any primitive. Read
+                                together, the docs give the system enough to
+                                build something new that has the product's
+                                design and language, rather than something
+                                assembled from the right parts that does not
+                                quite hold together.
                             </p>
                             <figure class="rv">
-                                <div class="md-snip">
-                                    <div class="md-bar">
-                                        <span class="d"></span
-                                        ><span class="d"></span
-                                        ><span class="d"></span
-                                        ><span class="nm">example.md</span>
+                                <div class="prin">
+                                    <div class="prin-row">
+                                        <div class="prin-vis">
+                                            <span
+                                                class="prin-sw"
+                                                style="background: #1b5855"
+                                            ></span>
+                                            <span class="prin-tk"
+                                                ><b>Brand teal</b
+                                                ><span class="hex"
+                                                    >#1B5855</span
+                                                ></span
+                                            >
+                                        </div>
+                                        <div class="prin-rule">
+                                            For the <b>primary action only</b>,
+                                            the single most important thing on a
+                                            screen.
+                                            <span class="never"
+                                                >Never a background, never a
+                                                field.</span
+                                            >
+                                        </div>
                                     </div>
-                                    <pre><span class="h"># Card · example</span>
-
-<span class="k">tokens:</span>   surface · border · radius-md · space-16
-<span class="k">type:</span>     title 14·500   body 14·400
-<span class="k">states:</span>   rest · hover (lift 1px) · focus ring
-
-<span class="k">rules:</span>
-  - build only from primitives that already exist
-  - one primary action per card
-  - a display-only card does not perform an action
-
-<span class="k">use when:</span>
-  - a single object, one figure, one owner
-  - <span class="c">never a full roster, that is a list</span></pre>
+                                    <div class="prin-row">
+                                        <div class="prin-vis">
+                                            <span
+                                                class="prin-sw"
+                                                style="
+                                                    background: #fffdf8;
+                                                    border-color: #e6dcc4;
+                                                "
+                                            ></span>
+                                            <span class="prin-tk"
+                                                ><b>Canvas</b
+                                                ><span class="hex"
+                                                    >#FFFDF8</span
+                                                ></span
+                                            >
+                                        </div>
+                                        <div class="prin-rule">
+                                            The page is <b>warm cream</b>, so
+                                            the product feels calm and
+                                            considered.
+                                            <span class="never"
+                                                >Never pure white, which reads
+                                                as a different product.</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="prin-row">
+                                        <div class="prin-vis">
+                                            <span class="prin-pill"
+                                                ><span class="dot"></span
+                                                >Running</span
+                                            >
+                                        </div>
+                                        <div class="prin-rule">
+                                            Status is always a
+                                            <b>dot inside a pill</b>.
+                                            <span class="never"
+                                                >Never a bar of colour or a
+                                                coloured background.</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="prin-row">
+                                        <div class="prin-vis">
+                                            <span class="prin-btns"
+                                                ><span class="prin-b pri"
+                                                    >Save</span
+                                                ><span class="prin-b gho"
+                                                    >Cancel</span
+                                                ></span
+                                            >
+                                        </div>
+                                        <div class="prin-rule">
+                                            <b>One primary action per view</b>,
+                                            everything else stays quiet, so a
+                                            person always knows the one thing to
+                                            do.
+                                        </div>
+                                    </div>
                                 </div>
                                 <figcaption class="cap">
-                                    A generic example of the kind of structured
-                                    design doc the team builds from, not the
-                                    real system.
+                                    A colour, a pill, a button: in the docs each
+                                    one carries the rule behind it, so the
+                                    system stays coherent as new things get
+                                    added.
                                 </figcaption>
                             </figure>
                         </div>
@@ -1986,8 +2419,13 @@
                         <div class="moment">
                             <h3 class="rv">From guidelines to guardrails</h3>
                             <p class="muted rv">
-                                These are not guidelines that get read once and
-                                then forgotten, because it's meant to compound
+                                Once the system was written down, a big part of
+                                my job became working out what each customer
+                                needs, like how their data should be presented,
+                                and the documentation made that much faster than
+                                hand-designing every screen. These are not
+                                guidelines that get read once and then
+                                forgotten, because they're meant to compound
                                 over time. The rules are what keep the system
                                 coherent as it grows, so anything new built from
                                 it still shares the same primitives, the same
@@ -2002,8 +2440,7 @@
                                 <div class="kit">
                                     <div class="kit-base">
                                         <span class="kit-baselab"
-                                            ><b>The same primitives</b>,
-                                            designed once, by hand</span
+                                            ><b>The same primitives</b></span
                                         >
                                         <div class="kit-prims">
                                             <span class="kit-prim">Card</span>
@@ -2023,12 +2460,9 @@
                                         <span class="drop c"></span>
                                     </div>
                                     <div class="kit-row">
-                                        <!-- finance operator: approval card -->
                                         <div class="kitc">
-                                            <span class="who"
-                                                >Finance operator</span
-                                            >
-                                            <div class="kit-surface">
+                                            <span class="who">Finance</span>
+                                            <div class="kit-screen">
                                                 <div class="krow">
                                                     <span class="kln"></span
                                                     ><span class="kval"
@@ -2052,10 +2486,9 @@
                                                 >
                                             </div>
                                         </div>
-                                        <!-- ops lead: vendor form -->
                                         <div class="kitc">
-                                            <span class="who">Ops lead</span>
-                                            <div class="kit-surface">
+                                            <span class="who">Operations</span>
+                                            <div class="kit-screen">
                                                 <span class="klab">Vendor</span>
                                                 <div class="kfield"></div>
                                                 <span class="klab">Amount</span>
@@ -2073,10 +2506,9 @@
                                                 >
                                             </div>
                                         </div>
-                                        <!-- founder: metrics summary -->
                                         <div class="kitc">
                                             <span class="who">Founder</span>
-                                            <div class="kit-surface">
+                                            <div class="kit-screen">
                                                 <span class="kbig"
                                                     >&pound;128k</span
                                                 >
@@ -2106,42 +2538,27 @@
                                     </div>
                                 </div>
                                 <figcaption class="cap">
-                                    Same primitives, different composites. Each
-                                    person gets a surface composed for them, but
-                                    every one is built from the same small set
-                                    of parts, which is what keeps them all
-                                    feeling like one system.
+                                    Different customers need their data shown in
+                                    different ways, and once it was documented,
+                                    working out each one got much faster, with
+                                    every screen still built from the same small
+                                    set of parts.
                                 </figcaption>
                             </figure>
                         </div>
 
-                        <div class="moment">
-                            <h3 class="rv">
-                                Knowing where not to hand it over
-                            </h3>
-                            <p class="muted rv">
-                                Not everything should be composed by an agent,
-                                and a big part of the work was being clear about
-                                what stays a human decision. The primitives
-                                themselves stay based on my initial designs, so
-                                the agent only ever composes from the parts that
-                                already exist and never invents a new one. The
-                                overall layout sits with the human too,
-                                including where a component belongs on the page
-                                and how the page is divided. The agent composes
-                                within that structure, it does not get to
-                                rearrange the page.
-                            </p>
-                        </div>
-
                         <p class="rv">
-                            For the customer, all of this shows up as components
-                            composed for their own data and the tools they
-                            actually use, rather than generic or overcrowded
-                            screens where they have to hunt for the one field or
-                            card that matters. The work of finding what is
-                            relevant is handled for them, so the right thing is
-                            simply handed over.
+                            For the person using the product, all of this shows
+                            up as screens that feel considered and consistent,
+                            rather than generic or overcrowded ones where they
+                            have to hunt for the one field or card that matters.
+                        </p>
+                        <p class="rv">
+                            The real test was handing the system to the
+                            engineering team. They could style and build new
+                            components on their own and trust they had them
+                            right, without checking each one against me, and
+                            that is what made product move much faster.
                         </p>
                     </section>
 
@@ -2161,47 +2578,46 @@
                             <div class="k label">The hard part</div>
                             <p>
                                 Writing the design docs was not as
-                                straightforward as I expected. It is not a
-                                straight path, and you cannot just take all of
-                                your Figma tokens and pour them into a markdown
-                                file, especially when the product is moving
-                                toward something dynamic rather than a regular
-                                SaaS layout. Every principle has to be tested,
-                                you write one, you put it on a prototype, you
-                                watch what the agent does with it, and you
-                                iterate. The system holds up after several
-                                rounds of that, rather than on the first pass.
+                                straightforward as I expected. You cannot just
+                                take all of your Figma tokens and pour them into
+                                a document and call it done. Every principle has
+                                to be tested, you write one, you put it on a
+                                prototype, you see how it holds, and you
+                                iterate. The system only really holds up after
+                                several rounds of that, rather than on the first
+                                pass.
                             </p>
                         </div>
                         <div class="cols2 rv">
                             <div>
                                 <h3>What worked</h3>
                                 <p class="muted">
-                                    Designing in systems is where I think
-                                    product design is heading, and the work
-                                    depends more and more on my judgment about
-                                    what the agent should reproduce, and on
-                                    remembering that I still have control over
-                                    that. The biggest thing I learned is that an
-                                    AI is only ever as good as what you give it,
-                                    and that it follows principles far better
-                                    than a set of patched-up features, so when
-                                    you are clear about what it should review
-                                    and check against, it becomes better and
-                                    better.
+                                    Designing in systems rather than screens is
+                                    where I think product design is heading. The
+                                    biggest thing I took away is that an AI is
+                                    only ever as good as what you give it. It
+                                    follows a clear principle far better than a
+                                    pile of patched-up rules, so the more
+                                    precisely I could write down the thinking
+                                    behind a component, the better and more
+                                    consistent everything the team built from it
+                                    turned out. The work leaned more and more on
+                                    my judgment about what actually mattered in
+                                    a component, and on remembering that
+                                    judgment was still mine to set, which is the
+                                    part I did not expect to matter as much as
+                                    it did.
                                 </p>
                             </div>
                             <div>
                                 <h3>What I'd do differently</h3>
                                 <p class="muted">
                                     I would speak to the engineers earlier about
-                                    how all of this gets technically
-                                    implemented. We did have an architecture
-                                    framework in place, but there was a lot of
-                                    technical language in it that I would have
-                                    understood faster, and used better, if I had
-                                    worked more closely with engineering while
-                                    it was being written.
+                                    how it all gets implemented, because there
+                                    was a lot I would have understood faster,
+                                    and used better, by working more closely
+                                    with them while the system was being
+                                    written.
                                 </p>
                             </div>
                         </div>
@@ -2212,10 +2628,11 @@
 
         <footer>
             <div class="shell">
-                <a href="../index.html" class="next">
-                    <div class="label">Back to</div>
+                <a href="bootcamp-preview.html" class="next">
+                    <div class="label">Next project</div>
                     <span class="nt"
-                        >Selected work <span class="ar">&rarr;</span></span
+                        >From a social feed to a personal stylist
+                        <span class="ar">&rarr;</span></span
                     >
                 </a>
                 <div class="colophon">

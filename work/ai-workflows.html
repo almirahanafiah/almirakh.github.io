@@ -3,10 +3,11 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Designing the unit of work for agentic AI, Almira</title>
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Innovating agentic AI workflows, Almira Hanafiah</title>
         <meta
             name="description"
-            content="Led the design of how work gets defined, run, and logged in an AI business platform, designing for trust and control.
+            content="Led the design for how work gets defined and run against real tools in an AI product, enabling user trust and control."
         />
         <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -357,7 +358,7 @@
                 color: var(--pink-deep);
             }
 
-            /* ============ Branching diagram: one event, many surfaces ============ */
+            /* ============ Branching diagram: one event, many screens ============ */
             .bd-frame {
                 background: var(--paper-2);
                 border: 1px solid var(--rule);
@@ -413,18 +414,18 @@
                 color: var(--pink-deep);
                 margin-bottom: 12px;
             }
-            .bd-surfaces {
+            .bd-screens {
                 list-style: none;
                 padding: 0;
                 margin: 0;
             }
-            .bd-surfaces li {
+            .bd-screens li {
                 font-size: 0.82rem;
                 color: var(--ink);
                 padding: 6px 0;
                 border-top: 1px solid var(--rule);
             }
-            .bd-surfaces li:first-child {
+            .bd-screens li:first-child {
                 border-top: none;
                 padding-top: 0;
             }
@@ -435,7 +436,7 @@
                 }
             }
 
-            /* ============ Cross-surface diagram (Solution 3) ============ */
+            /* ============ Cross-screen diagram (Solution 3) ============ */
             .diagram {
                 width: 100%;
                 height: auto;
@@ -641,12 +642,15 @@
                 font-variant-numeric: tabular-nums;
                 color: var(--pink-deep);
                 font-size: 0.82rem;
-                padding-top: 3px;
+                /* match the h3 first-line box (1.18rem x 1.25) so the number
+                   sits centered against the heading's first line */
+                line-height: 1.475rem;
             }
             .pr h3 {
                 font-size: 1.18rem;
                 letter-spacing: -0.015em;
                 line-height: 1.25;
+                margin-top: 0;
                 margin-bottom: 6px;
             }
             .pr p {
@@ -754,18 +758,18 @@
             }
 
             /* ============================================================
-     BRIM PRODUCT MOCK, scoped under .brimui
-     A faithful-but-abstracted slice of the real product styling:
-     cream canvas, Instrument Sans, the step rail, tool chips, the
-     decision callout. Namespaced so it never touches the page.
+     PROTOTYPE MOCK, scoped under .pmock
+     An abstracted illustration of the prototype: cream canvas, a
+     thread, simple step markers, and a decision callout. Namespaced
+     so it never touches the page.
   ============================================================ */
-            .brimui {
+            .pmock {
                 --bu-canvas: #fffdf8;
                 --bu-card: #fffdfb;
                 --bu-neutral-300: #f7f3ea;
                 --bu-border: #f0efec;
                 --bu-border-strong: #d9d9d9;
-                /* moment-4 surfaces, mapped onto the warm Brim canvas so they
+                /* moment-4 screens, mapped onto the warm the product canvas so they
                    read like the other moment frames rather than the cooler
                    portfolio paper */
                 --bu-paper: var(--bu-card);
@@ -794,7 +798,7 @@
                 color: var(--bu-t1);
                 -webkit-font-smoothing: antialiased;
             }
-            .brimui * {
+            .pmock * {
                 box-sizing: border-box;
             }
 
@@ -1021,7 +1025,7 @@
                 color: var(--bu-t3);
             }
 
-            /* step rail */
+            /* step markers */
             .bu-rail {
                 position: relative;
                 padding-left: 16px;
@@ -1199,8 +1203,8 @@
                 flex-shrink: 0;
             }
 
-            /* a2ui decision callout */
-            .bu-a2ui {
+            /* handoff decision callout */
+            .bu-handoff {
                 margin-top: 4px;
                 max-width: 600px;
                 background: var(--bu-warning-pale);
@@ -1210,7 +1214,7 @@
                 display: flex;
                 gap: 14px;
             }
-            .bu-a2ui-icon {
+            .bu-handoff-icon {
                 width: 28px;
                 height: 28px;
                 border-radius: 8px;
@@ -1222,21 +1226,21 @@
                 justify-content: center;
                 flex-shrink: 0;
             }
-            .bu-a2ui-icon svg {
+            .bu-handoff-icon svg {
                 width: 14px;
                 height: 14px;
             }
-            .bu-a2ui-title {
+            .bu-handoff-title {
                 font: 500 13.5px/19px var(--bu-font);
                 color: var(--bu-t1);
                 letter-spacing: -0.005em;
             }
-            .bu-a2ui-text {
+            .bu-handoff-text {
                 font: 400 13px/19px var(--bu-font);
                 color: var(--bu-t2);
                 margin-top: 4px;
             }
-            .bu-a2ui-actions {
+            .bu-handoff-actions {
                 display: flex;
                 gap: 8px;
                 margin-top: 12px;
@@ -1397,7 +1401,7 @@
                 color: var(--bu-t3);
             }
 
-            /* detail panel (matches the product's floating assignment panel) */
+            /* detail panel (matches the product's floating task panel) */
             .bu-panel {
                 max-width: 440px;
                 margin: 0 auto;
@@ -1700,7 +1704,7 @@
                 gap: 8px;
             }
 
-            /* operator-trust surfaces (moment 3): one moment, three surfaces */
+            /* trust screens (moment 3): one moment, three screens */
             .bu-ot-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
@@ -1716,7 +1720,7 @@
                 color: var(--bu-t3);
                 margin-bottom: 8px;
             }
-            .bu-ot-surface {
+            .bu-ot-screen {
                 background: var(--bu-canvas);
                 border: 1px solid var(--bu-border);
                 border-radius: 12px;
@@ -1890,7 +1894,7 @@
             .bu-email-preview .tr {
                 color: var(--bu-low);
             }
-            /* moment 3 — surfaces on a neutral stage, 2x2 */
+            /* moment 3, screens on a neutral stage, 2x2 */
             .bu-stage3 {
                 background: #f1efea;
                 border-radius: 18px;
@@ -1902,7 +1906,7 @@
                 gap: 18px;
                 align-items: start;
             }
-            .bu-grid2 .bu-ot-surface {
+            .bu-grid2 .bu-ot-screen {
                 padding: 16px 18px;
             }
             .bu-ot-cap3 {
@@ -1913,7 +1917,7 @@
             .bu-grid2 .bu-rail {
                 padding-bottom: 0;
             }
-            .bu-grid2 .bu-a2ui {
+            .bu-grid2 .bu-handoff {
                 max-width: 100%;
             }
             /* invoice snippet in the run-thread callout */
@@ -1957,7 +1961,7 @@
                 font-weight: 400;
                 color: var(--bu-t3);
             }
-            /* AI feed cards */
+            /* activity cards */
             .bu-feed-col {
                 display: flex;
                 flex-direction: column;
@@ -2052,7 +2056,7 @@
             .bu-feed-ghost {
                 opacity: 0.45;
             }
-            /* email — real client look, white */
+            /* email, real client look, white */
             .bu-email2 {
                 background: #ffffff;
                 border: 1px solid #e4e2dc;
@@ -2142,7 +2146,7 @@
                 }
             }
 
-            /* moment 4 — run complete, outputs in the right panel, opens a document */
+            /* moment 4, run complete, outputs in the right panel, opens a document */
             .bu-win4 {
                 position: relative;
                 height: 444px;
@@ -2370,7 +2374,7 @@
                 }
             }
 
-            /* research — before/after comparison: graph builder vs the plan */
+            /* research, before/after comparison: graph builder vs the plan */
             .bu-compare {
                 background: #f1efea;
                 border-radius: 18px;
@@ -2607,8 +2611,8 @@
                 font-size: 11px;
                 white-space: normal;
             }
-            /* brim thread + plan component (right side of the comparison) */
-            .bu-compare .bu-ot-surface {
+            /* agent thread + plan component (right side of the comparison) */
+            .bu-compare .bu-ot-screen {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
@@ -2677,7 +2681,7 @@
                 }
             }
 
-            /* design-exploration block — the side panel, broken into what matters */
+            /* design-exploration block, the side panel, broken into what matters */
             .xp-sec {
                 padding-bottom: 84px;
             }
@@ -2816,7 +2820,7 @@
                 }
             }
 
-            /* research comparison 2 — Claude vs Brim's thread + audit panel */
+            /* research comparison 2, chat tool vs a thread with a side panel */
             .bu-claude {
                 background: #f5f4ee;
                 border: 1px solid #e6e3db;
@@ -2942,7 +2946,7 @@
                 text-align: center;
                 padding: 0 0 12px;
             }
-            /* brim two-pane: thread + audit panel, faithful to the product */
+            /* two-pane: thread + side panel */
             .bu-bp2 {
                 display: flex;
                 flex-direction: column;
@@ -3122,7 +3126,7 @@
                 color: var(--bu-t2);
                 font-size: 9px;
             }
-            /* comparison-2 Brim side, scaled down */
+            /* comparison-2 the product side, scaled down */
             .bu-bp2 .bu-avatar {
                 width: 19px;
                 height: 19px;
@@ -3269,7 +3273,7 @@
                     box-shadow: 0 0 0 0 rgba(27, 88, 85, 0);
                 }
             }
-            .brimui .bu-fade {
+            .pmock .bu-fade {
                 animation: bu-fadein 0.4s var(--ease) both;
             }
             @keyframes bu-fadein {
@@ -3284,9 +3288,9 @@
             }
 
             @media (prefers-reduced-motion: reduce) {
-                .brimui *,
-                .brimui *::before,
-                .brimui *::after {
+                .pmock *,
+                .pmock *::before,
+                .pmock *::after {
                     animation: none !important;
                 }
                 .bu-stage {
@@ -3313,7 +3317,7 @@
                     font-size: 12.5px;
                 }
             }
-            /* ── Moment 4 (new): when the agent surfaces what needs your call ──────────── */
+            /* ── Moment 4 (new): when the agent screens what needs your call ──────────── */
             .bu-frame.bu-pa {
                 padding: 22px 24px;
             }
@@ -3511,7 +3515,7 @@
                 }
             }
 
-            /* Stage 4: unified app surface, chat + assignment panel as two columns */
+            /* Stage 4: unified app screen, chat + task panel as two columns */
             .bu-stage4 {
                 display: grid;
                 grid-template-columns: 1.5fr 1fr;
@@ -3605,7 +3609,7 @@
                 font-size: 0.58rem;
             }
 
-            /* Right panel: assignment overview */
+            /* Right panel: task overview */
             .bu-asgn {
                 background: transparent;
                 border-radius: 0;
@@ -3964,7 +3968,7 @@
         <header>
             <div class="shell">
                 <div class="bar">
-                    <a href="../index.html" class="back"
+                    <a href="../index.html#work" class="back"
                         ><span class="ar">&larr;</span>Selected Work</a
                     >
                     <a href="../index.html" class="wordmark"
@@ -3977,32 +3981,32 @@
         <div class="shell">
             <div class="cs-header">
                 <h1 class="cs-title rv">
-                    Innovating how real work gets done with <em>agentic</em> AI.
+                    Innovating agentic AI <em>workflows</em>.
                 </h1>
                 <p class="dek rv">
-                    Led the design for how work gets defined and run against real tools in an AI system for small to mid-sized businesses, enabling user trust and control using A2UI and human-in-the-loop approvals.
+                    Led the design for how work gets defined and run against real tools in an AI product, enabling user trust and control.
                 </p>
                 <span class="nda rv"
-                    >Specific product surfaces are abstracted under NDA. What
-                    follows is the thinking and the patterns rather than the
-                    product itself.</span
+                    >Specific product details are kept under NDA. What follows is
+                    my design thinking and the patterns, not the product
+                    itself.</span
                 >
             </div>
 
-            <!-- Hero, animated Brim run thread shown as a prototype on a pink stage -->
-            <figure class="rv brimui" id="bu-hero-fig">
+            <!-- Hero, animated product run thread shown as a prototype on a pink stage -->
+            <figure class="rv pmock" id="bu-hero-fig">
                 <div class="bu-stage">
                     <div class="bu-window">
                         <div
                             class="bu-main"
                             id="bu-run-host"
-                            aria-label="An assignment running, then holding for a decision"
+                            aria-label="a task running, then holding for a decision"
                         >
                             <div class="bu-topline">
-                                <span class="bu-crumb">Assignments</span
+                                <span class="bu-crumb">Tasks</span
                                 ><span class="bu-crumb-sep">&rsaquo;</span>
                                 <span class="bu-crumb"
-                                    >Supplier Invoice Reconciliation</span
+                                    >Invoice Reconciliation</span
                                 ><span class="bu-crumb-sep">&rsaquo;</span>
                                 <span class="bu-crumb is-last">Run #42</span>
                                 <span class="bu-statuspill" data-tone="held"
@@ -4011,8 +4015,8 @@
                                 >
                             </div>
                             <div class="bu-reply-head">
-                                <span class="bu-avatar">FA</span
-                                ><span class="bu-name">Finance Agent</span
+                                <span class="bu-avatar">A</span
+                                ><span class="bu-name">Agent</span
                                 ><span class="bu-time">&middot; 9:00</span>
                             </div>
                             <div class="bu-thread">
@@ -4035,7 +4039,7 @@
                                         </div>
                                         <div class="bu-step-head">
                                             <span class="bu-step-label"
-                                                >Pulled supplier invoices from
+                                                >Pulled invoices from
                                                 Xero</span
                                             ><span class="bu-step-meta"
                                                 >&middot; 42 invoices &middot;
@@ -4157,8 +4161,8 @@
                                                             /></svg></span
                                                 ></span>
                                             </div>
-                                            <div class="bu-a2ui">
-                                                <span class="bu-a2ui-icon"
+                                            <div class="bu-handoff">
+                                                <span class="bu-handoff-icon"
                                                     ><svg
                                                         viewBox="0 0 16 16"
                                                         fill="none"
@@ -4177,11 +4181,11 @@
                                                         /></svg
                                                 ></span>
                                                 <div>
-                                                    <div class="bu-a2ui-title">
+                                                    <div class="bu-handoff-title">
                                                         INV-4821 needs your call
                                                         before I post the batch
                                                     </div>
-                                                    <div class="bu-a2ui-text">
+                                                    <div class="bu-handoff-text">
                                                         Oakline Furniture billed
                                                         VAT at 20%
                                                         (&pound;206.67), but
@@ -4192,7 +4196,7 @@
                                                         entries.
                                                     </div>
                                                     <div
-                                                        class="bu-a2ui-actions"
+                                                        class="bu-handoff-actions"
                                                     >
                                                         <button
                                                             class="bu-btn primary"
@@ -4232,7 +4236,7 @@
                                         <div class="bu-step-head">
                                             <span class="bu-step-label"
                                                 >Notify the team in
-                                                #supplier-ops</span
+                                                #finance-ops</span
                                             >
                                         </div>
                                     </div>
@@ -4344,7 +4348,7 @@
                     </div>
                 </div>
                 <figcaption class="cap">
-                    A supplier invoice reconciliation run for a home-furniture
+                    An invoice reconciliation run for a home-furniture
                     retailer, abstracted. The plan advances as the agent works
                     and holds when one invoice needs the person's decision.
                     (Note: This is an animated mock of the real product
@@ -4421,21 +4425,15 @@
                             keep the person in <em>control</em>?
                         </h2>
                         <p class="rv">
-                            At Brim I design how people hand work to an AI and
-                            stay in control of it once it is running. Brim
-                            itself is an AI system that helps businesses own
-                            their specific intelligence, meaning the agent will
-                            continuously learn and run real tasks accordingly to
-                            the way their company works.
-                        </p>
-                        <p class="rv">
-                            This case study is about the assignment, which is
-                            the unit of work a person and an agent share on
-                            Brim, and the way a piece of work gets defined, run,
-                            and held accountable between them. A lot of my job
-                            was designing for that while keeping the person in a
-                            position to trust and oversee what the agent
-                            actually does.
+                            I work as the product designer at an early-stage AI
+                            company building an AI platform for small to mid-sized
+                            businesses, where my focus is the moment a person
+                            hands work over to an AI and then has to stay in
+                            control of it once it is running. Most of my job was
+                            designing
+                            for that, keeping the person in a position to
+                            understand, trust, and oversee what the AI actually
+                            does on their behalf.
                         </p>
                         <div class="facts rv">
                             <div>
@@ -4456,65 +4454,55 @@
                             <div>
                                 <div class="k label">Skills</div>
                                 <div class="v">
-                                    Interaction design, system design, product
-                                    thinking, user research, frontend,
-                                    prototyping, Figma, Claude Code
+                                    Interaction design, systems thinking, product
+                                    thinking, user research, prototyping, Figma
                                 </div>
                             </div>
                         </div>
                         <p class="rv" style="margin-top: 26px">Outcome</p>
                         <div class="callout rv">
-                            Defined how assignments are <em>run</em> on Brim, so
-                            a person can see what an agent is doing with their
-                            real tools and data and step in at the moments that
-                            matter.
+                            Design that lets a person see what an AI is doing
+                            with their real tools and data, and <em>step in</em>
+                            at the moments that matter.
                         </div>
                     </section>
 
                     <section class="cs-sec" id="tldr">
                         <div class="sec-tag label rv">02 &middot; TL;DR</div>
                         <h2 class="rv">
-                            I designed the way work gets defined, run, and
-                            <em>handed back</em> to the person.
+                            I designed for trust, so the work could feel
+                            <em>lighter</em> without feeling out of your hands.
                         </h2>
                         <div class="tldr rv">
                             <div class="part">
                                 <div class="k label">The challenge</div>
                                 <p>
                                     People don't easily trust AI, and that
-                                    becomes very real the moment the work
-                                    involves their actual tools, because the
-                                    agent is pulling in their data, holding
-                                    permissions to their accounts, and acting on
-                                    their behalf. An assignment had to make that
-                                    feel safe rather than opaque.
+                                    becomes very real the moment the work touches
+                                    their actual tools and data, because the AI
+                                    is acting on their behalf. The experience had
+                                    to make that feel safe rather than opaque.
                                 </p>
                             </div>
                             <div class="part">
                                 <div class="k label">What I did</div>
                                 <p>
-                                    I worked closely with the CEO and the
-                                    engineering team to define how an assignment
-                                    gets run, so the person keeps control and
-                                    oversight the whole way through. What the
-                                    agent is doing and what it produces is shown
-                                    clearly and in real time as it happens,
-                                    rather than handed over as a finished result
-                                    they have to take on faith, and the person
-                                    has the power to make a decision at every
-                                    checkpoint, after each step in the plan,
-                                    before the agent carries on.
+                                    I worked closely with the founder and the
+                                    engineering team to design for trust and
+                                    oversight, so a person can understand what
+                                    the AI is doing and steer it as it goes,
+                                    rather than being handed a finished result
+                                    they have to take on faith.
                                 </p>
                             </div>
                             <div class="part">
                                 <div class="k label">The outcome</div>
                                 <p>
-                                    In more than 20 feedback sessions with our
-                                    early users and customers, what they
-                                    responded to most was how much shorter the
-                                    work became, where something that used to
-                                    take real effort now mostly happened on its
-                                    own while they could still see and check it.
+                                    Across more than twenty feedback sessions
+                                    with early users and customers, what they
+                                    responded to most was feeling able to see and
+                                    check the work, so it felt lighter without
+                                    feeling out of their hands.
                                 </p>
                             </div>
                         </div>
@@ -4524,8 +4512,7 @@
                         <div class="sec-tag label rv">03 &middot; Problem</div>
                         <h2 class="rv">
                             How do you trust a workflow you didn't
-                            <em>build</em>, that runs a little differently each
-                            time?
+                            <em>build</em>?
                         </h2>
                         <div class="callout tight rv">
                             People don't easily trust AI to do their actual
@@ -4534,52 +4521,41 @@
                         </div>
                         <p class="rv">
                             As AI has become more capable and more accessible,
-                            the user describing the work is often not technical
-                            and doesn't want to map out steps, they just want to
-                            say what they need and see it happen. Underneath,
-                            the system plans and runs the work itself, so it can
-                            approach the same task a little differently each
-                            time.
+                            the person describing the work is often not technical
+                            and does not want to map out steps. They want to say
+                            what they need and have it handled. That is freeing,
+                            and it is also unnerving, because you are trusting
+                            something you did not build to act for you.
                         </p>
                         <p class="rv">
-                            That left me with a specific problem to solve. When
-                            the user isn't the one building the workflow, and
-                            there is no fixed set of steps for them to rely on,
-                            and the work involves their real tools, their data,
-                            and permission to act on their behalf, how do you
-                            give them enough visibility and control to actually
-                            trust it. I started treating the assignment, the
-                            shared unit of work between a person and an agent,
-                            as the place this had to be answered, because the
-                            assignment is where work gets defined, where it
-                            runs, and where it comes back to you.
+                            That was the problem I kept coming back to. When a
+                            person is not the one wiring the steps, and the work
+                            touches their real tools, their data, and permission
+                            to act on their behalf, how do you give them enough
+                            visibility and control to actually trust it. That
+                            question sat under everything I designed.
                         </p>
                     </section>
 
                     <section class="cs-sec" id="research">
                         <div class="sec-tag label rv">04 &middot; Research</div>
                         <h2 class="rv">
-                            Looking into new ways to visualise
-                            <em>workflow automation</em>.
+                            How this kind of work was handled
+                            <em>before</em> AI.
                         </h2>
                         <p class="rv">
-                            Before designing anything, I wanted to see how this
-                            kind of work was handled before AI, and the honest
-                            answer was that you built it yourself, wiring each
-                            trigger and action together by hand in tools like
-                            Zapier and Bardeen. The more I sat with those
-                            examples, the more it became clear I had to come up
-                            with something quite different, because I was
-                            designing for two shifts at once, for agentic AI,
-                            where the system plans and runs the work itself
-                            rather than following a fixed script, and for a new
-                            kind of dynamic experience, where the interface is
-                            being composed in response to what is needed rather
-                            than drawn ahead of time. That meant the patterns I
-                            was used to, the wiring diagrams and the static
-                            screens, could only take me so far.
+                            Before designing anything, I looked at how this work
+                            was done before AI, and the honest answer was that
+                            you built it yourself, wiring each trigger and action
+                            together by hand in tools like Zapier and Bardeen.
+                            The more time I spent there, the clearer it became
+                            that I needed a different approach, because I was no
+                            longer designing a fixed set of steps a person
+                            assembled themselves. I was designing for an AI that
+                            takes the work on, which moved the real design
+                            problem away from the wiring and onto trust.
                         </p>
-                        <figure class="rv brimui">
+                        <figure class="rv pmock">
                             <div class="bu-compare">
                                 <div class="bu-compare-col">
                                     <div class="bu-compare-cap">
@@ -4598,8 +4574,7 @@
                                                     Trigger
                                                 </div>
                                                 <div class="bu-zap-name">
-                                                    Xero &middot; New supplier
-                                                    invoice
+                                                    Xero &middot; New invoice
                                                 </div>
                                             </div>
                                         </div>
@@ -4785,14 +4760,14 @@
                                         The new way &middot; describe it, the
                                         agent plans it
                                     </div>
-                                    <div class="bu-ot-surface">
+                                    <div class="bu-ot-screen">
                                         <div class="bu-userbubble">
-                                            Reconcile my supplier invoices each
+                                            Reconcile my invoices each
                                             morning, then group them by
                                             furniture type.
                                         </div>
                                         <div class="bu-agentmsg">
-                                            <span class="av">B</span
+                                            <span class="av">A</span
                                             ><span class="tx"
                                                 >Okay, here's the plan I came up
                                                 with. It uses your connected
@@ -4872,7 +4847,7 @@
                                                         >1</span
                                                     ><span class="bu-plan-text"
                                                         >Pull this week's
-                                                        supplier invoices from
+                                                        invoices from
                                                         Xero</span
                                                     >
                                                 </div>
@@ -4931,7 +4906,7 @@
                             <img
                                 class="cs-shot"
                                 src="../assets/case-01/early-workflow-builder.png"
-                                alt="An early wireframe of a node-based workflow builder, an abandoned direction for assignments."
+                                alt="An early wireframe of a node-based workflow builder, an abandoned direction for tasks."
                                 loading="lazy"
                                 onerror="this.outerHTML='&lt;div class=&quot;cs-shot cs-shot-ph&quot;&gt;Add &lt;code&gt;early-workflow-builder.png&lt;/code&gt; to &lt;code&gt;assets/case-01/&lt;/code&gt;&lt;/div&gt;'"
                             />
@@ -4949,12 +4924,12 @@
                             but it doesn't hold up inside a business, where the
                             same piece of work has to be checked, shared, and
                             answered for. What I kept coming back to was keeping
-                            the thread simple and giving every run a side panel
-                            that logs it, an audit trail that changes from run
-                            to run and that a person, or their manager, can open
-                            and verify.
+                            the thread simple while still giving a person a clear
+                            way to see what happened and look back over it, so
+                            the work stays something they, or their manager, can
+                            trust.
                         </p>
-                        <figure class="rv brimui">
+                        <figure class="rv pmock">
                             <div class="bu-compare">
                                 <div class="bu-compare-col">
                                     <div class="bu-compare-cap">
@@ -5203,30 +5178,17 @@
                                 </div>
                                 <div class="bu-compare-col">
                                     <div class="bu-compare-cap">
-                                        In Brim, the thread stays simple and the
-                                        panel logs everything
+                                        In the product, the thread stays simple
+                                        and the panel keeps what it pulled
                                     </div>
                                     <div class="bu-bp2">
-                                        <div class="bu-bp2-bar">
-                                            <span class="bu-bp2-logo"
-                                                ><svg
-                                                    viewBox="0 0 24 24"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        d="M3.08 11.3L5.04 0H12.8v7.72c0 .96-.37 1.86-1.05 2.54-.68.68-1.58 1.05-2.54 1.05H3.08zM.88 24l2.03-11.72h6.31c.96 0 1.86.37 2.53 1.05.68.68 1.05 1.58 1.05 2.54v8.14H.88v-.01zM13.78 15.86c0-.96.37-1.86 1.05-2.54.68-.68 1.58-1.05 2.53-1.05h1c1.13 0 2.19.59 2.75 1.55l.01.02c.51.87.72 1.91.65 3.1-.15 2.21-1.03 3.95-2.6 5.18-1.36 1.05-3.17 1.67-5.39 1.83v-8.1zM17.35 11.3c-1.97 0-3.58-1.6-3.58-3.58V.01l1.3.01c2.76.01 4.85.57 6.22 1.67 1.33 1.07 1.94 2.6 1.81 4.57-.07 1.12-.43 2.12-1.07 2.96-.98 1.3-2.58 2.08-4.27 2.08h-.41z"
-                                                    /></svg></span
-                                            ><span class="bu-bp2-brand"
-                                                >Brim</span
-                                            >
-                                        </div>
                                         <div class="bu-bp2-inner">
                                             <div class="bu-bp2-thread">
                                                 <div class="bu-reply-head">
                                                     <span class="bu-avatar"
-                                                        >SA</span
+                                                        >A</span
                                                     ><span class="bu-name"
-                                                        >Sales Agent</span
+                                                        >Agent</span
                                                     >
                                                 </div>
                                                 <div class="bu-bp2-msg">
@@ -5240,7 +5202,7 @@
                                             </div>
                                             <div class="bu-bp2-panel">
                                                 <div class="bu-bp2-panel-label">
-                                                    Run log
+                                                    Activity
                                                 </div>
                                                 <div class="bu-pstep">
                                                     <span
@@ -5390,25 +5352,25 @@
                                 </div>
                             </div>
                             <figcaption class="cap">
-                                A scheduled assignment in Claude versus the same
-                                work in Brim, this time researching sales leads.
+                                A scheduled task in Claude versus the same
+                                work in the product, this time researching sales leads.
                                 In Claude the result lands back in the chat,
-                                with no record of what it touched. In Brim the
-                                thread stays short while the side panel logs
-                                each step and keeps what it pulled, here the
-                                leads it found across Apollo and Sales Navigator
-                                before adding them to HubSpot, a record that
-                                changes every run and that a manager can open
-                                and verify. (Mock; Claude interface abstracted.)
+                                with no clear way to see what it touched. In the
+                                product the thread stays short while a side panel
+                                keeps what it pulled, here the leads it found
+                                across Apollo and Sales Navigator before adding
+                                them to HubSpot, so a person can look back over
+                                what happened. (Mock; Claude interface
+                                abstracted.)
                             </figcaption>
                         </figure>
                         <p class="rv">
-                            Brim had been developing for around a year by this
-                            point, but assignments were still a work in
+                            The product had been in development for around a
+                            year by this point, but tasks were still a work in
                             progress, taking shape alongside several other
                             features the team was building. A lot of the
                             customer conversations happening around the same
-                            time weren't specifically about assignments, though
+                            time weren't specifically about tasks, though
                             the patterns I kept hearing about how people want to
                             work with AI carried over when it came to designing
                             them.
@@ -5420,24 +5382,28 @@
                             05 &middot; Principles
                         </div>
                         <h2 class="rv">
-                            So I set five rules for how an assignment should
-                            <em>behave</em>.
+                            A few principles for designing something people can
+                            <em>trust</em>.
                         </h2>
                         <p class="muted rv">
-                            These shaped how every part of an assignment is
-                            designed, with the first run especially in mind.
+                            These held across the whole experience, and they are
+                            as much general design wisdom as anything specific to
+                            this product.
                         </p>
                         <div class="principles rv">
                             <div class="pr">
                                 <div class="pn">01</div>
                                 <div>
-                                    <h3>Every assignment has a clear goal.</h3>
+                                    <h3>
+                                        The person should always know what "done"
+                                        looks like.
+                                    </h3>
                                     <p>
-                                        An assignment is defined by the outcome
-                                        it is trying to reach, which the person
-                                        describes as intent, so before anything
-                                        runs both the person and the agent know
-                                        what finished is meant to look like.
+                                        Before anything runs, the person and the
+                                        AI should share the same picture of the
+                                        outcome, so the work is measured against
+                                        what the person actually wanted rather
+                                        than the tool's best guess.
                                     </p>
                                 </div>
                             </div>
@@ -5445,19 +5411,13 @@
                             <div class="pr">
                                 <div class="pn">02</div>
                                 <div>
-                                    <h3>
-                                        On the first run, the person approves at
-                                        every checkpoint.
-                                    </h3>
+                                    <h3>Show the real work, as it happens.</h3>
                                     <p>
-                                        The first time an assignment runs, the
-                                        agent pauses at each step in the plan
-                                        and waits for the person to approve
-                                        before it carries on, so nothing
-                                        important happens without them. Over
-                                        time this can relax as the agent earns
-                                        the right to run more of the work on its
-                                        own.
+                                        Trust comes from watching the work
+                                        unfold, seeing the reasoning and the real
+                                        things being read and produced, instead
+                                        of being handed a polished result with
+                                        the working hidden.
                                     </p>
                                 </div>
                             </div>
@@ -5466,50 +5426,14 @@
                                 <div class="pn">03</div>
                                 <div>
                                     <h3>
-                                        Trust comes from seeing the real work,
-                                        as it happens.
+                                        Keep the person at the decisions that
+                                        matter.
                                     </h3>
                                     <p>
-                                        While an assignment runs, the person can
-                                        watch it work in real time through a
-                                        live step rail that shows each step the
-                                        agent is taking, the tools it is
-                                        reaching into, and the data it is
-                                        pulling in.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="pr">
-                                <div class="pn">04</div>
-                                <div>
-                                    <h3>
-                                        The work stays in a record you can go
-                                        back to.
-                                    </h3>
-                                    <p>
-                                        Every run keeps a full log of what the
-                                        agent did, where the person can open any
-                                        step and see the real files it retrieved
-                                        and produced. The record stays there
-                                        after the run finishes, so the person
-                                        can look back over what happened and
-                                        adjust the plan for next time.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="pr">
-                                <div class="pn">05</div>
-                                <div>
-                                    <h3>The work comes to the person.</h3>
-                                    <p>
-                                        Because people won't always log in to
-                                        check, an assignment reaches them where
-                                        they already are, through notifications,
-                                        email, and schedules. The agent can also
-                                        start a run on its own when it notices
-                                        new activity in a connected tool.
+                                        The person should be able to step in and
+                                        decide at the points that carry weight,
+                                        so the AI never quietly does something
+                                        important without them.
                                     </p>
                                 </div>
                             </div>
@@ -5519,37 +5443,29 @@
                     <section class="cs-sec" id="solution">
                         <div class="sec-tag label rv">06 &middot; Solution</div>
                         <h2 class="rv">
-                            One assignment, from the sentence that starts it to
-                            the moment it <em>needs you</em>.
+                            Prototyping the experience, from the first ask to the
+                            moment it <em>needs you</em>.
                         </h2>
                         <p class="rv">
-                            The five principles come together in how a single
-                            assignment actually runs. To make that concrete,
-                            I'll walk through one, a supplier invoice
-                            reconciliation that an agent runs for a
-                            home-furniture retailer, from the moment it is
-                            defined to the moment the work reaches the person.
-                            The run at the top of this page is that same
-                            assignment in motion.
+                            With the principles in place, most of the work was
+                            prototyping the experience and getting the feeling of
+                            oversight right. To make the thinking concrete, here
+                            is a walk through a generic example, from the moment a
+                            person asks for something to the moment the work
+                            comes back to them for a decision.
                         </p>
 
                         <div class="moment">
-                            <h3 class="rv">
-                                01 &middot; Defining the work and connecting its
-                                tools
-                            </h3>
+                            <h3 class="rv">01 &middot; Defining the work</h3>
                             <p class="muted rv">
-                                An assignment starts as intent. The person
-                                describes the outcome they want, and the agent
-                                works out the setup before proposing anything,
-                                asking where the work comes from and where it
-                                should go. I wanted defining work to feel like
+                                I wanted asking for something to feel like
                                 briefing a colleague who asks a couple of
-                                sensible questions, and for connecting the tools
-                                to happen naturally inside that conversation
-                                rather than as a hidden setup step.
+                                sensible questions, rather than filling in a form
+                                or wiring up a setup. A lot of the design work was
+                                making that opening exchange feel natural and
+                                low-effort.
                             </p>
-                            <figure class="rv brimui">
+                            <figure class="rv pmock">
                                 <div
                                     class="bu-frame"
                                     style="padding: 0; overflow: hidden"
@@ -5567,7 +5483,7 @@
                                                 <path
                                                     d="M8 3v10M3 8h10"
                                                 /></svg></span
-                                        >New assignment
+                                        >New task
                                     </div>
                                     <div class="bu-build">
                                         <div
@@ -5575,15 +5491,15 @@
                                             id="bu-build-chat"
                                         >
                                             <div class="bu-userbubble">
-                                                Reconcile my supplier invoices
+                                                Reconcile my invoices
                                                 each morning and group them by
                                                 furniture type.
                                             </div>
                                             <div class="bu-agentmsg">
-                                                <span class="av">B</span
+                                                <span class="av">A</span
                                                 ><span class="tx"
                                                     >Sure. First, where do your
-                                                    invoices come in &mdash; is
+                                                    invoices come in, is
                                                     that Xero?</span
                                                 >
                                             </div>
@@ -5591,7 +5507,7 @@
                                                 Yes, Xero.
                                             </div>
                                             <div class="bu-agentmsg">
-                                                <span class="av">B</span
+                                                <span class="av">A</span
                                                 ><span class="tx"
                                                     >And once they're
                                                     reconciled, where should I
@@ -5599,14 +5515,14 @@
                                                 >
                                             </div>
                                             <div class="bu-userbubble">
-                                                Our #supplier-ops channel in
+                                                Our #finance-ops channel in
                                                 Slack.
                                             </div>
                                             <div class="bu-agentmsg">
-                                                <span class="av">B</span
+                                                <span class="av">A</span
                                                 ><span class="tx"
                                                     >Got it. Here's the plan I'd
-                                                    run &mdash; tweak anything
+                                                    run, tweak anything
                                                     before I save it.</span
                                                 >
                                             </div>
@@ -5622,8 +5538,7 @@
                                                 <span class="bu-plan-num"
                                                     >1</span
                                                 ><span class="bu-plan-text"
-                                                    >Pull this week's supplier
-                                                    invoices from Xero</span
+                                                    >Pull this week's invoices from Xero</span
                                                 >
                                             </div>
                                             <div class="bu-plan-step">
@@ -5631,7 +5546,7 @@
                                                     >2</span
                                                 ><span class="bu-plan-text"
                                                     >Group them by furniture
-                                                    type &mdash; sofas, beds,
+                                                    type, sofas, beds,
                                                     dining, storage</span
                                                 >
                                             </div>
@@ -5658,7 +5573,7 @@
                                                 ><span class="bu-plan-text"
                                                     >Post the cleared entries
                                                     and summarise in
-                                                    #supplier-ops</span
+                                                    #finance-ops</span
                                                 >
                                             </div>
                                             <div class="bu-plan-foot">
@@ -5692,21 +5607,20 @@
                         </div>
 
                         <div class="moment">
-                            <h3 class="rv">
-                                02 &middot; The run, made visible
-                            </h3>
+                            <h3 class="rv">02 &middot; The work, made visible</h3>
                             <p class="muted rv">
-                                Once it runs, the assignment becomes a live
-                                thread. The agent streams in what it is doing as
-                                it does it, in plain language, with the real
-                                tool calls shown underneath each step.
+                                The principle I cared most about was showing the
+                                work as it happens, in plain language, rather
+                                than handing over a finished result. The design
+                                challenge was making that legible at a glance,
+                                clear enough to follow without being noisy.
                             </p>
-                            <figure class="rv brimui">
+                            <figure class="rv pmock">
                                 <div class="bu-frame" id="bu-run2-host">
                                     <div class="bu-reply-head">
-                                        <span class="bu-avatar">FA</span
+                                        <span class="bu-avatar">A</span
                                         ><span class="bu-name"
-                                            >Finance Agent</span
+                                            >Agent</span
                                         ><span class="bu-time"
                                             >&middot; 9:00</span
                                         >
@@ -5730,8 +5644,7 @@
                                             </div>
                                             <div class="bu-step-head">
                                                 <span class="bu-step-label"
-                                                    >Pulled the week's supplier
-                                                    invoices</span
+                                                    >Pulled the week's invoices</span
                                                 >
                                             </div>
                                             <div class="bu-step-body">
@@ -5791,8 +5704,7 @@
                                                                     d="M2.5 8h11M8 2.5c1.6 1.6 2.5 3.6 2.5 5.5s-.9 3.9-2.5 5.5M8 2.5C6.4 4.1 5.5 6.1 5.5 8s.9 3.9 2.5 5.5"
                                                                 /></svg></span
                                                         ><span class="label"
-                                                            >query &middot; Xero
-                                                            &mdash; invoices
+                                                            >query &middot; Xero, invoices
                                                             since 11 May 09:00
                                                             (42)</span
                                                         ><span class="tr-done"
@@ -5924,514 +5836,23 @@
 
                         <div class="moment">
                             <h3 class="rv">
-                                03 &middot; The work comes to the person, when
-                                they need it
+                                03 &middot; When it needs you, it shows its
+                                <em>working</em>
                             </h3>
                             <p class="muted rv">
-                                The finding that people often weren't logging in
-                                shaped this part the most. When a run reaches
-                                something that needs the person, the same moment
-                                goes to where they already are, in the same
-                                words wherever it shows up, so a decision the
-                                agent can't make on its own never sits waiting
-                                unseen.
+                                The hardest moments to design were the ones where
+                                the AI needs a person to weigh in. I wanted those
+                                to arrive with the reasoning in context, so a
+                                person could understand why and decide quickly,
+                                without having to go digging for the background.
                             </p>
-                            <figure class="rv brimui">
-                                <div class="bu-stage3">
-                                    <div class="bu-grid2">
-                                        <div class="bu-ot-col">
-                                            <div class="bu-ot-cap3">
-                                                Assignment run thread
-                                            </div>
-                                            <div class="bu-ot-surface">
-                                                <div class="bu-reply-head">
-                                                    <span class="bu-avatar"
-                                                        >FA</span
-                                                    ><span class="bu-name"
-                                                        >Finance Agent</span
-                                                    ><span class="bu-time"
-                                                        >&middot; 9:01</span
-                                                    >
-                                                </div>
-                                                <div class="bu-rail">
-                                                    <div
-                                                        class="bu-step is-warn"
-                                                    >
-                                                        <div class="bu-dotwrap">
-                                                            <span
-                                                                class="bu-dot-warn"
-                                                                >!</span
-                                                            >
-                                                        </div>
-                                                        <div
-                                                            class="bu-step-head"
-                                                        >
-                                                            <span
-                                                                class="bu-step-label"
-                                                                >Resolving
-                                                                mismatches</span
-                                                            ><span
-                                                                class="bu-step-meta"
-                                                                >&middot; 3 of 4
-                                                                resolved</span
-                                                            >
-                                                        </div>
-                                                        <div
-                                                            class="bu-step-body"
-                                                        >
-                                                            <div
-                                                                class="bu-prose"
-                                                            >
-                                                                One sofa order
-                                                                from Oakline has
-                                                                VAT above its
-                                                                purchase order,
-                                                                so I've held the
-                                                                batch for your
-                                                                call.
-                                                            </div>
-                                                            <div
-                                                                class="bu-a2ui"
-                                                            >
-                                                                <span
-                                                                    class="bu-a2ui-icon"
-                                                                    ><svg
-                                                                        viewBox="0 0 16 16"
-                                                                        fill="none"
-                                                                        stroke="currentColor"
-                                                                        stroke-width="1.7"
-                                                                        stroke-linecap="round"
-                                                                        stroke-linejoin="round"
-                                                                    >
-                                                                        <circle
-                                                                            cx="8"
-                                                                            cy="8"
-                                                                            r="6"
-                                                                        />
-                                                                        <path
-                                                                            d="M8 5v3.5M8 10.5v.01"
-                                                                        /></svg
-                                                                ></span>
-                                                                <div>
-                                                                    <div
-                                                                        class="bu-a2ui-title"
-                                                                    >
-                                                                        INV-4821
-                                                                        needs
-                                                                        your
-                                                                        call
-                                                                        before I
-                                                                        post the
-                                                                        batch
-                                                                    </div>
-                                                                    <div
-                                                                        class="bu-inv"
-                                                                    >
-                                                                        <span
-                                                                            class="ik"
-                                                                            >INV</span
-                                                                        >
-                                                                        <div>
-                                                                            <div
-                                                                                class="iname"
-                                                                            >
-                                                                                INV-4821
-                                                                                &middot;
-                                                                                Oakline
-                                                                                Furniture
-                                                                            </div>
-                                                                            <div
-                                                                                class="imeta"
-                                                                            >
-                                                                                3-seat
-                                                                                sofa
-                                                                                order
-                                                                                &middot;
-                                                                                PO-441
-                                                                            </div>
-                                                                        </div>
-                                                                        <div
-                                                                            class="ivat"
-                                                                        >
-                                                                            &pound;206.67
-                                                                            &middot;
-                                                                            20%<span
-                                                                                class="cap"
-                                                                                >PO
-                                                                                cap
-                                                                                &pound;170.67
-                                                                                &middot;
-                                                                                16.6%</span
-                                                                            >
-                                                                        </div>
-                                                                    </div>
-                                                                    <div
-                                                                        class="bu-a2ui-actions"
-                                                                    >
-                                                                        <button
-                                                                            class="bu-btn primary"
-                                                                        >
-                                                                            Approve
-                                                                            at
-                                                                            16.6%
-                                                                        </button>
-                                                                        <button
-                                                                            class="bu-btn"
-                                                                        >
-                                                                            Approve
-                                                                            as
-                                                                            billed
-                                                                        </button>
-                                                                        <button
-                                                                            class="bu-btn"
-                                                                        >
-                                                                            Open
-                                                                            invoice
-                                                                        </button>
-                                                                        <button
-                                                                            class="bu-btn danger"
-                                                                        >
-                                                                            Send
-                                                                            back
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="bu-ot-col">
-                                            <div class="bu-ot-cap3">
-                                                AI feed
-                                            </div>
-                                            <div class="bu-feed-col">
-                                                <div class="bu-feed-ghost">
-                                                    <div
-                                                        class="bu-feed-card"
-                                                        style="
-                                                            border-left-color: var(
-                                                                --bu-border-strong
-                                                            );
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="bu-feed-head"
-                                                        >
-                                                            <div>
-                                                                <div
-                                                                    class="bu-feed-pills"
-                                                                >
-                                                                    <div
-                                                                        class="bu-skel"
-                                                                        style="
-                                                                            height: 16px;
-                                                                            width: 58px;
-                                                                            border-radius: 9999px;
-                                                                        "
-                                                                    ></div>
-                                                                </div>
-                                                                <div
-                                                                    class="bu-skel"
-                                                                    style="
-                                                                        height: 12px;
-                                                                        width: 66%;
-                                                                        margin-bottom: 6px;
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="bu-skel"
-                                                                    style="
-                                                                        height: 10px;
-                                                                        width: 88%;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <span
-                                                                class="bu-feed-chev"
-                                                                ><svg
-                                                                    viewBox="0 0 24 24"
-                                                                    fill="none"
-                                                                    stroke="currentColor"
-                                                                    stroke-width="2"
-                                                                    stroke-linecap="round"
-                                                                    stroke-linejoin="round"
-                                                                >
-                                                                    <path
-                                                                        d="M6 9l6 6 6-6"
-                                                                    /></svg
-                                                            ></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="bu-feed-card">
-                                                    <div class="bu-feed-head">
-                                                        <div>
-                                                            <div
-                                                                class="bu-feed-pills"
-                                                            >
-                                                                <span
-                                                                    class="bu-pill-needs"
-                                                                    >Awaiting
-                                                                    review</span
-                                                                ><span
-                                                                    class="bu-feed-meta"
-                                                                    >9:01</span
-                                                                >
-                                                            </div>
-                                                            <div
-                                                                class="bu-feed-title"
-                                                            >
-                                                                3 invoices need
-                                                                your review
-                                                            </div>
-                                                            <div
-                                                                class="bu-feed-summary"
-                                                            >
-                                                                VAT above the PO
-                                                                cap on INV-4821
-                                                                (Oakline),
-                                                                INV-4830
-                                                                (Harbour Home)
-                                                                and INV-4844
-                                                                (Velvet &amp;
-                                                                Vine), held
-                                                                across this
-                                                                week's runs.
-                                                            </div>
-                                                        </div>
-                                                        <span
-                                                            class="bu-feed-chev"
-                                                            ><svg
-                                                                viewBox="0 0 24 24"
-                                                                fill="none"
-                                                                stroke="currentColor"
-                                                                stroke-width="2"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                            >
-                                                                <path
-                                                                    d="M6 9l6 6 6-6"
-                                                                /></svg
-                                                        ></span>
-                                                    </div>
-                                                    <div class="bu-feed-foot">
-                                                        <span class="src"
-                                                            ><svg
-                                                                viewBox="0 0 24 24"
-                                                                fill="none"
-                                                                stroke="currentColor"
-                                                                stroke-width="1.5"
-                                                            >
-                                                                <rect
-                                                                    x="3"
-                                                                    y="4"
-                                                                    width="18"
-                                                                    height="16"
-                                                                    rx="2"
-                                                                /></svg
-                                                            >Supplier Invoice
-                                                            Reconciliation</span
-                                                        >
-                                                        <span class="own"
-                                                            ><span class="av"
-                                                                >FA</span
-                                                            >Finance Agent</span
-                                                        >
-                                                    </div>
-                                                </div>
-                                                <div class="bu-feed-ghost">
-                                                    <div
-                                                        class="bu-feed-card"
-                                                        style="
-                                                            border-left-color: var(
-                                                                --bu-border-strong
-                                                            );
-                                                        "
-                                                    >
-                                                        <div
-                                                            class="bu-feed-head"
-                                                        >
-                                                            <div>
-                                                                <div
-                                                                    class="bu-feed-pills"
-                                                                >
-                                                                    <div
-                                                                        class="bu-skel"
-                                                                        style="
-                                                                            height: 16px;
-                                                                            width: 48px;
-                                                                            border-radius: 9999px;
-                                                                        "
-                                                                    ></div>
-                                                                </div>
-                                                                <div
-                                                                    class="bu-skel"
-                                                                    style="
-                                                                        height: 12px;
-                                                                        width: 72%;
-                                                                        margin-bottom: 6px;
-                                                                    "
-                                                                ></div>
-                                                                <div
-                                                                    class="bu-skel"
-                                                                    style="
-                                                                        height: 10px;
-                                                                        width: 80%;
-                                                                    "
-                                                                ></div>
-                                                            </div>
-                                                            <span
-                                                                class="bu-feed-chev"
-                                                                ><svg
-                                                                    viewBox="0 0 24 24"
-                                                                    fill="none"
-                                                                    stroke="currentColor"
-                                                                    stroke-width="2"
-                                                                    stroke-linecap="round"
-                                                                    stroke-linejoin="round"
-                                                                >
-                                                                    <path
-                                                                        d="M6 9l6 6 6-6"
-                                                                    /></svg
-                                                            ></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="bu-ot-col">
-                                            <div class="bu-ot-cap3">
-                                                Desktop notification
-                                            </div>
-                                            <div class="bu-push">
-                                                <span class="bu-push-appicon"
-                                                    ><svg
-                                                        viewBox="0 0 24 24"
-                                                        fill="currentColor"
-                                                    >
-                                                        <path
-                                                            d="M3.08 11.3L5.04 0H12.8v7.72c0 .96-.37 1.86-1.05 2.54-.68.68-1.58 1.05-2.54 1.05H3.08zM.88 24l2.03-11.72h6.31c.96 0 1.86.37 2.53 1.05.68.68 1.05 1.58 1.05 2.54v8.14H.88v-.01zM13.78 15.86c0-.96.37-1.86 1.05-2.54.68-.68 1.58-1.05 2.53-1.05h1c1.13 0 2.19.59 2.75 1.55l.01.02c.51.87.72 1.91.65 3.1-.15 2.21-1.03 3.95-2.6 5.18-1.36 1.05-3.17 1.67-5.39 1.83v-8.1zM17.35 11.3c-1.97 0-3.58-1.6-3.58-3.58V.01l1.3.01c2.76.01 4.85.57 6.22 1.67 1.33 1.07 1.94 2.6 1.81 4.57-.07 1.12-.43 2.12-1.07 2.96-.98 1.3-2.58 2.08-4.27 2.08h-.41z"
-                                                        /></svg
-                                                ></span>
-                                                <div class="bu-push-main">
-                                                    <div class="bu-push-row">
-                                                        <span
-                                                            class="bu-push-app"
-                                                            >Brim</span
-                                                        ><span
-                                                            class="bu-push-when"
-                                                            >now</span
-                                                        >
-                                                    </div>
-                                                    <div class="bu-push-title">
-                                                        INV-4821 needs your call
-                                                    </div>
-                                                    <div class="bu-push-body">
-                                                        Oakline's VAT is above
-                                                        the PO cap, so I've held
-                                                        the batch for you.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="bu-ot-col">
-                                            <div class="bu-ot-cap3">Email</div>
-                                            <div class="bu-email2">
-                                                <div class="bu-email2-head">
-                                                    <span class="bu-email2-av"
-                                                        >B</span
-                                                    >
-                                                    <div class="bu-email2-fw">
-                                                        <div
-                                                            class="bu-email2-fr"
-                                                        >
-                                                            <span
-                                                                class="bu-email2-name"
-                                                                >Brim</span
-                                                            ><span
-                                                                class="bu-email2-addr"
-                                                                >notify@brim.ai</span
-                                                            >
-                                                        </div>
-                                                        <div
-                                                            class="bu-email2-to"
-                                                        >
-                                                            to you
-                                                        </div>
-                                                    </div>
-                                                    <span class="bu-email2-time"
-                                                        >9:01 AM</span
-                                                    >
-                                                </div>
-                                                <div class="bu-email2-body">
-                                                    <div
-                                                        class="bu-email2-subject"
-                                                    >
-                                                        INV-4821 needs your call
-                                                        &mdash; VAT above the PO
-                                                        cap
-                                                    </div>
-                                                    <div class="bu-email2-text">
-                                                        Oakline Furniture billed
-                                                        VAT at 20%
-                                                        (&pound;206.67), but
-                                                        PO-441 caps it at 16.6%
-                                                        (&pound;170.67). I've
-                                                        held the remaining 41
-                                                        entries until you
-                                                        decide.
-                                                    </div>
-                                                    <button
-                                                        class="bu-email2-btn"
-                                                    >
-                                                        Review in Brim &rarr;
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <figcaption class="cap">
-                                    The held invoice, the same moment, across
-                                    four surfaces: the assignment run thread
-                                    where the person acts on it, the AI feed
-                                    where it sits alongside everything the
-                                    agents have done, a desktop notification,
-                                    and an email. The title and the source stay
-                                    the same wherever it appears, which is what
-                                    keeps the notifications from becoming noise.
-                                    (Mock of the real product styling,
-                                    abstracted.)
-                                </figcaption>
-                            </figure>
-                        </div>
-
-                        <div class="moment">
-                            <h3 class="rv">
-                                04 &middot; When the agent needs you, it shows
-                                its <em>working</em>
-                            </h3>
-                            <p class="muted rv">
-                                When the agent finishes its part, the items that
-                                need a person's decision sit right inside the
-                                conversation. Each one expands to show the
-                                specific invoice, the rule it broke, and a
-                                suggested action, so the person can read the
-                                reasoning in context and act without having to
-                                dig for the original document.
-                            </p>
-                            <figure class="rv brimui">
+                            <figure class="rv pmock">
                                 <div class="bu-stage4">
                                     <div class="bu-frame bu-pa">
                                         <div class="bu-reply-head">
-                                            <span class="bu-avatar">IA</span
+                                            <span class="bu-avatar">A</span
                                             ><span class="bu-name"
-                                                >Invoice Agent</span
+                                                >Agent</span
                                             ><span class="bu-time"
                                                 >&middot; 9:14</span
                                             >
@@ -6499,8 +5920,7 @@
                                                         <div
                                                             class="bu-flag-row-title"
                                                         >
-                                                            Marlow &amp; Finch
-                                                            &mdash; Invoice 3351
+                                                            Marlow &amp; Finch, Invoice 3351
                                                         </div>
                                                         <div
                                                             class="bu-flag-row-sub"
@@ -6603,8 +6023,7 @@
                                                         <div
                                                             class="bu-flag-row-title"
                                                         >
-                                                            Northgate Supplies
-                                                            &mdash; Invoice
+                                                            Northgate Supplies, Invoice
                                                             NS-9921
                                                         </div>
                                                         <div
@@ -6640,8 +6059,7 @@
                                                         <div
                                                             class="bu-flag-row-title"
                                                         >
-                                                            Brookfield Trade
-                                                            &mdash; Invoice
+                                                            Brookfield Trade, Invoice
                                                             BT-8812
                                                         </div>
                                                         <div
@@ -6736,7 +6154,7 @@
                                                 <div
                                                     class="bu-asgn-complete-title"
                                                 >
-                                                    Assignment completed
+                                                    Task completed
                                                 </div>
                                                 <div
                                                     class="bu-asgn-complete-meta"
@@ -6960,7 +6378,7 @@
                                                 Outputs
                                             </div>
                                             <div class="bu-asgn-outputs-empty">
-                                                Files will appear here once Brim
+                                                Files will appear here once the product
                                                 starts creating them
                                             </div>
                                         </div>
@@ -6984,7 +6402,7 @@
                                     When the agent finishes processing the day's
                                     invoices, the items that need a person's
                                     decision sit inside the same conversation.
-                                    The side panel keeps the assignment's
+                                    The side panel keeps the task's
                                     progress and outputs in view, so the person
                                     can act on what is flagged while still
                                     seeing the full plan. (Mock of the real
@@ -7004,12 +6422,12 @@
                             Once the prototype was in shape, I went back to a
                             handful of our early customers and showed it to them
                             against the work they actually wanted to use it for.
-                            I wanted to see whether the way assignments behaved
+                            I wanted to see whether the way tasks behaved
                             made sense when the agent was running against their
                             tools, their data, and their own kind of work. A few
                             things came up again and again.
                         </p>
-                        <figure class="rv brimui">
+                        <figure class="rv pmock">
                             <div class="bu-figjam">
                                 <div class="bu-figjam-label">
                                     Synthesis &middot; what kept coming up
@@ -7019,7 +6437,7 @@
                                         <span class="bu-sticky-tag"
                                             >Insight</span
                                         >People often weren't logging in to
-                                        check on their assignments at all.
+                                        check on their tasks at all.
                                     </div>
                                     <div class="bu-sticky b">
                                         <span class="bu-sticky-tag">Trust</span
@@ -7028,16 +6446,16 @@
                                         done.
                                     </div>
                                     <div class="bu-sticky g">
-                                        <span class="bu-sticky-tag">Audit</span
-                                        >The record of what the agent did
-                                        mattered most, somewhere to go back and
-                                        verify.
+                                        <span class="bu-sticky-tag"
+                                            >Confidence</span
+                                        >Being able to look back over what
+                                        happened mattered more than a tidy
+                                        &ldquo;done.&rdquo;
                                     </div>
                                     <div class="bu-sticky p">
-                                        <span class="bu-sticky-tag"
-                                            >Governance</span
-                                        >A chat history isn't something a team
-                                        or a manager can share, review, or
+                                        <span class="bu-sticky-tag">Sharing</span
+                                        >A back-and-forth chat isn't something a
+                                        team or a manager can share, review, or
                                         answer for.
                                     </div>
                                 </div>
@@ -7050,18 +6468,17 @@
                         </figure>
                         <p class="rv">
                             Those four pulled in the same direction, towards
-                            work the person can see, a record they and their
-                            managers can trust and share, and an assistant that
-                            reaches them rather than waiting to be checked on.
-                            They confirmed the direction the assignment was
-                            heading and shaped the parts I went back to refine.
+                            work the person can see and something they and their
+                            managers could look back over and trust. They
+                            confirmed the direction the task was heading and
+                            shaped the parts I went back to refine.
                         </p>
                     </section>
 
                     <div class="insight rv" style="margin: 10px 0 64px">
-                        <div class="k label">Beyond Brim</div>
+                        <div class="k label">Looking ahead</div>
                         <p>
-                            None of this is really specific to Brim. Any AI tool
+                            None of this is really specific to the product. Any AI tool
                             that acts on someone's behalf has to solve the same
                             thing, which is how a person stays in control of
                             work they cannot fully predict, and that is going to
@@ -7094,18 +6511,15 @@
                                     design is that trust gets earned, and the
                                     shape of how it gets earned turned out to be
                                     specific. It is earned when the person can
-                                    see what is running as it happens, when the
-                                    agent shows its reasoning for what it has
-                                    done or is about to do, and when the actual
-                                    files it is reading and producing stay
-                                    visible rather than getting tucked behind a
-                                    polished result. Holding the first run to an
-                                    approval at every checkpoint turned out to
-                                    be the thing that let people relax into it
-                                    later, and the through-line, that the agent
-                                    has to make itself legible to the person, is
-                                    the same thread I keep pulling on in the
-                                    design system case study next door.
+                                    see what is happening as it happens, when the
+                                    AI shows its reasoning for what it has done
+                                    or is about to do, and when the actual work
+                                    it is reading and producing stays visible
+                                    rather than getting tucked behind a polished
+                                    result. The through-line, that the AI has to
+                                    make itself legible to the person, is the
+                                    thread I keep pulling on in everything I
+                                    design.
                                 </p>
                             </div>
                             <div>
@@ -7116,15 +6530,24 @@
                                     how people want to watch an AI work came
                                     from feedback I could only have gathered by
                                     putting real runs in front of them sooner.
-                                    The other piece we haven't fully worked out
-                                    is how separate assignments tie together
-                                    when they are really part of one larger
-                                    piece of work. Chaining them is something we
-                                    are still developing, and it isn't entirely
-                                    clear yet, which is honestly one of the more
-                                    interesting problems left to solve.
+                                    And there is plenty still open, like how to
+                                    keep a person oriented when the work gets
+                                    longer and more involved, which is honestly
+                                    one of the more interesting problems left to
+                                    solve.
                                 </p>
                             </div>
+                        </div>
+                        <div class="insight rv" style="margin-top: 28px">
+                            <div class="k label">A next step</div>
+                            <p>
+                                One thing we kept seeing was that customers often
+                                weren't logging in to check on the work, which is
+                                really an adoption problem more than a design one.
+                                The clear next step is to reach people through
+                                better notifications, so the moments that need
+                                them come to them rather than waiting to be found.
+                            </p>
                         </div>
                     </section>
                 </article>
@@ -7136,7 +6559,7 @@
                 <a href="design-system.html" class="next">
                     <div class="label">Next project</div>
                     <span class="nt"
-                        >A design system for speed
+                        >Building a design system with primitives and principles
                         <span class="ar">&rarr;</span></span
                     >
                 </a>
@@ -7295,7 +6718,7 @@
         </script>
 
         <script>
-            /* ── Animated Brim run thread (hero) ───────────────────────────
+            /* ── Animated product run thread (hero) ───────────────────────────
    Cycles the invoice-reconciliation run: step 1 → 2 → 3, then holds
    at step 3 with the decision callout, then loops. Honours
    prefers-reduced-motion by leaving the static held state in place. */
@@ -7343,12 +6766,12 @@
                     return '<span class="bu-dot-pending"></span>';
                 }
                 var CALLOUT =
-                    '<div class="bu-a2ui bu-fade"><span class="bu-a2ui-icon">' +
+                    '<div class="bu-handoff bu-fade"><span class="bu-handoff-icon">' +
                     I.warn +
                     "</span><div>" +
-                    '<div class="bu-a2ui-title">INV-4821 needs your call before I post the batch</div>' +
-                    '<div class="bu-a2ui-text">Oakline Furniture billed VAT at 20% (£206.67), but PO-441 caps the line at 16.6% (£170.67). Pick one and I’ll finish posting the remaining 41 entries.</div>' +
-                    '<div class="bu-a2ui-actions"><button class="bu-btn primary">Approve at 16.6% (£170.67)</button><button class="bu-btn">Approve as billed (£206.67)</button><button class="bu-btn danger">Send back to Oakline</button></div>' +
+                    '<div class="bu-handoff-title">INV-4821 needs your call before I post the batch</div>' +
+                    '<div class="bu-handoff-text">Oakline Furniture billed VAT at 20% (£206.67), but PO-441 caps the line at 16.6% (£170.67). Pick one and I’ll finish posting the remaining 41 entries.</div>' +
+                    '<div class="bu-handoff-actions"><button class="bu-btn primary">Approve at 16.6% (£170.67)</button><button class="bu-btn">Approve as billed (£206.67)</button><button class="bu-btn danger">Send back to Oakline</button></div>' +
                     "</div></div>";
 
                 function thinkingHTML(label) {
@@ -7407,11 +6830,11 @@
                 }
 
                 var L = [
-                    "Pull supplier invoices from Xero",
+                    "Pull invoices from Xero",
                     "Group by furniture type and match",
                     "Resolving mismatches",
                     "Post journal entries to NetSuite",
-                    "Notify the team in #supplier-ops",
+                    "Notify the team in #finance-ops",
                 ];
                 var PHASES = [
                     {
@@ -7419,13 +6842,13 @@
                         label: "Running · step 1 of 5",
                         hold: 2200,
                         thinking:
-                            "Pulling every supplier invoice raised since yesterday's run…",
+                            "Pulling every invoice raised since yesterday's run…",
                         steps: [
                             {
                                 state: "running",
-                                label: "Pulling supplier invoices from Xero",
+                                label: "Pulling invoices from Xero",
                                 meta: "12 of 42 streamed in",
-                                body: "Reading in this week's supplier invoices so I can group and reconcile them. The next step starts on its own once they're all in.",
+                                body: "Reading in this week's invoices so I can group and reconcile them. The next step starts on its own once they're all in.",
                                 tools: [
                                     {
                                         icon: "plug",
@@ -7434,7 +6857,7 @@
                                     },
                                     {
                                         icon: "tool",
-                                        label: "query Xero — invoices since yesterday 09:00",
+                                        label: "query Xero, invoices since yesterday 09:00",
                                         status: "running",
                                     },
                                 ],
@@ -7453,14 +6876,14 @@
                         steps: [
                             {
                                 state: "done",
-                                label: "Pulled supplier invoices from Xero",
+                                label: "Pulled invoices from Xero",
                                 meta: "42 invoices · 14s",
                             },
                             {
                                 state: "running",
                                 label: "Grouping by furniture type and matching",
                                 meta: "running",
-                                body: "Sorting the invoices into furniture types — sofas, beds, dining, storage — then reconciling each one against the ledger by vendor, amount, and VAT code.",
+                                body: "Sorting the invoices into furniture types, sofas, beds, dining, storage, then reconciling each one against the ledger by vendor, amount, and VAT code.",
                                 tools: [
                                     {
                                         icon: "file",
@@ -7487,7 +6910,7 @@
                         steps: [
                             {
                                 state: "done",
-                                label: "Pulled supplier invoices from Xero",
+                                label: "Pulled invoices from Xero",
                                 meta: "42 invoices · 14s",
                             },
                             {
@@ -7529,7 +6952,7 @@
                         steps: [
                             {
                                 state: "done",
-                                label: "Pulled supplier invoices from Xero",
+                                label: "Pulled invoices from Xero",
                                 meta: "42 invoices · 14s",
                             },
                             {
@@ -7563,10 +6986,10 @@
                 ];
 
                 var TOPLINE =
-                    '<div class="bu-topline"><span class="bu-crumb">Assignments</span><span class="bu-crumb-sep">›</span>' +
-                    '<span class="bu-crumb">Supplier Invoice Reconciliation</span><span class="bu-crumb-sep">›</span>' +
+                    '<div class="bu-topline"><span class="bu-crumb">Tasks</span><span class="bu-crumb-sep">›</span>' +
+                    '<span class="bu-crumb">Invoice Reconciliation</span><span class="bu-crumb-sep">›</span>' +
                     '<span class="bu-crumb is-last">Run #42</span><span class="bu-statuspill" id="bu-pill"><span class="d"></span><span id="bu-pill-l"></span></span></div>' +
-                    '<div class="bu-reply-head"><span class="bu-avatar">FA</span><span class="bu-name">Finance Agent</span><span class="bu-time">· 9:00</span></div>';
+                    '<div class="bu-reply-head"><span class="bu-avatar">A</span><span class="bu-name">Agent</span><span class="bu-time">· 9:00</span></div>';
 
                 // ease a scroll container from where it is to a target, so the run
                 // "follows" its own progress instead of jumping
@@ -7661,7 +7084,7 @@
 
         <script>
             /* ── Builder chat (moment 1) ───────────────────────────────────────
-   Brim understands the setup first (which tools, where things go), then
+   the product understands the setup first (which tools, where things go), then
    the plan streams into the panel from a skeleton. Loops while visible.
    Honours reduced-motion by leaving the full static conversation. */
             (function () {
@@ -7693,26 +7116,26 @@
                 var MSGS = [
                     {
                         who: "user",
-                        text: "Reconcile my supplier invoices each morning and group them by furniture type.",
+                        text: "Reconcile my invoices each morning and group them by furniture type.",
                     },
                     {
-                        who: "brim",
+                        who: "agent",
                         think: "Understanding your setup",
-                        text: "Sure. First, where do your invoices come in &mdash; is that Xero?",
+                        text: "Sure. First, where do your invoices come in, is that Xero?",
                     },
                     { who: "user", text: "Yes, Xero." },
                     {
-                        who: "brim",
+                        who: "agent",
                         text: "And once they're reconciled, where should I post the summary?",
                     },
                     {
                         who: "user",
-                        text: "Our #supplier-ops channel in Slack.",
+                        text: "Our #finance-ops channel in Slack.",
                     },
                     {
-                        who: "brim",
+                        who: "agent",
                         think: "Putting a plan together",
-                        text: "Got it. Here's the plan I'd run &mdash; tweak anything before I save it.",
+                        text: "Got it. Here's the plan I'd run, tweak anything before I save it.",
                         plan: true,
                     },
                 ];
@@ -7720,16 +7143,16 @@
                 function userHTML(t) {
                     return '<div class="bu-userbubble bu-fade">' + t + "</div>";
                 }
-                function brimHTML(t) {
+                function agentHTML(t) {
                     return (
-                        '<div class="bu-agentmsg bu-fade"><span class="av">B</span><span class="tx">' +
+                        '<div class="bu-agentmsg bu-fade"><span class="av">A</span><span class="tx">' +
                         t +
                         "</span></div>"
                     );
                 }
                 function thinkHTML(l) {
                     return (
-                        '<div class="bu-agentmsg bu-fade"><span class="av">B</span><span class="tx">' +
+                        '<div class="bu-agentmsg bu-fade"><span class="av">A</span><span class="tx">' +
                         l +
                         DOTS +
                         "</span></div>"
@@ -7788,7 +7211,7 @@
                                 at(t, function () {
                                     var n =
                                         chat.querySelectorAll(".bu-agentmsg");
-                                    n[n.length - 1].outerHTML = brimHTML(
+                                    n[n.length - 1].outerHTML = agentHTML(
                                         mm.text,
                                     );
                                     down();
@@ -7801,7 +7224,7 @@
                                 at(t, function () {
                                     chat.insertAdjacentHTML(
                                         "beforeend",
-                                        brimHTML(mm.text),
+                                        agentHTML(mm.text),
                                     );
                                     down();
                                 });
@@ -7912,7 +7335,7 @@
                     );
                 }
 
-                var S1 = "Pulled the week's supplier invoices",
+                var S1 = "Pulled the week's invoices",
                     S2 = "Grouped by furniture type and matched to the ledger";
                 var pull = [
                     {
@@ -7927,12 +7350,12 @@
                         steps: [
                             {
                                 state: "running",
-                                label: "Pulling the week's supplier invoices",
+                                label: "Pulling the week's invoices",
                                 body: "Pulling the 42 invoices raised since the last run on Mon 11 May, ready to sort and reconcile.",
                                 tools: pull.concat([
                                     {
                                         icon: "tool",
-                                        label: "query &middot; Xero &mdash; invoices since 11 May 09:00",
+                                        label: "query &middot; Xero, invoices since 11 May 09:00",
                                         status: "running",
                                     },
                                 ]),
@@ -7950,7 +7373,7 @@
                                 tools: pull.concat([
                                     {
                                         icon: "tool",
-                                        label: "query &middot; Xero &mdash; invoices since 11 May 09:00 (42)",
+                                        label: "query &middot; Xero, invoices since 11 May 09:00 (42)",
                                         status: "done",
                                     },
                                 ]),
@@ -7984,7 +7407,7 @@
                                 tools: pull.concat([
                                     {
                                         icon: "tool",
-                                        label: "query &middot; Xero &mdash; invoices since 11 May 09:00 (42)",
+                                        label: "query &middot; Xero, invoices since 11 May 09:00 (42)",
                                         status: "done",
                                     },
                                 ]),
