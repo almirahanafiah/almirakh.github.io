@@ -548,13 +548,21 @@
             </div>
         </footer>
 
-        <div class="proto-note">Prototype, editorial direction</div>
-
         <script>
             (function () {
                 var reduced = matchMedia(
                     "(prefers-reduced-motion: reduce)",
                 ).matches;
+                /* nudge any muted preview videos to autoplay reliably */
+                if (!reduced) {
+                    document
+                        .querySelectorAll(".r-thumb video[autoplay]")
+                        .forEach(function (v) {
+                            v.muted = true;
+                            var p = v.play();
+                            if (p && p.catch) p.catch(function () {});
+                        });
+                }
                 var fine = matchMedia(
                     "(hover: hover) and (pointer: fine)",
                 ).matches;

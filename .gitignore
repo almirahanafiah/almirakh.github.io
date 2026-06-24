@@ -2,9 +2,11 @@
 CLAUDE.md
 docs/
 
-# Case 03 source exports (kept local until bootcamp.html wires them in;
-# remove this line and recommit when you're ready to publish images)
-assets/case-03/
+# Case 03 source exports (kept local), except the public cover used by the
+# index card and the bootcamp preview, which must be published to deploy.
+assets/case-03/*
+!assets/case-03/gaia-cover.mp4
+!assets/case-03/gaia-cover.jpg
 
 # macOS noise
 .DS_Store
