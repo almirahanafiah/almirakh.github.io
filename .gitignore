@@ -1,6 +1,10 @@
 # Internal / behind-the-scenes (kept local, never published)
 CLAUDE.md
+HANDOVER.md
 docs/
+
+# Local archive of the original (pre-IP-pass) workflows case study
+work/ai-workflows-original.html
 
 # Case 03 source exports (kept local), except the public cover used by the
 # index card and the bootcamp preview, which must be published to deploy.
